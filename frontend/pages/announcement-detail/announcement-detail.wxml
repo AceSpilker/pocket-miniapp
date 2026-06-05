@@ -1,0 +1,28 @@
+<view class="page">
+  <!-- 顶部提示组件 -->
+  <top-toast id="top-toast" />
+
+  <van-loading wx:if="{{loading}}" size="48rpx" custom-class="loading-wrap">加载中...</van-loading>
+
+  <view wx:else class="detail-content">
+    <!-- 标题 -->
+    <view class="detail-header">
+      <view class="header-tags">
+        <text class="top-tag" wx:if="{{detail.is_top}}">置顶</text>
+      </view>
+      <text class="detail-title">{{detail.title}}</text>
+      <view class="detail-meta">
+        <text class="meta-author" wx:if="{{detail.author_name}}">{{detail.author_name}}</text>
+        <text class="meta-dot" wx:if="{{detail.author_name}}">·</text>
+        <text class="meta-time">{{detail.created_at}}</text>
+        <text class="meta-views">👁 {{detail.view_count}} 次浏览</text>
+      </view>
+    </view>
+
+    <!-- 富文本内容 -->
+    <view class="detail-body">
+      <rich-text nodes="{{detail.content}}" wx:if="{{detail.content}}" />
+      <view wx:else class="empty-content">暂无内容</view>
+    </view>
+  </view>
+</view>

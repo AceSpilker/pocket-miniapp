@@ -1,0 +1,73 @@
+<view class="page" wx:if="{{hasAccess}}">
+  <!-- 表单 -->
+  <view class="form-card glass-card fade-in-up">
+    <van-cell-group>
+      <van-field
+        value="{{ name }}"
+        label="菜单名称"
+        required
+        placeholder="必填"
+        bind:change="onNameInput"
+        custom-class="input-field"
+      />
+      <van-field
+        value="{{ icon }}"
+        label="图标"
+        placeholder="如 🏠 🔧"
+        bind:change="onIconInput"
+        custom-class="input-field"
+      />
+      <van-field
+        value="{{ path }}"
+        label="页面路径"
+        placeholder="如 /pages/admin/..."
+        bind:change="onPathInput"
+        custom-class="input-field"
+      />
+      <van-field
+        value="{{ sortOrder }}"
+        type="number"
+        label="排序"
+        placeholder="数字越小越靠前"
+        bind:change="onOrderInput"
+        custom-class="input-field"
+      />
+      <van-cell title="所需权限" is-link bind:click="showPermPicker">
+        <text class="perm-value">{{ permLabel }}</text>
+      </van-cell>
+    </van-cell-group>
+  </view>
+
+  <!-- 权限选择器 -->
+  <van-popup show="{{ showPicker }}" position="bottom" bind:close="onPickerClose" round>
+    <van-picker
+      columns="{{ allPerms }}"
+      value-key="label"
+      bind:confirm="onPermConfirm"
+      bind:cancel="onPickerClose"
+    />
+  </van-popup>
+
+  <!-- 错误提示 -->
+  <van-notice-bar
+    wx:if="{{errorMsg}}"
+    color="#ef4444"
+    background="rgba(239, 68, 68, 0.1)"
+    text="{{errorMsg}}"
+    wrapable
+  />
+
+  <!-- 保存按钮 -->
+  <view class="btn-group fade-in-up" style="animation-delay: 0.1s;">
+    <van-button
+      type="primary"
+      block
+      round
+      loading="{{saving}}"
+      bind:click="handleSave"
+      custom-class="save-btn"
+    >
+      💾 保存
+    </van-button>
+  </view>
+</view>

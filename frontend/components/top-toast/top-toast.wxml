@@ -1,0 +1,11 @@
+<!-- 顶部提示消息组件 -->
+<view
+  class="top-toast {{show ? 'show' : ''}} {{type}}"
+  style="top: {{top}}px;"
+  catchtouchmove="true"
+>
+  <view class="toast-content">
+    <text class="toast-icon">{{type === 'success' ? '✓' : type === 'error' ? '✕' : type === 'warning' ? '!' : 'i'}}</text>
+    <text class="toast-message">{{message}}</text>
+  </view>
+</view>

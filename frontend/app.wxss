@@ -1,0 +1,302 @@
+/* ==============================
+   炫酷 UI 主题 - 口袋小程序
+   ============================== */
+
+page {
+  --primary-color: #6366f1;
+  --primary-light: #818cf8;
+  --primary-dark: #4f46e5;
+  --secondary-color: #ec4899;
+  --accent-color: #06b6d4;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --danger-color: #ef4444;
+
+  --bg-primary: #0f0f23;
+  --bg-secondary: #1a1a2e;
+  --bg-card: rgba(30, 30, 60, 0.8);
+  --bg-glass: rgba(255, 255, 255, 0.05);
+
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+
+  --border-color: rgba(99, 102, 241, 0.3);
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 28rpx;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  line-height: 1.6;
+}
+
+/* 全局背景 */
+page::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* 动画关键帧 */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10rpx); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 10px rgba(99, 102, 241, 0.5); }
+  50% { box-shadow: 0 0 25px rgba(99, 102, 241, 0.8); }
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.fade-in-up { animation: fadeInUp 0.5s ease-out forwards; }
+.fade-in { animation: fadeIn 0.4s ease-out forwards; }
+.float-animation { animation: float 3s ease-in-out infinite; }
+.glow-animation { animation: glow 2s ease-in-out infinite; }
+
+.container { padding: 24rpx; min-height: 100vh; }
+
+.glass-card {
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1rpx solid var(--border-color);
+  border-radius: 24rpx;
+  padding: 30rpx;
+  margin-bottom: 24rpx;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientMove 3s ease infinite;
+}
+
+/* ==================== Vant 组件全局覆盖 ==================== */
+
+/* Cell 单元格 */
+.van-cell {
+  background: transparent !important;
+  color: #fff !important;
+  padding: 28rpx 24rpx !important;
+}
+
+.van-cell::after {
+  border-color: rgba(99, 102, 241, 0.1) !important;
+  left: 24rpx !important;
+  right: 24rpx !important;
+}
+
+.van-cell__title { color: #a1a1aa !important; }
+.van-cell__value { color: #fff !important; }
+.van-cell-group { background: transparent !important; }
+
+/* Field 输入框 */
+.van-field {
+  background: transparent !important;
+  padding: 28rpx 24rpx !important;
+}
+
+.van-field__label {
+  color: #a1a1aa !important;
+  font-size: 28rpx !important;
+  width: auto !important;
+  min-width: 120rpx !important;
+}
+
+.van-field__control { color: #fff !important; font-size: 28rpx !important; }
+.van-field__control::placeholder { color: #71717a !important; }
+.van-field__left-icon { color: #818cf8 !important; font-size: 36rpx !important; }
+.van-field__right-icon { color: #71717a !important; }
+
+/* Button 按钮 */
+.van-button--primary {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+  border: none !important;
+  font-weight: 600 !important;
+}
+
+.van-button--danger {
+  background: linear-gradient(135deg, #ef4444, #f87171) !important;
+  border: none !important;
+}
+
+.van-button--default {
+  background: rgba(99, 102, 241, 0.1) !important;
+  border: 1rpx solid rgba(99, 102, 241, 0.3) !important;
+  color: #818cf8 !important;
+}
+
+.van-button--round { border-radius: 48rpx !important; }
+
+/* Tag 标签 */
+.van-tag--primary {
+  background: rgba(99, 102, 241, 0.2) !important;
+  color: #818cf8 !important;
+  border: 1rpx solid rgba(99, 102, 241, 0.3) !important;
+}
+
+.van-tag--success {
+  background: rgba(16, 185, 129, 0.2) !important;
+  color: #34d399 !important;
+  border: 1rpx solid rgba(16, 185, 129, 0.3) !important;
+}
+
+.van-tag--danger {
+  background: rgba(239, 68, 68, 0.2) !important;
+  color: #f87171 !important;
+  border: 1rpx solid rgba(239, 68, 68, 0.3) !important;
+}
+
+/* Search 搜索框 */
+.van-search { background: transparent !important; padding: 16rpx !important; }
+
+.van-search__content {
+  background: rgba(99, 102, 241, 0.1) !important;
+  border: 1rpx solid rgba(99, 102, 241, 0.2) !important;
+  border-radius: 32rpx !important;
+}
+
+.van-search__content input { color: #fff !important; }
+.van-search__content input::placeholder { color: #71717a !important; }
+
+/* Switch 开关 */
+.van-switch { background: rgba(99, 102, 241, 0.3) !important; }
+.van-switch--on { background: linear-gradient(135deg, #6366f1, #8b5cf6) !important; }
+
+/* Popup 弹出层 */
+.van-popup {
+  background: rgba(15, 15, 35, 0.98) !important;
+  backdrop-filter: blur(20px) !important;
+}
+
+.van-popup--bottom {
+  border-top: 1rpx solid rgba(99, 102, 241, 0.2) !important;
+  border-radius: 24rpx 24rpx 0 0 !important;
+}
+
+/* Picker 选择器 */
+.van-picker__toolbar { padding: 24rpx !important; }
+.van-picker__title { color: #fff !important; font-size: 32rpx !important; font-weight: 600 !important; }
+.van-picker__cancel { color: #71717a !important; }
+.van-picker__confirm { color: #818cf8 !important; font-weight: 600 !important; }
+.van-picker-column__item { color: #a1a1aa !important; }
+.van-picker-column__item--selected { color: #fff !important; }
+
+/* Dialog 对话框 */
+.van-dialog {
+  background: rgba(30, 30, 60, 0.98) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1rpx solid rgba(99, 102, 241, 0.2) !important;
+  border-radius: 24rpx !important;
+}
+
+.van-dialog__header { color: #fff !important; }
+.van-dialog__message { color: #a1a1aa !important; }
+.van-dialog__confirm { color: #818cf8 !important; }
+.van-dialog__cancel { color: #71717a !important; }
+
+/* Notice Bar 通知栏 */
+.van-notice-bar { border-radius: 16rpx !important; margin: 16rpx 0 !important; }
+
+/* Empty 空状态 */
+.van-empty__description { color: #71717a !important; }
+
+/* Loading 加载 */
+.van-loading { color: #818cf8 !important; }
+.van-loading__text { color: #a1a1aa !important; }
+
+/* Icon 图标 */
+.van-icon { color: inherit; }
+
+/* Tabbar 底部导航栏 */
+.van-tabbar {
+  background: #0f0f23 !important;
+  border-top: none !important;
+  box-sizing: border-box !important;
+  height: 120rpx !important;
+  padding-top: 16rpx !important;
+}
+
+/* 移除 tabbar 白边 */
+.van-tabbar::before,
+.van-tabbar::after {
+  display: none !important;
+}
+
+.van-tabbar-item {
+  color: #71717a !important;
+  background: transparent !important;
+  padding: 12rpx 0 !important;
+}
+
+.van-tabbar-item::before,
+.van-tabbar-item::after {
+  display: none !important;
+}
+
+.van-tabbar-item--active {
+  color: #6366f1 !important;
+}
+
+.van-tabbar-item__icon {
+  font-size: 48rpx !important;
+  margin-bottom: 8rpx !important;
+}
+
+.van-tabbar-item__text {
+  font-size: 24rpx !important;
+}
+
+/* 安全区域背景 - 确保背景延伸到底部 */
+.van-tabbar--safe {
+  background: #0f0f23 !important;
+  padding-bottom: constant(safe-area-inset-bottom) !important;
+  padding-bottom: env(safe-area-inset-bottom) !important;
+}
+
+/* tabbar 容器 */
+.tabbar-container {
+  background: #0f0f23 !important;
+}
+
+/* ==================== 工具类 ==================== */
+
+.text-center { text-align: center; }
+.flex { display: flex; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.flex-column { display: flex; flex-direction: column; }
+
+.btn-group { padding: 32rpx 24rpx; }
+
+.safe-area-bottom {
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}

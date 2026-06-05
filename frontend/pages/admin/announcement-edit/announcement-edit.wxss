@@ -1,0 +1,116 @@
+/* 动态编辑页 */
+
+.page {
+  min-height: 100vh;
+  padding: 24rpx;
+  padding-bottom: calc(180rpx + env(safe-area-inset-bottom));
+  background: #0f0f23;
+}
+
+.form-section {
+  margin-bottom: 24rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #a1a1aa;
+  padding: 24rpx 0 16rpx;
+}
+
+.form-card {
+  margin-bottom: 24rpx;
+  padding: 0;
+  background: rgba(30, 30, 60, 0.6);
+  border: 1rpx solid rgba(99, 102, 241, 0.15);
+}
+
+/* 富文本编辑器 */
+.editor-card {
+  padding: 0;
+  background: rgba(30, 30, 60, 0.6);
+  border: 1rpx solid rgba(99, 102, 241, 0.15);
+  border-radius: 24rpx;
+  overflow: hidden;
+}
+
+.editor-toolbar {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 20rpx;
+  background: rgba(99, 102, 241, 0.1);
+  border-bottom: 1rpx solid rgba(99, 102, 241, 0.15);
+  flex-wrap: wrap;
+  gap: 8rpx;
+}
+
+.tool-item {
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(99, 102, 241, 0.15);
+  border-radius: 12rpx;
+  transition: all 0.2s ease;
+}
+
+.tool-item:active {
+  background: rgba(99, 102, 241, 0.3);
+}
+
+.tool-icon {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #818cf8;
+}
+
+.tool-icon.italic {
+  font-style: italic;
+}
+
+.tool-icon.underline {
+  text-decoration: underline;
+}
+
+.tool-divider {
+  width: 2rpx;
+  height: 48rpx;
+  background: rgba(99, 102, 241, 0.2);
+  margin: 0 8rpx;
+}
+
+.editor-content {
+  min-height: 400rpx;
+  padding: 24rpx;
+  font-size: 30rpx;
+  line-height: 1.8;
+  color: #e4e4e7;
+}
+
+/* 保存按钮 */
+.btn-group {
+  padding: 32rpx 0;
+}
+
+/* 覆盖 vant 组件样式 */
+.page .van-cell {
+  background: transparent !important;
+  padding: 28rpx 24rpx !important;
+}
+
+.page .van-cell::after {
+  border-color: rgba(99, 102, 241, 0.1) !important;
+}
+
+.page .van-cell__title {
+  color: #a1a1aa !important;
+}
+
+.page .van-field__control {
+  color: #fff !important;
+}
+
+.page .van-field__control::placeholder {
+  color: #71717a !important;
+}

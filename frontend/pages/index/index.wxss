@@ -1,0 +1,242 @@
+/* 首页 - 炫酷科技风 */
+
+page {
+  background: #0f0f23;
+  padding-bottom: 0;
+}
+
+.container {
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: calc(180rpx + env(safe-area-inset-bottom));
+  background: transparent;
+}
+
+/* 动态背景 */
+.bg-shapes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.3;
+}
+
+.shape-1 {
+  width: 500rpx;
+  height: 500rpx;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  top: -200rpx;
+  left: -100rpx;
+  animation: float 15s ease-in-out infinite;
+}
+
+.shape-2 {
+  width: 400rpx;
+  height: 400rpx;
+  background: linear-gradient(135deg, #ec4899, #f472b6);
+  bottom: 200rpx;
+  right: -150rpx;
+  animation: float 12s ease-in-out infinite reverse;
+}
+
+/* 欢迎卡片 */
+.welcome-card {
+  margin: 24rpx;
+}
+
+.welcome-content {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 0;
+}
+
+.avatar-wrap {
+  position: relative;
+  width: 110rpx;
+  height: 110rpx;
+  margin-right: 24rpx;
+}
+
+.avatar-img {
+  width: 110rpx;
+  height: 110rpx;
+  border-radius: 50%;
+  border: 4rpx solid rgba(99, 102, 241, 0.5);
+}
+
+.avatar-ring {
+  position: absolute;
+  top: -8rpx;
+  left: -8rpx;
+  right: -8rpx;
+  bottom: -8rpx;
+  border-radius: 50%;
+  border: 2rpx solid rgba(99, 102, 241, 0.3);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.welcome-info { flex: 1; }
+
+.welcome-name {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #fff;
+  display: block;
+  margin-bottom: 6rpx;
+}
+
+.welcome-desc { font-size: 24rpx; color: #a1a1aa; }
+
+/* 区块标题 */
+.section-title {
+  display: flex;
+  align-items: center;
+  padding: 32rpx 24rpx 20rpx;
+}
+
+.title-text {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #fff;
+  margin-right: 16rpx;
+}
+
+.title-line {
+  flex: 1;
+  height: 1rpx;
+  background: linear-gradient(90deg, rgba(99, 102, 241, 0.3), transparent);
+}
+
+.title-more {
+  font-size: 24rpx;
+  color: #818cf8;
+  margin-left: 16rpx;
+}
+
+/* 功能网格 */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+  padding: 0 24rpx;
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 36rpx 20rpx;
+  background: rgba(30, 30, 60, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 24rpx;
+  border: 1rpx solid rgba(99, 102, 241, 0.15);
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+.feature-item:active {
+  transform: scale(0.96);
+  background: rgba(30, 30, 60, 0.8);
+}
+
+.feature-icon-wrap {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16rpx;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.feature-icon { font-size: 48rpx; }
+
+.feature-name {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 6rpx;
+}
+
+.feature-desc { font-size: 22rpx; color: #71717a; }
+
+/* 快捷列表 */
+.quick-list {
+  margin: 0 24rpx;
+  padding: 0;
+}
+
+.quick-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  border-bottom: 1rpx solid rgba(99, 102, 241, 0.1);
+}
+
+.quick-item:last-child { border-bottom: none; }
+
+.quick-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 18rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  margin-right: 20rpx;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.quick-content { flex: 1; }
+
+.quick-title {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #fff;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+/* 动态标题单行显示，超出显示... */
+.announcement-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 400rpx;
+}
+
+.quick-sub { font-size: 22rpx; color: #71717a; }
+
+.quick-item .van-icon { color: #71717a !important; }
+
+/* 查看更多入口 */
+.more-item {
+  justify-content: center;
+  background: rgba(99, 102, 241, 0.05) !important;
+}
+
+.more-item:active {
+  background: rgba(99, 102, 241, 0.1) !important;
+}
+
+.more-text {
+  font-size: 26rpx;
+  color: #818cf8;
+  font-weight: 500;
+}
+
+.more-item .van-icon {
+  color: #818cf8 !important;
+  margin-left: 8rpx;
+}

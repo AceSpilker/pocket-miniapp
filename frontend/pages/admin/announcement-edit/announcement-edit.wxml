@@ -1,0 +1,101 @@
+<view class="page">
+  <!-- 顶部提示组件 -->
+  <top-toast id="top-toast" />
+
+  <!-- 错误提示 -->
+  <van-notice-bar
+    wx:if="{{errorMsg}}"
+    color="#ef4444"
+    background="rgba(239, 68, 68, 0.1)"
+    text="{{errorMsg}}"
+    wrapable
+  />
+
+  <!-- 表单 -->
+  <view class="form-section">
+    <!-- 基本信息 -->
+    <view class="section-title">📝 基本信息</view>
+    <van-cell-group class="form-card glass-card">
+      <van-field
+        value="{{ title }}"
+        label="标题"
+        placeholder="请输入动态标题"
+        required
+        maxlength="200"
+        show-word-limit
+        bind:change="onTitleChange"
+      />
+    </van-cell-group>
+
+    <!-- 富文本编辑器 -->
+    <view class="section-title">📄 动态内容</view>
+    <view class="editor-card glass-card">
+      <!-- 工具栏 -->
+      <view class="editor-toolbar">
+        <view class="tool-item" bindtap="formatBold">
+          <text class="tool-icon">B</text>
+        </view>
+        <view class="tool-item" bindtap="formatItalic">
+          <text class="tool-icon italic">I</text>
+        </view>
+        <view class="tool-item" bindtap="formatUnderline">
+          <text class="tool-icon underline">U</text>
+        </view>
+        <view class="tool-divider"></view>
+        <view class="tool-item" bindtap="formatHeader">
+          <text class="tool-icon">H1</text>
+        </view>
+        <view class="tool-item" bindtap="formatAlignLeft">
+          <text class="tool-icon">⫷</text>
+        </view>
+        <view class="tool-item" bindtap="formatAlignCenter">
+          <text class="tool-icon">⫿</text>
+        </view>
+        <view class="tool-divider"></view>
+        <view class="tool-item" bindtap="insertImage">
+          <text class="tool-icon">🖼</text>
+        </view>
+        <view class="tool-item" bindtap="clearFormat">
+          <text class="tool-icon">✕</text>
+        </view>
+      </view>
+
+      <!-- 编辑器 -->
+      <editor
+        id="editor"
+        class="editor-content"
+        placeholder="请输入动态内容..."
+        show-img-size
+        show-img-toolbar
+        show-img-resize
+        bindstatuschange="onStatusChange"
+        bindready="onEditorReady"
+      />
+    </view>
+
+    <!-- 设置选项 -->
+    <view class="section-title">⚙️ 设置</view>
+    <van-cell-group class="form-card glass-card">
+      <van-cell title="置顶" use-label-slot>
+        <van-switch checked="{{ isTop }}" bind:change="onTopChange" size="48rpx" />
+      </van-cell>
+      <van-cell title="启用" use-label-slot wx:if="{{ isEdit }}">
+        <van-switch checked="{{ isActive }}" bind:change="onActiveChange" size="48rpx" />
+      </van-cell>
+    </van-cell-group>
+  </view>
+
+  <!-- 保存按钮 -->
+  <view class="btn-group">
+    <van-button
+      type="primary"
+      block
+      round
+      loading="{{ saving }}"
+      disabled="{{ saving }}"
+      bind:click="handleSave"
+    >
+      {{ isEdit ? '保存修改' : '发布动态' }}
+    </van-button>
+  </view>
+</view>

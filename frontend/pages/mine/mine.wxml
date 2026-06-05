@@ -1,0 +1,70 @@
+<view class="container">
+  <!-- 动态背景 -->
+  <view class="bg-shapes">
+    <view class="shape shape-1"></view>
+  </view>
+
+  <!-- 用户信息卡片（未登录可点击，已登录不可点击） -->
+  <view class="profile-card glass-card fade-in-up" bindtap="{{hasLogin ? '' : 'goLogin'}}">
+    <view class="profile-content">
+      <view class="avatar-wrap">
+        <image
+          class="avatar-img"
+          src="{{hasLogin && userInfo.avatar_url ? userInfo.avatar_url : '/assets/images/default-avatar.png'}}"
+        />
+        <view class="avatar-badge" wx:if="{{hasLogin}}">✨</view>
+      </view>
+      <view class="profile-info">
+        <text class="profile-name">{{hasLogin ? (userInfo.nickname || '用户') : '👋 未登录'}}</text>
+        <text class="profile-desc">
+          {{hasLogin ? '💎 ' + (userInfo.username || '--') : '点击此处登录'}}
+        </text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 系统管理入口（仅管理员可见） -->
+  <view class="system-section fade-in-up" style="animation-delay: 0.05s;" wx:if="{{isAdmin}}">
+    <view class="system-card glass-card" bindtap="onMenuTap" data-url="/pages/system/system">
+      <view class="system-icon">
+        <text>⚙️</text>
+      </view>
+      <view class="system-info">
+        <text class="system-name">系统管理</text>
+        <text class="system-desc">用户、角色、菜单管理</text>
+      </view>
+      <van-icon name="arrow" color="#818cf8" size="40rpx" />
+    </view>
+  </view>
+
+  <!-- 菜单分组 -->
+  <view wx:for="{{menuGroups}}" wx:key="title" class="menu-group fade-in-up" style="animation-delay: {{0.1 + index * 0.05}}s;">
+    <view class="group-title">
+      <text class="title-text">{{item.title}}</text>
+      <text class="title-line"></text>
+    </view>
+    <view class="menu-card glass-card">
+      <view
+        class="menu-item"
+        wx:for="{{item.items}}"
+        wx:key="name"
+        wx:for-item="menuItem"
+        data-url="{{menuItem.url}}"
+        bindtap="onMenuTap"
+      >
+        <view class="menu-icon" style="background: {{menuItem.iconBg}};">
+          <text>{{menuItem.icon}}</text>
+        </view>
+        <text class="menu-name">{{menuItem.name}}</text>
+        <van-icon name="arrow" color="#71717a" size="32rpx" />
+      </view>
+    </view>
+  </view>
+
+  <!-- 退出登录 -->
+  <view class="logout-section fade-in-up" style="animation-delay: 0.3s;" wx:if="{{hasLogin}}">
+    <van-button custom-class="logout-btn" block round bind:click="handleLogout">
+      🚪 退出登录
+    </van-button>
+  </view>
+</view>

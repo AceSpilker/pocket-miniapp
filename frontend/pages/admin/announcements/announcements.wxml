@@ -1,0 +1,76 @@
+<view class="page" wx:if="{{hasAccess}}">
+  <!-- 顶部提示组件 -->
+  <top-toast id="top-toast" />
+
+  <!-- 固定头部区域 -->
+  <view class="fixed-header">
+    <!-- 搜索栏 -->
+    <view class="search-section glass-card fade-in-up">
+      <van-search
+        value="{{ keyword }}"
+        placeholder="搜索动态标题"
+        use-action-slot
+        bind:change="onKeywordChange"
+        bind:search="onSearch"
+        shape="round"
+        background="transparent"
+      >
+        <view slot="action" bind:tap="onSearch" class="search-btn">搜索</view>
+      </van-search>
+    </view>
+
+    <!-- 统计和工具栏 -->
+    <view class="toolbar fade-in-up" style="animation-delay: 0.1s;">
+      <view class="stats">
+        <text class="stat-item">📊 共 {{total}} 条</text>
+        <text class="stat-item" wx:if="{{stats}}">👁 {{stats.total_views}} 次浏览</text>
+      </view>
+      <van-button size="small" type="primary" bind:click="goCreate" custom-class="create-btn">
+        ➕ 新增动态
+      </van-button>
+    </view>
+  </view>
+
+  <!-- 可滚动列表区域 -->
+  <scroll-view class="scroll-content" scroll-y enhanced show-scrollbar="{{false}}">
+    <van-loading wx:if="{{loading}}" size="48rpx" custom-class="loading-wrap">加载中...</van-loading>
+    <van-empty wx:elif="{{list.length === 0}}" description="暂无动态数据" />
+
+    <view wx:else class="announcement-list">
+      <view
+        class="announcement-item glass-card fade-in-up"
+        wx:for="{{list}}"
+        wx:key="id"
+        style="animation-delay: {{0.15 + index * 0.05}}s;"
+      >
+        <view class="item-info" data-id="{{item.id}}" bindtap="goEdit">
+          <view class="item-title">
+            <text class="top-tag" wx:if="{{item.is_top}}">📌 置顶</text>
+            <text class="title-text">{{item.title}}</text>
+          </view>
+          <view class="item-meta">
+            <text class="meta-author" wx:if="{{item.author_name}}">{{item.author_name}}</text>
+            <text class="meta-dot" wx:if="{{item.author_name}}">·</text>
+            <text class="meta-time">{{item.created_at}}</text>
+            <text class="meta-views">👁 {{item.view_count}}</text>
+          </view>
+        </view>
+        <view class="item-tags">
+          <van-tag type="{{item.is_active ? 'success' : 'danger'}}" size="medium">
+            {{item.is_active ? '✅ 启用' : '🚫 禁用'}}
+          </van-tag>
+        </view>
+        <view class="item-actions">
+          <view class="action-btn top" data-id="{{item.id}}" bindtap="handleToggleTop">
+            {{item.is_top ? '取消置顶' : '置顶'}}
+          </view>
+          <view class="action-btn {{item.is_active ? 'disable' : 'enable'}}" data-id="{{item.id}}" bindtap="handleToggleStatus">
+            {{item.is_active ? '禁用' : '启用'}}
+          </view>
+          <view class="action-btn edit" data-id="{{item.id}}" bindtap="goEdit">编辑</view>
+          <view class="action-btn delete" data-id="{{item.id}}" bindtap="handleDelete">删除</view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

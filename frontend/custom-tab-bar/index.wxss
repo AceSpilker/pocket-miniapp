@@ -1,0 +1,47 @@
+/* 自定义 tabBar 样式 */
+
+/* 容器确保背景覆盖整个 tabbar 区域包括安全区域 */
+.tabbar-container {
+  background: #0f0f23;
+  position: relative;
+}
+
+/* 组件宿主样式 */
+:host {
+  display: block;
+  background: #0f0f23;
+}
+
+/* vant tabbar 样式覆盖 - 增加高度 */
+view.van-tabbar {
+  background: #0f0f23 !important;
+  background-color: #0f0f23 !important;
+  border-top: none !important;
+  height: 120rpx !important;
+  padding-top: 16rpx !important;
+}
+
+/* 安全区域 */
+view.van-tabbar--safe {
+  background: #0f0f23 !important;
+  background-color: #0f0f23 !important;
+  padding-bottom: constant(safe-area-inset-bottom) !important;
+  padding-bottom: env(safe-area-inset-bottom) !important;
+}
+
+/* tabbar item - 调整内边距 */
+view.van-tabbar-item {
+  background: transparent !important;
+  padding: 12rpx 0 !important;
+}
+
+/* 图标大小 */
+.van-tabbar-item__icon {
+  font-size: 48rpx !important;
+  margin-bottom: 8rpx !important;
+}
+
+/* 文字大小 */
+.van-tabbar-item__text {
+  font-size: 24rpx !important;
+}

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>欢迎加入口袋小程序</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f4f6f9;font-family:'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f6f9;padding:40px 0;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+
+          <!-- 顶部蓝色区域 -->
+          <tr>
+            <td style="background:linear-gradient(135deg,#4A90D9 0%,#6CB4EE 100%);padding:48px 40px 36px;text-align:center;">
+              <div style="font-size:48px;margin-bottom:12px;">🚀</div>
+              <h1 style="color:#ffffff;font-size:28px;font-weight:700;margin:0;letter-spacing:2px;">
+                欢迎加入口袋小程序
+              </h1>
+              <p style="color:rgba(255,255,255,0.85);font-size:15px;margin:8px 0 0;line-height:1.6;">
+                您的账号已创建成功，以下是您的登录信息
+              </p>
+            </td>
+          </tr>
+
+          <!-- 正文内容 -->
+          <tr>
+            <td style="padding:40px;">
+              <!-- 问候 -->
+              <p style="font-size:16px;color:#333;margin:0 0 24px;line-height:1.6;">
+                您好，<strong style="color:#4A90D9;">{{nickname}}</strong>：
+              </p>
+              <p style="font-size:14px;color:#666;margin:0 0 28px;line-height:1.8;">
+                管理员已为您开通口袋小程序账号。您可以使用以下信息登录系统，建议首次登录后尽快修改密码。
+              </p>
+
+              <!-- 账号信息卡片 -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8faff;border-radius:12px;border:1px solid #e8edf5;margin-bottom:32px;">
+                <tr>
+                  <td style="padding:24px 28px;">
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td width="80" style="color:#999;font-size:14px;padding:10px 0;white-space:nowrap;">登录账号</td>
+                        <td style="color:#333;font-size:15px;font-weight:600;padding:10px 0;">{{username}}</td>
+                      </tr>
+                      <tr>
+                        <td width="80" style="color:#999;font-size:14px;padding:10px 0;white-space:nowrap;">默认密码</td>
+                        <td style="padding:10px 0;">
+                          <span style="background:#fff3cd;color:#856404;font-size:15px;font-weight:700;padding:4px 16px;border-radius:6px;font-family:monospace;letter-spacing:1px;">{{password}}</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td width="80" style="color:#999;font-size:14px;padding:10px 0;white-space:nowrap;">注册邮箱</td>
+                        <td style="color:#333;font-size:14px;padding:10px 0;">{{email}}</td>
+                      </tr>
+                      <tr>
+                        <td width="80" style="color:#999;font-size:14px;padding:10px 0;white-space:nowrap;">创建时间</td>
+                        <td style="color:#333;font-size:14px;padding:10px 0;">{{created_at}}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- 温馨提示 -->
+              <div style="background-color:#fff8e1;border-radius:10px;border:1px solid #ffe082;padding:16px 20px;margin-bottom:28px;">
+                <p style="font-size:13px;color:#8d6e00;margin:0;line-height:1.8;">
+                  💡 <strong>温馨提示</strong><br>
+                  1. 请妥善保管您的账号密码，不要告知他人<br>
+                  2. 首次登录后建议前往「我的 → 修改密码」更新密码<br>
+                  3. 如忘记密码，可联系管理员重置
+                </p>
+              </div>
+
+              <!-- 登录按钮 -->
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td align="center">
+                    <table cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="background:linear-gradient(135deg,#4A90D9 0%,#6CB4EE 100%);border-radius:8px;padding:0;">
+                          <a href="{{login_url}}" style="display:inline-block;padding:14px 48px;font-size:15px;color:#ffffff;text-decoration:none;font-weight:600;letter-spacing:2px;">
+                            前往登录 →
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- 底部 -->
+          <tr>
+            <td style="background-color:#fafbfc;padding:24px 40px;border-top:1px solid #eef0f4;">
+              <p style="font-size:12px;color:#aaa;margin:0;text-align:center;line-height:1.8;">
+                此邮件由系统自动发送，请勿回复<br>
+                © 2025 口袋小程序 · 轻量个人工具箱
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

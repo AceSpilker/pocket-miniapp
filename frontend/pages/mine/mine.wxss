@@ -1,0 +1,223 @@
+/* 我的页面 - 炫酷科技风 */
+
+page {
+  background: #0f0f23;
+  padding-bottom: 0;
+}
+
+.container {
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: calc(180rpx + env(safe-area-inset-bottom));
+  background: transparent;
+}
+
+/* 动态背景 */
+.bg-shapes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.shape-1 {
+  position: absolute;
+  width: 450rpx;
+  height: 450rpx;
+  background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.25;
+  top: -150rpx;
+  right: -100rpx;
+  animation: float 12s ease-in-out infinite;
+}
+
+/* 用户信息卡片 */
+.profile-card {
+  margin: 24rpx;
+}
+
+.profile-content {
+  display: flex;
+  align-items: center;
+}
+
+.avatar-wrap {
+  position: relative;
+  margin-right: 24rpx;
+}
+
+.avatar-img {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  border: 4rpx solid rgba(99, 102, 241, 0.5);
+}
+
+.avatar-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 40rpx;
+  height: 40rpx;
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20rpx;
+  border: 3rpx solid #0f0f23;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-name {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #fff;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.profile-desc {
+  font-size: 24rpx;
+  color: #a1a1aa;
+}
+
+/* 系统管理入口 */
+.system-section {
+  margin: 0 24rpx 16rpx;
+}
+
+.system-card {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 24rpx !important;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(236, 72, 153, 0.1)) !important;
+  border: 1rpx solid rgba(99, 102, 241, 0.3) !important;
+}
+
+.system-card:active {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(236, 72, 153, 0.15)) !important;
+}
+
+.system-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 20rpx;
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  margin-right: 20rpx;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+}
+
+.system-info {
+  flex: 1;
+}
+
+.system-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #fff;
+  display: block;
+  margin-bottom: 6rpx;
+}
+
+.system-desc {
+  font-size: 24rpx;
+  color: #a1a1aa;
+}
+
+/* 菜单分组 */
+.menu-group {
+  margin-bottom: 16rpx;
+}
+
+.group-title {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 24rpx 16rpx;
+}
+
+.title-text {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #a1a1aa;
+  margin-right: 16rpx;
+}
+
+.title-line {
+  flex: 1;
+  height: 1rpx;
+  background: linear-gradient(90deg, rgba(99, 102, 241, 0.2), transparent);
+}
+
+/* 菜单卡片 */
+.menu-card {
+  margin: 0 24rpx;
+  padding: 0;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 24rpx;
+  border-bottom: 1rpx solid rgba(99, 102, 241, 0.1);
+  transition: all 0.2s ease;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-item:active {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.menu-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 18rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  margin-right: 20rpx;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.menu-name {
+  flex: 1;
+  font-size: 28rpx;
+  color: #fff;
+}
+
+/* 退出登录 */
+.logout-section {
+  padding: 40rpx 24rpx;
+  margin-top: 24rpx;
+}
+
+/* 退出按钮样式 */
+.logout-btn {
+  background: transparent !important;
+  border: 2rpx solid rgba(239, 68, 68, 0.3) !important;
+  border-radius: 48rpx !important;
+  font-size: 28rpx !important;
+  color: #f87171 !important;
+  height: 88rpx !important;
+  line-height: 88rpx !important;
+}
+
+.logout-btn:active {
+  background: rgba(239, 68, 68, 0.1) !important;
+}

@@ -1,0 +1,103 @@
+/* 顶部提示消息组件 */
+.top-toast {
+  position: fixed;
+  left: 24rpx;
+  right: 24rpx;
+  z-index: 9999;
+  padding: 20rpx 28rpx;
+  border-radius: 16rpx;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.top-toast.show {
+  transform: translateY(16rpx);
+  opacity: 1;
+}
+
+.toast-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toast-icon {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  font-weight: bold;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.toast-message {
+  font-size: 28rpx;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* 成功 - 绿色 */
+.top-toast.success {
+  background: rgba(16, 185, 129, 0.95);
+  box-shadow: 0 8rpx 32rpx rgba(16, 185, 129, 0.3);
+}
+
+.top-toast.success .toast-icon {
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.top-toast.success .toast-message {
+  color: #fff;
+}
+
+/* 错误 - 红色 */
+.top-toast.error {
+  background: rgba(239, 68, 68, 0.95);
+  box-shadow: 0 8rpx 32rpx rgba(239, 68, 68, 0.3);
+}
+
+.top-toast.error .toast-icon {
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.top-toast.error .toast-message {
+  color: #fff;
+}
+
+/* 警告 - 橙色 */
+.top-toast.warning {
+  background: rgba(245, 158, 11, 0.95);
+  box-shadow: 0 8rpx 32rpx rgba(245, 158, 11, 0.3);
+}
+
+.top-toast.warning .toast-icon {
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.top-toast.warning .toast-message {
+  color: #fff;
+}
+
+/* 信息 - 蓝色 */
+.top-toast.info {
+  background: rgba(99, 102, 241, 0.95);
+  box-shadow: 0 8rpx 32rpx rgba(99, 102, 241, 0.3);
+}
+
+.top-toast.info .toast-icon {
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.top-toast.info .toast-message {
+  color: #fff;
+}

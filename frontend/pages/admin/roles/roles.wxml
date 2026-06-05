@@ -1,0 +1,38 @@
+<view class="page" wx:if="{{hasAccess}}">
+  <!-- 工具栏 -->
+  <view class="toolbar fade-in-up">
+    <text class="total">📊 共 {{roles.length}} 个角色</text>
+    <van-button size="small" type="primary" bind:click="goCreate" custom-class="create-btn">
+      ➕ 创建角色
+    </van-button>
+  </view>
+
+  <!-- 列表 -->
+  <van-loading wx:if="{{loading}}" size="48rpx" custom-class="loading-wrap">加载中...</van-loading>
+  <van-empty wx:elif="{{roles.length === 0}}" description="暂无角色" />
+
+  <view wx:else class="role-list">
+    <view
+      class="role-item glass-card fade-in-up"
+      wx:for="{{roles}}"
+      wx:key="id"
+      style="animation-delay: {{0.1 + index * 0.05}}s;"
+    >
+      <view class="role-info" data-id="{{item.id}}" bindtap="goEdit">
+        <view class="role-header">
+          <text class="role-name">{{item.display_name}}</text>
+          <van-tag wx:if="{{item.is_system}}" type="primary" size="medium" custom-class="system-tag">系统</van-tag>
+        </view>
+        <text class="role-ident">@{{item.name}}</text>
+      </view>
+      <view class="role-actions" wx:if="{{!item.is_system}}">
+        <view class="action-btn delete" data-id="{{item.id}}" data-name="{{item.display_name}}" bindtap="handleDelete">
+          🗑️ 删除
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Dialog 组件 -->
+  <van-dialog id="van-dialog" />
+</view>

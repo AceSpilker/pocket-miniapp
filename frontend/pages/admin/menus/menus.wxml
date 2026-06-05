@@ -1,0 +1,38 @@
+<view class="page" wx:if="{{hasAccess}}">
+  <!-- 工具栏 -->
+  <view class="toolbar fade-in-up">
+    <text class="total">📊 共 {{menus.length}} 个菜单</text>
+    <van-button size="small" type="primary" bind:click="goCreate" custom-class="create-btn">
+      ➕ 创建菜单
+    </van-button>
+  </view>
+
+  <!-- 列表 -->
+  <van-loading wx:if="{{loading}}" size="48rpx" custom-class="loading-wrap">加载中...</van-loading>
+  <van-empty wx:elif="{{menus.length === 0}}" description="暂无菜单" />
+
+  <view wx:else class="menu-list">
+    <view
+      class="menu-item glass-card fade-in-up"
+      wx:for="{{menus}}"
+      wx:key="id"
+      style="animation-delay: {{0.1 + index * 0.05}}s;"
+      data-id="{{item.id}}"
+      bindtap="goEdit"
+    >
+      <view class="menu-icon-wrap">
+        <text class="menu-icon">{{item.icon || '📄'}}</text>
+      </view>
+      <view class="menu-info">
+        <text class="menu-name">{{item.name}}</text>
+        <text class="menu-path">{{item.path || '无路径'}}</text>
+      </view>
+      <view class="menu-meta">
+        <van-tag type="primary" size="medium">{{item.sort_order}}</van-tag>
+      </view>
+    </view>
+  </view>
+
+  <!-- Dialog 组件 -->
+  <van-dialog id="van-dialog" />
+</view>

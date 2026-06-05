@@ -1,0 +1,149 @@
+/* 注册页 - 炫酷科技风 */
+
+.register-page {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 动态背景 */
+.bg-shapes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+}
+
+.shape-1 {
+  width: 350rpx;
+  height: 350rpx;
+  background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+  top: 100rpx;
+  right: -80rpx;
+  animation: float 8s ease-in-out infinite;
+}
+
+.shape-2 {
+  width: 300rpx;
+  height: 300rpx;
+  background: linear-gradient(135deg, #06b6d4, #22d3ee);
+  bottom: 300rpx;
+  left: -100rpx;
+  animation: float 6s ease-in-out infinite reverse;
+}
+
+/* 标题 */
+.header {
+  padding: 60rpx 24rpx 40rpx;
+  text-align: center;
+}
+
+.title {
+  font-size: 48rpx;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 12rpx;
+  letter-spacing: 2rpx;
+}
+
+.subtitle {
+  font-size: 26rpx;
+  color: #a1a1aa;
+}
+
+/* 表单卡片 */
+.form-card {
+  margin: 0 24rpx;
+  padding: 0;
+  background: rgba(30, 30, 60, 0.6);
+  backdrop-filter: blur(20px);
+  border-radius: 24rpx;
+  border: 1rpx solid rgba(99, 102, 241, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* 输入框 */
+.form-card .van-field {
+  padding: 28rpx 24rpx !important;
+  background: transparent !important;
+}
+
+.form-card .van-field::after {
+  border-bottom: 1rpx solid rgba(99, 102, 241, 0.1) !important;
+}
+
+.form-card .van-field:last-child::after {
+  border-bottom: none !important;
+}
+
+.form-card .van-field__label {
+  color: #a1a1aa !important;
+  font-size: 28rpx !important;
+  width: auto !important;
+  min-width: 140rpx !important;
+}
+
+.form-card .van-field__control {
+  color: #fff !important;
+  font-size: 28rpx !important;
+}
+
+.form-card .van-field__control::placeholder {
+  color: #71717a !important;
+}
+
+/* 错误提示 */
+.error-notice {
+  margin: 20rpx 24rpx !important;
+  border-radius: 16rpx !important;
+  background: rgba(239, 68, 68, 0.1) !important;
+  border: 1rpx solid rgba(239, 68, 68, 0.2) !important;
+}
+
+/* 按钮组 */
+.btn-group {
+  padding: 32rpx 24rpx;
+}
+
+/* 注册按钮 */
+.register-btn {
+  background: linear-gradient(135deg, #ec4899, #f472b6) !important;
+  border: none !important;
+  border-radius: 48rpx !important;
+  font-size: 32rpx !important;
+  font-weight: 600 !important;
+  letter-spacing: 4rpx !important;
+  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.4) !important;
+  height: 96rpx !important;
+  line-height: 96rpx !important;
+}
+
+.register-btn:active {
+  opacity: 0.9 !important;
+  transform: scale(0.98) !important;
+}
+
+/* 登录链接 */
+.login-link {
+  text-align: center;
+  margin-top: 24rpx;
+  padding-bottom: 40rpx;
+  font-size: 26rpx;
+  color: #a1a1aa;
+}
+
+.link {
+  color: #f472b6;
+  font-weight: 500;
+}

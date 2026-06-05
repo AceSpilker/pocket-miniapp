@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Node
+node_modules/
+miniprogram_npm/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# 环境配置
+.env
+.env.local
+.env.*.local
+
+# 日志
+*.log
+logs/
+
+# 微信小程序
+project.private.config.json
+
+# 其他
+*.bak
+*.tmp
+.cache/

@@ -1,0 +1,14 @@
+{
+  "navigationBarTitleText": "编辑动态",
+  "navigationBarBackgroundColor": "#0f0f23",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "van-field": "@vant/weapp/field/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-button": "@vant/weapp/button/index",
+    "van-switch": "@vant/weapp/switch/index",
+    "van-notice-bar": "@vant/weapp/notice-bar/index",
+    "top-toast": "/components/top-toast/top-toast"
+  }
+}

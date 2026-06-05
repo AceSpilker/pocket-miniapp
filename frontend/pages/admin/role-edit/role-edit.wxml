@@ -1,0 +1,75 @@
+<view class="page" wx:if="{{hasAccess}}">
+  <!-- 基本信息 -->
+  <view class="form-card glass-card fade-in-up">
+    <view class="card-title">📝 基本信息</view>
+    <van-cell-group>
+      <van-field
+        value="{{ name }}"
+        label="角色标识"
+        placeholder="如 admin"
+        disabled="{{isEdit || isSystem}}"
+        bind:change="onNameInput"
+        custom-class="input-field"
+      />
+      <van-field
+        value="{{ displayName }}"
+        label="显示名称"
+        placeholder="如 超级管理员"
+        bind:change="onDisplayNameInput"
+        custom-class="input-field"
+      />
+      <van-field
+        value="{{ description }}"
+        label="描述"
+        placeholder="角色说明"
+        bind:change="onDescInput"
+        custom-class="input-field"
+      />
+    </van-cell-group>
+  </view>
+
+  <!-- 权限选择 -->
+  <view class="form-card glass-card fade-in-up" style="animation-delay: 0.1s;">
+    <view class="card-title">🔐 权限设置</view>
+    <view class="perm-list">
+      <view
+        class="perm-item {{selectedPerms.includes(item.key) ? 'checked' : ''}}"
+        wx:for="{{allPermissions}}"
+        wx:key="key"
+        data-key="{{item.key}}"
+        bindtap="onPermToggle"
+      >
+        <view class="perm-checkbox">
+          <text wx:if="{{selectedPerms.includes(item.key)}}">✓</text>
+        </view>
+        <view class="perm-info">
+          <text class="perm-name">{{item.name}}</text>
+          <text class="perm-desc">{{item.desc}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 错误提示 -->
+  <van-notice-bar
+    wx:if="{{errorMsg}}"
+    color="#ef4444"
+    background="rgba(239, 68, 68, 0.1)"
+    text="{{errorMsg}}"
+    wrapable
+  />
+
+  <!-- 保存按钮 -->
+  <view class="btn-group fade-in-up" style="animation-delay: 0.2s;">
+    <van-button
+      type="primary"
+      block
+      round
+      loading="{{saving}}"
+      bind:click="handleSave"
+      custom-class="save-btn"
+    >
+      💾 保存角色
+    </van-button>
+  </view>
+</view>

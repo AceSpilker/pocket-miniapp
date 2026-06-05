@@ -1,0 +1,113 @@
+<view class="login-page">
+  <!-- 动态背景 -->
+  <view class="bg-shapes">
+    <view class="shape shape-1"></view>
+    <view class="shape shape-2"></view>
+    <view class="shape shape-3"></view>
+  </view>
+
+  <!-- 顶部品牌区 -->
+  <view class="brand-section fade-in-up">
+    <view class="brand-icon-wrap glow-animation">
+      <van-icon name="star" size="100rpx" color="#fff" />
+    </view>
+    <text class="brand-name gradient-text">口袋小程序</text>
+    <text class="brand-desc">✨ 轻量个人工具箱 ✨</text>
+  </view>
+
+  <!-- Tab 切换栏 -->
+  <view class="tab-nav fade-in-up" style="animation-delay: 0.1s;">
+    <view class="tab-item {{activeTab === 0 ? 'active' : ''}}" bindtap="switchTab" data-tab="0">
+      <text>🚀 账号登录</text>
+      <view class="tab-line" wx:if="{{activeTab === 0}}"></view>
+    </view>
+    <view class="tab-item {{activeTab === 1 ? 'active' : ''}}" bindtap="switchTab" data-tab="1">
+      <text>💬 微信登录</text>
+      <view class="tab-line" wx:if="{{activeTab === 1}}"></view>
+    </view>
+  </view>
+
+  <!-- 账号登录表单 -->
+  <view class="form-card fade-in-up" style="animation-delay: 0.15s;" wx:if="{{activeTab === 0}}">
+    <van-cell-group>
+      <van-field
+        value="{{ username }}"
+        placeholder="请输入用户名"
+        left-icon="user-o"
+        clearable
+        bind:change="onUsernameInput"
+      />
+      <van-field
+        value="{{ password }}"
+        type="password"
+        placeholder="请输入密码"
+        left-icon="lock"
+        clearable
+        bind:change="onPasswordInput"
+      />
+    </van-cell-group>
+
+    <!-- 错误提示 -->
+    <van-notice-bar
+      wx:if="{{errorMsg}}"
+      color="#ef4444"
+      background="rgba(239, 68, 68, 0.1)"
+      text="{{errorMsg}}"
+      wrapable
+    />
+
+    <view class="btn-group">
+      <van-button
+        type="primary"
+        block
+        round
+        loading="{{loading}}"
+        bind:click="handleAccountLogin"
+      >
+        🎯 登录
+      </van-button>
+    </view>
+
+    <!-- 注册入口 -->
+    <view class="register-link">
+      <text>还没有账号？</text>
+      <text class="link" bindtap="goRegister">立即注册 ✨</text>
+    </view>
+  </view>
+
+  <!-- 微信登录 -->
+  <view class="form-card fade-in-up" style="animation-delay: 0.15s;" wx:if="{{activeTab === 1}}">
+    <view class="wx-login-section">
+      <view class="wx-icon-wrap float-animation">
+        <text class="wx-emoji">💬</text>
+      </view>
+      <text class="wx-tip">点击下方按钮，使用微信一键登录</text>
+      <van-button
+        type="primary"
+        block
+        round
+        loading="{{loading}}"
+        bind:click="handleWxLogin"
+      >
+        💚 微信一键登录
+      </van-button>
+
+      <!-- 错误提示 -->
+      <van-notice-bar
+        wx:if="{{errorMsg}}"
+        color="#ef4444"
+        background="rgba(239, 68, 68, 0.1)"
+        text="{{errorMsg}}"
+        wrapable
+      />
+    </view>
+  </view>
+
+  <!-- 协议 -->
+  <view class="agreement fade-in" style="animation-delay: 0.3s;">
+    <text>登录即代表同意</text>
+    <text class="link">《用户协议》</text>
+    <text>和</text>
+    <text class="link">《隐私政策》</text>
+  </view>
+</view>

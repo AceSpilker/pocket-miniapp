@@ -1,0 +1,82 @@
+<view class="register-page">
+  <!-- 动态背景 -->
+  <view class="bg-shapes">
+    <view class="shape shape-1"></view>
+    <view class="shape shape-2"></view>
+  </view>
+
+  <!-- 标题 -->
+  <view class="header fade-in-up">
+    <text class="title gradient-text">✨ 创建账号</text>
+    <text class="subtitle">开启你的炫酷之旅</text>
+  </view>
+
+  <!-- 表单 -->
+  <view class="form-card fade-in-up" style="animation-delay: 0.1s;">
+    <van-cell-group>
+      <van-field
+        value="{{ username }}"
+        label="用户名"
+        required
+        placeholder="2-32位字母或数字"
+        bind:change="onUsernameInput"
+        custom-class="input-field"
+      />
+      <van-field
+        value="{{ nickname }}"
+        label="昵称"
+        placeholder="选填，默认使用用户名"
+        bind:change="onNicknameInput"
+        custom-class="input-field"
+      />
+      <van-field
+        value="{{ password }}"
+        type="password"
+        label="密码"
+        required
+        placeholder="至少6位密码"
+        bind:change="onPasswordInput"
+        custom-class="input-field"
+      />
+      <van-field
+        value="{{ confirmPassword }}"
+        type="password"
+        label="确认密码"
+        required
+        placeholder="再次输入密码"
+        bind:change="onConfirmPasswordInput"
+        custom-class="input-field"
+      />
+    </van-cell-group>
+  </view>
+
+  <!-- 错误提示 -->
+  <van-notice-bar
+    wx:if="{{errorMsg}}"
+    color="#ef4444"
+    background="rgba(239, 68, 68, 0.1)"
+    text="{{errorMsg}}"
+    wrapable
+    custom-class="error-notice"
+  />
+
+  <!-- 注册按钮 -->
+  <view class="btn-group fade-in-up" style="animation-delay: 0.2s;">
+    <van-button
+      type="primary"
+      block
+      round
+      loading="{{loading}}"
+      bind:click="handleRegister"
+      custom-class="register-btn"
+    >
+      🚀 开始注册
+    </van-button>
+  </view>
+
+  <!-- 登录链接 -->
+  <view class="login-link fade-in" style="animation-delay: 0.3s;">
+    <text>已有账号？</text>
+    <text class="link" bindtap="goLogin">去登录 🔥</text>
+  </view>
+</view>

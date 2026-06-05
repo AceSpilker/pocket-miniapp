@@ -1,0 +1,130 @@
+/* 菜单编辑页 - 炫酷科技风 */
+
+.page {
+  min-height: 100vh;
+  padding: 24rpx;
+  padding-bottom: 60rpx;
+}
+
+/* 表单卡片 */
+.form-card {
+  margin-bottom: 24rpx;
+  padding: 0;
+  background: rgba(30, 30, 60, 0.6);
+  backdrop-filter: blur(20px);
+  border-radius: 24rpx;
+  border: 1rpx solid rgba(99, 102, 241, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* 输入框 */
+.form-card .van-field {
+  padding: 28rpx 24rpx !important;
+  background: transparent !important;
+}
+
+.form-card .van-field::after {
+  border-bottom: 1rpx solid rgba(99, 102, 241, 0.1) !important;
+}
+
+.form-card .van-field:last-child::after {
+  border-bottom: none !important;
+}
+
+.form-card .van-field__label {
+  color: #a1a1aa !important;
+  font-size: 28rpx !important;
+  width: auto !important;
+  min-width: 140rpx !important;
+}
+
+.form-card .van-field__control {
+  color: #fff !important;
+  font-size: 28rpx !important;
+}
+
+.form-card .van-field__control::placeholder {
+  color: #71717a !important;
+}
+
+/* Cell 样式 */
+.form-card .van-cell {
+  padding: 28rpx 24rpx !important;
+  background: transparent !important;
+}
+
+.form-card .van-cell__title {
+  color: #a1a1aa !important;
+}
+
+.perm-value {
+  color: #818cf8 !important;
+  font-size: 28rpx !important;
+}
+
+/* 弹出层 */
+.van-popup--bottom {
+  background: rgba(15, 15, 35, 0.98) !important;
+  backdrop-filter: blur(20px) !important;
+  border-top: 1rpx solid rgba(99, 102, 241, 0.2) !important;
+  border-radius: 24rpx 24rpx 0 0 !important;
+}
+
+/* 选择器 */
+.van-picker__toolbar {
+  padding: 24rpx !important;
+}
+
+.van-picker__title {
+  color: #fff !important;
+  font-size: 32rpx !important;
+  font-weight: 600 !important;
+}
+
+.van-picker__cancel {
+  color: #71717a !important;
+  font-size: 28rpx !important;
+}
+
+.van-picker__confirm {
+  color: #06b6d4 !important;
+  font-size: 28rpx !important;
+  font-weight: 600 !important;
+}
+
+.van-picker-column {
+  background: transparent !important;
+}
+
+.van-picker-column__item {
+  color: #a1a1aa !important;
+  font-size: 28rpx !important;
+}
+
+.van-picker-column__item--selected {
+  color: #fff !important;
+  font-weight: 500 !important;
+}
+
+/* 按钮组 */
+.btn-group {
+  padding: 32rpx 0;
+}
+
+.save-btn {
+  background: linear-gradient(135deg, #06b6d4, #22d3ee) !important;
+  border: none !important;
+  border-radius: 48rpx !important;
+  font-size: 32rpx !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4) !important;
+  height: 96rpx !important;
+  line-height: 96rpx !important;
+}
+
+/* 错误提示 */
+.page .van-notice-bar {
+  margin: 0 0 24rpx !important;
+  border-radius: 16rpx !important;
+}

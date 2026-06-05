@@ -1,0 +1,49 @@
+<view class="page" wx:if="{{hasAccess}}">
+  <!-- 动态背景 -->
+  <view class="bg-shapes">
+    <view class="shape shape-1"></view>
+    <view class="shape shape-2"></view>
+  </view>
+
+  <!-- 标题区 -->
+  <view class="header fade-in-up">
+    <text class="title gradient-text">⚙️ 系统管理</text>
+    <text class="subtitle">后台管理入口</text>
+  </view>
+
+  <!-- 功能网格 -->
+  <view class="grid-section fade-in-up" style="animation-delay: 0.1s;">
+    <view class="grid-item" bindtap="goTo" data-url="/pages/admin/users/users">
+      <view class="grid-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
+        <text>👥</text>
+      </view>
+      <text class="grid-name">用户管理</text>
+      <text class="grid-desc">查看/编辑/删除用户</text>
+    </view>
+    <view class="grid-item" bindtap="goTo" data-url="/pages/admin/roles/roles">
+      <view class="grid-icon" style="background: linear-gradient(135deg, #ec4899, #f472b6);">
+        <text>🔑</text>
+      </view>
+      <text class="grid-name">角色管理</text>
+      <text class="grid-desc">管理角色与权限</text>
+    </view>
+    <view class="grid-item" bindtap="goTo" data-url="/pages/admin/menus/menus">
+      <view class="grid-icon" style="background: linear-gradient(135deg, #06b6d4, #22d3ee);">
+        <text>📋</text>
+      </view>
+      <text class="grid-name">菜单管理</text>
+      <text class="grid-desc">管理导航菜单</text>
+    </view>
+    <view class="grid-item" bindtap="goTo" data-url="/pages/admin/announcements/announcements">
+      <view class="grid-icon" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">
+        <text>📢</text>
+      </view>
+      <text class="grid-name">动态管理</text>
+      <text class="grid-desc">发布/管理动态公告</text>
+    </view>
+  </view>
+</view>
+
+<view class="no-access" wx:else>
+  <text>🚫 无权限访问</text>
+</view>

@@ -1,0 +1,109 @@
+<view class="container">
+  <!-- 动态背景 -->
+  <view class="bg-shapes">
+    <view class="shape shape-1"></view>
+    <view class="shape shape-2"></view>
+  </view>
+
+  <!-- 用户欢迎卡片 -->
+  <view class="welcome-card glass-card fade-in-up">
+    <view class="welcome-content" bindtap="goLogin">
+      <view class="avatar-wrap glow-animation">
+        <image
+          class="avatar-img"
+          src="{{hasLogin && userInfo.avatar_url ? userInfo.avatar_url : '/assets/images/default-avatar.png'}}"
+        />
+        <view class="avatar-ring"></view>
+      </view>
+      <view class="welcome-info">
+        <text class="welcome-name">{{hasLogin ? (userInfo.nickname || '用户') : '👋 欢迎'}}</text>
+        <text class="welcome-desc">{{hasLogin ? '探索无限可能 ✨' : '登录解锁更多精彩'}}</text>
+      </view>
+      <van-icon wx:if="{{!hasLogin}}" name="arrow" color="#818cf8" size="40rpx" />
+    </view>
+  </view>
+
+  <!-- 功能网格 -->
+  <view class="section-title fade-in-up" style="animation-delay: 0.1s;">
+    <text class="title-text">🎮 功能中心</text>
+    <text class="title-line"></text>
+  </view>
+
+  <view class="feature-grid fade-in-up" style="animation-delay: 0.15s;">
+    <view
+      class="feature-item"
+      wx:for="{{features}}"
+      wx:key="name"
+      data-url="{{item.url}}"
+      bindtap="onFeatureTap"
+      style="animation-delay: {{0.2 + index * 0.05}}s;"
+    >
+      <view class="feature-icon-wrap" style="background: {{item.bgColor}};">
+        <text class="feature-icon">{{item.icon}}</text>
+      </view>
+      <text class="feature-name">{{item.name}}</text>
+      <text class="feature-desc">{{item.desc}}</text>
+    </view>
+  </view>
+
+  <!-- 最近动态 -->
+  <view class="section-title fade-in-up" style="animation-delay: 0.3s;">
+    <text class="title-text">🔥 最近动态</text>
+    <text class="title-line"></text>
+    <text class="title-more" bindtap="goAnnouncements">更多 ></text>
+  </view>
+
+  <view class="quick-list glass-card fade-in-up" style="animation-delay: 0.35s;">
+    <!-- 有数据时显示列表 -->
+    <block wx:if="{{latestAnnouncements.length > 0}}">
+      <view
+        class="quick-item announcement-item"
+        wx:for="{{latestAnnouncements}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="goAnnouncementDetail"
+      >
+        <view class="quick-icon" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">
+          <text>{{item.is_top ? '📌' : '📰'}}</text>
+        </view>
+        <view class="quick-content">
+          <text class="quick-title announcement-title">{{item.title}}</text>
+          <text class="quick-sub">{{item.author_name || '管理员'}} · {{item.created_at}}</text>
+        </view>
+        <van-icon name="arrow" color="#71717a" size="32rpx" />
+      </view>
+    </block>
+    <!-- 无数据时显示提示 -->
+    <block wx:else>
+      <view class="quick-item" bindtap="goAnnouncements">
+        <view class="quick-icon" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">
+          <text>🔥</text>
+        </view>
+        <view class="quick-content">
+          <text class="quick-title">暂无最新动态</text>
+          <text class="quick-sub">点击查看全部动态</text>
+        </view>
+        <van-icon name="arrow" color="#71717a" size="32rpx" />
+      </view>
+    </block>
+  </view>
+
+  <!-- 小提示 -->
+  <view class="section-title fade-in-up" style="animation-delay: 0.4s;">
+    <text class="title-text">💡 小提示</text>
+    <text class="title-line"></text>
+  </view>
+
+  <view class="quick-list glass-card fade-in-up" style="animation-delay: 0.45s;">
+    <view class="quick-item">
+      <view class="quick-icon" style="background: linear-gradient(135deg, #10b981, #34d399);">
+        <text>💡</text>
+      </view>
+      <view class="quick-content">
+        <text class="quick-title">完善资料</text>
+        <text class="quick-sub">完成资料设置获得更好体验</text>
+      </view>
+      <van-icon name="arrow" color="#71717a" size="32rpx" />
+    </view>
+  </view>
+</view>

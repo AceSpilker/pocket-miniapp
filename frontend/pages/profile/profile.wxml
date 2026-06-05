@@ -1,0 +1,73 @@
+<view class="profile-page">
+  <!-- 动态背景 -->
+  <view class="bg-shapes">
+    <view class="shape shape-1"></view>
+  </view>
+
+  <!-- 头像区 -->
+  <view class="avatar-section fade-in-up">
+    <view class="avatar-wrap" bindtap="handleChooseAvatar">
+      <image
+        class="avatar-img"
+        src="{{avatarUrl || '/assets/images/default-avatar.png'}}"
+      />
+      <view class="avatar-edit">
+        <text>📷</text>
+      </view>
+    </view>
+    <text class="avatar-name">{{nickname || '未设置昵称'}}</text>
+  </view>
+
+  <!-- 基本信息表单 -->
+  <view class="form-card glass-card fade-in-up" style="animation-delay: 0.1s;">
+    <view class="card-title">📝 基本信息</view>
+    <van-cell-group>
+      <van-field
+        value="{{ nickname }}"
+        label="昵称"
+        placeholder="请输入昵称"
+        bind:change="onNicknameInput"
+      />
+      <van-field
+        value="{{ phone }}"
+        label="手机号"
+        placeholder="选填"
+        bind:change="onPhoneInput"
+      />
+      <van-field
+        value="{{ email }}"
+        label="邮箱"
+        placeholder="选填"
+        bind:change="onEmailInput"
+      />
+    </van-cell-group>
+
+    <view class="btn-group">
+      <van-button
+        type="primary"
+        block
+        round
+        loading="{{saving}}"
+        bind:click="handleSave"
+      >
+        💾 保存资料
+      </van-button>
+    </view>
+  </view>
+
+  <!-- 提示消息 -->
+  <van-notice-bar
+    wx:if="{{successMsg}}"
+    color="#10b981"
+    background="rgba(16, 185, 129, 0.1)"
+    text="{{successMsg}}"
+    wrapable
+  />
+  <van-notice-bar
+    wx:if="{{errorMsg && !successMsg}}"
+    color="#ef4444"
+    background="rgba(239, 68, 68, 0.1)"
+    text="{{errorMsg}}"
+    wrapable
+  />
+</view>
