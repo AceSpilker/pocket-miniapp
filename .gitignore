@@ -43,6 +43,7 @@ MEMORY.md
 memory/
 *.session.md
 THEME_SESSION.md
+SESSION_*.md
 
 # 其他
 *.bak
