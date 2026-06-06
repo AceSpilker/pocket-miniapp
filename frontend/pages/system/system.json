@@ -1,6 +1,6 @@
 {
   "navigationBarTitleText": "系统管理",
-  "navigationBarBackgroundColor": "#0f0f23",
-  "navigationBarTextStyle": "white",
-  "usingComponents": {}
+  "usingComponents": {
+    "van-icon": "@vant/weapp/icon/index"
+  }
 }

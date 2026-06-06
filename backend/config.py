@@ -9,7 +9,7 @@ from typing import Optional
 
 class Settings(BaseSettings):
     # 应用
-    APP_NAME: str = "口袋小程序 API"
+    APP_NAME: str = "口袋小精灵 API"
     APP_VERSION: str = "0.1.0"
     DEBUG: bool = True
 

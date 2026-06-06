@@ -1,3 +1,5 @@
+const themeManager = require('./utils/theme-manager')
+
 App({
   globalData: {
     userInfo: null,
@@ -7,10 +9,15 @@ App({
     roles: [],
     baseUrl: (wx.getStorageSync('api_base_url') || 'http://192.168.5.66:8000/api/v1'),
     _refreshPromise: null,
-    _refreshSubscribers: []
+    _refreshSubscribers: [],
+    theme: 'dark'  // 当前主题
   },
 
   async onLaunch() {
+    // 初始化主题
+    const theme = themeManager.init(this)
+    this.globalData.theme = theme
+
     await this.restoreSession()
   },
 

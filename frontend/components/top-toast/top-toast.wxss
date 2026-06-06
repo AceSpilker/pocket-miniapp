@@ -1,4 +1,4 @@
-/* 顶部提示消息组件 */
+/* 顶部提示消息组件 - 主题适配样式 */
 .top-toast {
   position: fixed;
   left: 24rpx;
@@ -87,7 +87,7 @@
   color: #fff;
 }
 
-/* 信息 - 蓝色 */
+/* 信息 - 使用主题变量 */
 .top-toast.info {
   background: rgba(99, 102, 241, 0.95);
   box-shadow: 0 8rpx 32rpx rgba(99, 102, 241, 0.3);

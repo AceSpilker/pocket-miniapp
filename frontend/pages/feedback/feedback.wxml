@@ -1,0 +1,63 @@
+<view class="page" style="{{cssVars}}">
+
+  <!-- 动态背景 -->
+  <view class="bg-shapes">
+    <view class="shape shape-1"></view>
+  </view>
+
+  <!-- 标题区 -->
+  <view class="header">
+    <text class="title">💬 意见反馈</text>
+    <text class="subtitle">您的意见是我们前进的动力</text>
+  </view>
+
+  <!-- 反馈列表 -->
+  <view class="feedback-list" wx:if="{{list.length > 0}}">
+    <view class="feedback-item" wx:for="{{list}}" wx:key="id">
+      <view class="feedback-header">
+        <text class="feedback-title">{{item.title}}</text>
+        <view class="feedback-status status-{{item.status}}">
+          {{item.status === 'pending' ? '待处理' : item.status === 'replied' ? '已回复' : '已解决'}}
+        </view>
+      </view>
+      <view class="feedback-content" wx:if="{{item.content}}">
+        {{item.content}}
+      </view>
+
+      <!-- 管理员回复 -->
+      <view class="admin-reply" wx:if="{{item.admin_reply}}">
+        <view class="reply-header">
+          <text class="reply-label">📢 管理员回复</text>
+          <text class="reply-time">{{item.replied_at}}</text>
+        </view>
+        <text class="reply-content">{{item.admin_reply}}</text>
+      </view>
+
+      <view class="feedback-footer">
+        <text class="feedback-time">更新于 {{item.updated_at}}</text>
+        <view class="feedback-actions">
+          <text class="action-btn" catchtap="goEdit" data-id="{{item.id}}" data-title="{{item.title}}">编辑</text>
+          <text class="action-btn danger" catchtap="handleDelete" data-id="{{item.id}}" data-title="{{item.title}}">删除</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && list.length === 0}}">
+    <text class="empty-icon">📝</text>
+    <text class="empty-text">暂无意见反馈</text>
+    <text class="empty-hint">点击下方按钮提交您的宝贵意见</text>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <van-loading size="24rpx" color="var(--primary-color)" />
+    <text>加载中...</text>
+  </view>
+
+  <!-- 创建按钮 -->
+  <view class="create-btn" bindtap="goCreate">
+    <text>✏️ 提交意见</text>
+  </view>
+</view>

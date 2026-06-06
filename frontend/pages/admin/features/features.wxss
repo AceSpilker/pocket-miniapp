@@ -1,0 +1,198 @@
+/* 功能管理列表页 */
+
+.page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  padding-top: 140rpx;
+  position: relative;
+}
+
+/* 动态背景 */
+.bg-shapes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.shape-1 {
+  position: absolute;
+  width: 400rpx;
+  height: 400rpx;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.2;
+  top: -100rpx;
+  right: -100rpx;
+}
+
+/* 顶部新建按钮 */
+.create-btn-fixed {
+  position: fixed;
+  top: 24rpx;
+  left: 24rpx;
+  right: 24rpx;
+  height: 88rpx;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+  border-radius: 44rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(99, 102, 241, 0.3);
+  z-index: 100;
+}
+
+.create-btn-fixed text {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.create-btn-fixed:active {
+  opacity: 0.9;
+  transform: scale(0.99);
+}
+
+/* 功能列表 */
+.feature-list {
+  padding: 0 24rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.feature-item {
+  background: var(--bg-card);
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+  border: 1rpx solid var(--border-light);
+}
+
+.feature-main {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.feature-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.feature-info {
+  flex: 1;
+}
+
+.feature-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.feature-path {
+  font-size: 24rpx;
+  color: var(--text-muted);
+}
+
+/* 状态标签 */
+.feature-status {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+}
+
+.status-tag {
+  font-size: 22rpx;
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+}
+
+.status-tag.enabled {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--success-color);
+}
+
+.status-tag.disabled {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--danger-color);
+}
+
+.status-tag.visible {
+  background: rgba(99, 102, 241, 0.15);
+  color: var(--primary-color);
+}
+
+.status-tag.hidden {
+  background: rgba(161, 161, 170, 0.15);
+  color: var(--text-muted);
+}
+
+/* 操作按钮 */
+.feature-actions {
+  display: flex;
+  gap: 24rpx;
+  padding-top: 16rpx;
+  border-top: 1rpx solid var(--border-light);
+}
+
+.action-btn {
+  font-size: 26rpx;
+  color: var(--primary-color);
+}
+
+.action-btn.danger {
+  color: var(--danger-color);
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 24rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 24rpx;
+}
+
+.empty-text {
+  font-size: 32rpx;
+  color: var(--text-primary);
+  margin-bottom: 12rpx;
+}
+
+.empty-hint {
+  font-size: 26rpx;
+  color: var(--text-muted);
+}
+
+/* 加载状态 */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60rpx;
+  color: var(--text-muted);
+  font-size: 26rpx;
+  position: relative;
+  z-index: 1;
+}

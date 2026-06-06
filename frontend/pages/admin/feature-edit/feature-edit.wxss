@@ -1,0 +1,206 @@
+/* 功能编辑页 */
+
+.page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  padding-top: 140rpx;
+  padding-bottom: 40rpx;
+  position: relative;
+}
+
+/* 动态背景 */
+.bg-shapes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.shape-1 {
+  position: absolute;
+  width: 400rpx;
+  height: 400rpx;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.2;
+  top: -100rpx;
+  right: -100rpx;
+}
+
+/* 顶部保存按钮 */
+.save-btn-fixed {
+  position: fixed;
+  top: 24rpx;
+  left: 24rpx;
+  right: 24rpx;
+  z-index: 100;
+}
+
+.save-btn {
+  width: 100%;
+  height: 88rpx;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+  border-radius: 44rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(99, 102, 241, 0.3);
+}
+
+.save-btn:active {
+  opacity: 0.9;
+  transform: scale(0.99);
+}
+
+/* 表单卡片 */
+.form-card {
+  margin: 0 24rpx;
+  background: var(--bg-card);
+  border-radius: 16rpx;
+  padding: 24rpx;
+  border: 1rpx solid var(--border-light);
+  position: relative;
+  z-index: 1;
+}
+
+.form-item {
+  margin-bottom: 32rpx;
+}
+
+.form-item:last-child {
+  margin-bottom: 0;
+}
+
+.form-label {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 16rpx;
+}
+
+.required {
+  color: var(--danger-color);
+}
+
+.form-input {
+  width: 100%;
+  height: 88rpx;
+  padding: 0 24rpx;
+  background: var(--bg-input);
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  color: var(--text-primary);
+  box-sizing: border-box;
+}
+
+.form-input::placeholder {
+  color: var(--text-muted);
+}
+
+.form-textarea {
+  width: 100%;
+  min-height: 160rpx;
+  padding: 24rpx;
+  background: var(--bg-input);
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  color: var(--text-primary);
+  box-sizing: border-box;
+  line-height: 1.6;
+}
+
+.form-textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.form-hint {
+  display: block;
+  font-size: 22rpx;
+  color: var(--text-muted);
+  margin-top: 8rpx;
+}
+
+/* 开关项 */
+.switch-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.switch-item .form-label {
+  margin-bottom: 0;
+}
+
+/* 错误提示 */
+.error-msg {
+  margin: 24rpx;
+  padding: 16rpx 24rpx;
+  background: rgba(239, 68, 68, 0.1);
+  border-radius: 12rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.error-msg text {
+  font-size: 26rpx;
+  color: var(--danger-color);
+}
+
+/* 颜色选择器 */
+.color-picker-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  flex-wrap: wrap;
+}
+
+.color-preview {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.15);
+}
+
+.color-preview-icon {
+  font-size: 40rpx;
+}
+
+.color-input {
+  flex: 1;
+  min-width: 200rpx;
+}
+
+.color-presets {
+  display: flex;
+  gap: 12rpx;
+  flex-wrap: wrap;
+  margin-top: 16rpx;
+  width: 100%;
+}
+
+.color-preset {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 12rpx;
+  border: 3rpx solid transparent;
+  transition: all 0.2s ease;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.color-preset.active {
+  border-color: var(--text-primary);
+  transform: scale(1.1);
+}

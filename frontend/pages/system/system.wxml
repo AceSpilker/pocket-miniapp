@@ -1,49 +1,91 @@
-<view class="page" wx:if="{{hasAccess}}">
-  <!-- 动态背景 -->
+<view class="page" style="{{cssVars}}" wx:if="{{hasAccess}}">
+
+  <!-- 动态渐变背景 -->
   <view class="bg-shapes">
     <view class="shape shape-1"></view>
     <view class="shape shape-2"></view>
   </view>
 
-  <!-- 标题区 -->
-  <view class="header fade-in-up">
-    <text class="title gradient-text">⚙️ 系统管理</text>
-    <text class="subtitle">后台管理入口</text>
+  <!-- 固定标题区 -->
+  <view class="header-fixed">
+    <view class="header-content">
+      <text class="title">⚙️ 系统管理</text>
+      <text class="subtitle">后台管理功能入口</text>
+    </view>
   </view>
 
-  <!-- 功能网格 -->
-  <view class="grid-section fade-in-up" style="animation-delay: 0.1s;">
-    <view class="grid-item" bindtap="goTo" data-url="/pages/admin/users/users">
-      <view class="grid-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
-        <text>👥</text>
+  <!-- 可滚动菜单区域 -->
+  <scroll-view class="menu-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+    <view class="menu-list">
+      <view class="menu-item" bindtap="goTo" data-url="/pages/admin/users/users">
+        <view class="menu-icon icon-bg-primary">
+          <text>👥</text>
+        </view>
+        <view class="menu-content">
+          <text class="menu-name">用户管理</text>
+          <text class="menu-desc">查看、编辑、删除用户账号</text>
+        </view>
+        <van-icon name="arrow" size="32rpx" custom-style="color: var(--text-muted);" />
       </view>
-      <text class="grid-name">用户管理</text>
-      <text class="grid-desc">查看/编辑/删除用户</text>
-    </view>
-    <view class="grid-item" bindtap="goTo" data-url="/pages/admin/roles/roles">
-      <view class="grid-icon" style="background: linear-gradient(135deg, #ec4899, #f472b6);">
-        <text>🔑</text>
+
+      <view class="menu-item" bindtap="goTo" data-url="/pages/admin/roles/roles">
+        <view class="menu-icon icon-bg-secondary">
+          <text>🔑</text>
+        </view>
+        <view class="menu-content">
+          <text class="menu-name">角色管理</text>
+          <text class="menu-desc">管理角色与权限配置</text>
+        </view>
+        <van-icon name="arrow" size="32rpx" custom-style="color: var(--text-muted);" />
       </view>
-      <text class="grid-name">角色管理</text>
-      <text class="grid-desc">管理角色与权限</text>
-    </view>
-    <view class="grid-item" bindtap="goTo" data-url="/pages/admin/menus/menus">
-      <view class="grid-icon" style="background: linear-gradient(135deg, #06b6d4, #22d3ee);">
-        <text>📋</text>
+
+      <view class="menu-item" bindtap="goTo" data-url="/pages/admin/menus/menus">
+        <view class="menu-icon icon-bg-accent">
+          <text>📋</text>
+        </view>
+        <view class="menu-content">
+          <text class="menu-name">菜单管理</text>
+          <text class="menu-desc">管理导航菜单配置</text>
+        </view>
+        <van-icon name="arrow" size="32rpx" custom-style="color: var(--text-muted);" />
       </view>
-      <text class="grid-name">菜单管理</text>
-      <text class="grid-desc">管理导航菜单</text>
-    </view>
-    <view class="grid-item" bindtap="goTo" data-url="/pages/admin/announcements/announcements">
-      <view class="grid-icon" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">
-        <text>📢</text>
+
+      <view class="menu-item" bindtap="goTo" data-url="/pages/admin/announcements/announcements">
+        <view class="menu-icon icon-bg-warning">
+          <text>📢</text>
+        </view>
+        <view class="menu-content">
+          <text class="menu-name">动态管理</text>
+          <text class="menu-desc">发布和管理动态公告</text>
+        </view>
+        <van-icon name="arrow" size="32rpx" custom-style="color: var(--text-muted);" />
       </view>
-      <text class="grid-name">动态管理</text>
-      <text class="grid-desc">发布/管理动态公告</text>
+
+      <view class="menu-item" bindtap="goTo" data-url="/pages/admin/feedbacks/feedbacks">
+        <view class="menu-icon icon-bg-success">
+          <text>💬</text>
+        </view>
+        <view class="menu-content">
+          <text class="menu-name">意见反馈</text>
+          <text class="menu-desc">查看和回复用户意见</text>
+        </view>
+        <van-icon name="arrow" size="32rpx" custom-style="color: var(--text-muted);" />
+      </view>
+
+      <view class="menu-item" bindtap="goTo" data-url="/pages/admin/features/features">
+        <view class="menu-icon icon-bg-primary">
+          <text>🎮</text>
+        </view>
+        <view class="menu-content">
+          <text class="menu-name">功能管理</text>
+          <text class="menu-desc">管理功能开关与排序</text>
+        </view>
+        <van-icon name="arrow" size="32rpx" custom-style="color: var(--text-muted);" />
+      </view>
     </view>
-  </view>
+  </scroll-view>
 </view>
 
-<view class="no-access" wx:else>
+<view class="no-access" style="{{cssVars}}" wx:else>
   <text>🚫 无权限访问</text>
 </view>

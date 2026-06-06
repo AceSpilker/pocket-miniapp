@@ -1,36 +1,161 @@
 /* ==============================
-   炫酷 UI 主题 - 口袋小程序
+   口袋小精灵 - 双主题 UI 系统
+   遵循 Apple Human Interface Guidelines
    ============================== */
 
+/* ==================== 暗色主题（默认） ==================== */
 page {
+  /* 主色系 */
   --primary-color: #6366f1;
   --primary-light: #818cf8;
   --primary-dark: #4f46e5;
   --secondary-color: #ec4899;
   --accent-color: #06b6d4;
+
+  /* 语义色 */
   --success-color: #10b981;
   --warning-color: #f59e0b;
   --danger-color: #ef4444;
 
+  /* 背景色 */
   --bg-primary: #0f0f23;
   --bg-secondary: #1a1a2e;
   --bg-card: rgba(30, 30, 60, 0.8);
   --bg-glass: rgba(255, 255, 255, 0.05);
+  --bg-input: rgba(30, 30, 60, 0.6);
 
+  /* 文字色 */
   --text-primary: #ffffff;
   --text-secondary: #a1a1aa;
   --text-muted: #71717a;
+  --text-on-primary: #ffffff;
 
+  /* 边框与阴影 */
   --border-color: rgba(99, 102, 241, 0.3);
+  --border-light: rgba(99, 102, 241, 0.15);
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-card: 0 4rpx 20rpx rgba(0, 0, 0, 0.3);
+  --shadow-button: 0 2rpx 12rpx rgba(99, 102, 241, 0.3);
+
+  /* 图标渐变色（高饱和度）*/
+  --icon-bg-primary: linear-gradient(135deg, #6366f1, #818cf8);
+  --icon-bg-secondary: linear-gradient(135deg, #ec4899, #f472b6);
+  --icon-bg-success: linear-gradient(135deg, #10b981, #34d399);
+  --icon-bg-warning: linear-gradient(135deg, #f59e0b, #fbbf24);
+  --icon-bg-accent: linear-gradient(135deg, #06b6d4, #22d3ee);
+  --icon-bg-danger: linear-gradient(135deg, #ef4444, #f87171);
+
+  /* 按钮配色 */
+  --button-primary-bg: #6366f1;
+  --button-primary-text: #ffffff;
+  --button-secondary-bg: rgba(255, 255, 255, 0.1);
+  --button-secondary-text: #a1a1aa;
+  --button-danger-bg: rgba(239, 68, 68, 0.15);
+  --button-danger-text: #ef4444;
+
+  /* 卡片状态 */
+  --card-active-bg: rgba(99, 102, 241, 0.15);
+  --card-hover-bg: rgba(99, 102, 241, 0.1);
+
+  /* 输入框焦点 */
+  --input-focus-border: rgba(99, 102, 241, 0.5);
+  --input-focus-shadow: 0 0 0 3rpx rgba(99, 102, 241, 0.2);
+
+  /* 导航栏 */
+  --nav-bg: #0f0f23;
+  --nav-text: #ffffff;
+
+  /* TabBar */
+  --tabbar-bg: #0f0f23;
+  --tabbar-color: #71717a;
+  --tabbar-active: #6366f1;
+
+  /* 装饰渐变 */
+  --gradient-shape-1: rgba(99, 102, 241, 0.15);
+  --gradient-shape-2: rgba(236, 72, 153, 0.1);
+
+  /* 主题切换过渡 */
+  transition: background 0.3s ease, color 0.3s ease;
 
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 28rpx;
   color: var(--text-primary);
-  background: var(--bg-primary);
   line-height: 1.6;
 }
 
-/* 全局背景 */
+/* ==================== 亮色主题（Apple 风格） ==================== */
+page.theme-light {
+  /* 主色系（品牌色保持一致）*/
+  --primary-color: #6366f1;
+  --primary-light: #818cf8;
+  --primary-dark: #4f46e5;
+  --secondary-color: #ec4899;
+  --accent-color: #06b6d4;
+
+  /* 语义色 */
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --danger-color: #ef4444;
+
+  /* 背景色系统（Apple 层次感）*/
+  --bg-primary: #F2F2F7;
+  --bg-secondary: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-glass: rgba(0, 0, 0, 0.02);
+  --bg-input: #E5E5EA;
+
+  /* 文字色系统 */
+  --text-primary: #1C1C1E;
+  --text-secondary: #3C3C43;
+  --text-muted: #8E8E93;
+  --text-on-primary: #FFFFFF;
+
+  /* 边框与阴影 */
+  --border-color: rgba(60, 60, 67, 0.12);
+  --border-light: rgba(60, 60, 67, 0.06);
+  --shadow-color: rgba(0, 0, 0, 0.08);
+  --shadow-card: 0 2rpx 16rpx rgba(0, 0, 0, 0.08);
+  --shadow-button: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+
+  /* 图标渐变色（粉彩系列）*/
+  --icon-bg-primary: linear-gradient(135deg, #A5B4FC, #C7D2FE);
+  --icon-bg-secondary: linear-gradient(135deg, #F9A8D4, #FBCFE8);
+  --icon-bg-success: linear-gradient(135deg, #86EFAC, #BBF7D0);
+  --icon-bg-warning: linear-gradient(135deg, #FCD34D, #FDE68A);
+  --icon-bg-accent: linear-gradient(135deg, #67E8F9, #A5F3FC);
+  --icon-bg-danger: linear-gradient(135deg, #FCA5A5, #FECACA);
+
+  /* 按钮配色 */
+  --button-primary-bg: #6366f1;
+  --button-primary-text: #ffffff;
+  --button-secondary-bg: #E5E5EA;
+  --button-secondary-text: #3C3C43;
+  --button-danger-bg: #FEE2E2;
+  --button-danger-text: #EF4444;
+
+  /* 卡片状态 */
+  --card-active-bg: rgba(99, 102, 241, 0.08);
+  --card-hover-bg: rgba(99, 102, 241, 0.04);
+
+  /* 输入框焦点 */
+  --input-focus-border: rgba(99, 102, 241, 0.4);
+  --input-focus-shadow: 0 0 0 4rpx rgba(99, 102, 241, 0.1);
+
+  /* 导航栏 */
+  --nav-bg: #FFFFFF;
+  --nav-text: #1C1C1E;
+
+  /* TabBar */
+  --tabbar-bg: #FFFFFF;
+  --tabbar-color: #8E8E93;
+  --tabbar-active: #6366f1;
+
+  /* 装饰渐变（极淡）*/
+  --gradient-shape-1: rgba(99, 102, 241, 0.03);
+  --gradient-shape-2: rgba(236, 72, 153, 0.02);
+}
+
+/* 全局背景装饰 */
 page::before {
   content: '';
   position: fixed;
@@ -39,13 +164,13 @@ page::before {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+    radial-gradient(circle at 20% 80%, var(--gradient-shape-1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, var(--gradient-shape-2) 0%, transparent 50%);
   pointer-events: none;
   z-index: -1;
 }
 
-/* 动画关键帧 */
+/* ==================== 动画关键帧 ==================== */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(30rpx); }
   to { opacity: 1; transform: translateY(0); }
@@ -77,16 +202,29 @@ page::before {
 .float-animation { animation: float 3s ease-in-out infinite; }
 .glow-animation { animation: glow 2s ease-in-out infinite; }
 
-.container { padding: 24rpx; min-height: 100vh; }
+/* ==================== 容器与卡片 ==================== */
+.container {
+  padding: 24rpx;
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
 
 .glass-card {
-  background: var(--bg-glass);
+  background: var(--bg-card);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1rpx solid var(--border-color);
   border-radius: 24rpx;
   padding: 30rpx;
   margin-bottom: 24rpx;
+  box-shadow: var(--shadow-card);
+}
+
+/* 亮色模式下卡片更突出 */
+page.theme-light .glass-card {
+  background: #FFFFFF;
+  border: none;
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.08), 0 1rpx 2rpx rgba(0, 0, 0, 0.04);
 }
 
 .gradient-text {
@@ -103,18 +241,18 @@ page::before {
 /* Cell 单元格 */
 .van-cell {
   background: transparent !important;
-  color: #fff !important;
+  color: var(--text-primary) !important;
   padding: 28rpx 24rpx !important;
 }
 
 .van-cell::after {
-  border-color: rgba(99, 102, 241, 0.1) !important;
+  border-color: var(--border-light) !important;
   left: 24rpx !important;
   right: 24rpx !important;
 }
 
-.van-cell__title { color: #a1a1aa !important; }
-.van-cell__value { color: #fff !important; }
+.van-cell__title { color: var(--text-secondary) !important; }
+.van-cell__value { color: var(--text-primary) !important; }
 .van-cell-group { background: transparent !important; }
 
 /* Field 输入框 */
@@ -124,134 +262,169 @@ page::before {
 }
 
 .van-field__label {
-  color: #a1a1aa !important;
+  color: var(--text-secondary) !important;
   font-size: 28rpx !important;
   width: auto !important;
   min-width: 120rpx !important;
 }
 
-.van-field__control { color: #fff !important; font-size: 28rpx !important; }
-.van-field__control::placeholder { color: #71717a !important; }
-.van-field__left-icon { color: #818cf8 !important; font-size: 36rpx !important; }
-.van-field__right-icon { color: #71717a !important; }
+.van-field__control {
+  color: var(--text-primary) !important;
+  font-size: 28rpx !important;
+}
+
+.van-field__control::placeholder {
+  color: var(--text-muted) !important;
+}
+
+.van-field__left-icon {
+  color: var(--primary-light) !important;
+  font-size: 36rpx !important;
+}
+
+.van-field__right-icon {
+  color: var(--text-muted) !important;
+}
 
 /* Button 按钮 */
 .van-button--primary {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+  background: var(--button-primary-bg) !important;
   border: none !important;
   font-weight: 600 !important;
+  color: var(--button-primary-text) !important;
+  box-shadow: var(--shadow-button) !important;
 }
 
 .van-button--danger {
-  background: linear-gradient(135deg, #ef4444, #f87171) !important;
+  background: var(--danger-color) !important;
   border: none !important;
 }
 
 .van-button--default {
-  background: rgba(99, 102, 241, 0.1) !important;
-  border: 1rpx solid rgba(99, 102, 241, 0.3) !important;
-  color: #818cf8 !important;
+  background: var(--button-secondary-bg) !important;
+  border: 1rpx solid var(--border-color) !important;
+  color: var(--button-secondary-text) !important;
 }
 
 .van-button--round { border-radius: 48rpx !important; }
 
 /* Tag 标签 */
 .van-tag--primary {
-  background: rgba(99, 102, 241, 0.2) !important;
-  color: #818cf8 !important;
-  border: 1rpx solid rgba(99, 102, 241, 0.3) !important;
+  background: rgba(99, 102, 241, 0.15) !important;
+  color: var(--primary-color) !important;
+  border: none !important;
 }
 
 .van-tag--success {
-  background: rgba(16, 185, 129, 0.2) !important;
-  color: #34d399 !important;
-  border: 1rpx solid rgba(16, 185, 129, 0.3) !important;
+  background: rgba(16, 185, 129, 0.15) !important;
+  color: var(--success-color) !important;
+  border: none !important;
 }
 
 .van-tag--danger {
-  background: rgba(239, 68, 68, 0.2) !important;
-  color: #f87171 !important;
-  border: 1rpx solid rgba(239, 68, 68, 0.3) !important;
+  background: rgba(239, 68, 68, 0.15) !important;
+  color: var(--danger-color) !important;
+  border: none !important;
 }
 
 /* Search 搜索框 */
-.van-search { background: transparent !important; padding: 16rpx !important; }
+.van-search {
+  background: transparent !important;
+  padding: 16rpx !important;
+}
 
 .van-search__content {
-  background: rgba(99, 102, 241, 0.1) !important;
-  border: 1rpx solid rgba(99, 102, 241, 0.2) !important;
+  background: var(--bg-input) !important;
+  border: none !important;
   border-radius: 32rpx !important;
 }
 
-.van-search__content input { color: #fff !important; }
-.van-search__content input::placeholder { color: #71717a !important; }
+.van-search__content input {
+  color: var(--text-primary) !important;
+}
+
+.van-search__content input::placeholder {
+  color: var(--text-muted) !important;
+}
 
 /* Switch 开关 */
-.van-switch { background: rgba(99, 102, 241, 0.3) !important; }
-.van-switch--on { background: linear-gradient(135deg, #6366f1, #8b5cf6) !important; }
+.van-switch {
+  background: rgba(99, 102, 241, 0.3) !important;
+}
+
+.van-switch--on {
+  background: var(--primary-color) !important;
+}
 
 /* Popup 弹出层 */
 .van-popup {
-  background: rgba(15, 15, 35, 0.98) !important;
-  backdrop-filter: blur(20px) !important;
+  background: var(--bg-primary) !important;
 }
 
 .van-popup--bottom {
-  border-top: 1rpx solid rgba(99, 102, 241, 0.2) !important;
+  border-top: 1rpx solid var(--border-light) !important;
   border-radius: 24rpx 24rpx 0 0 !important;
 }
 
 /* Picker 选择器 */
 .van-picker__toolbar { padding: 24rpx !important; }
-.van-picker__title { color: #fff !important; font-size: 32rpx !important; font-weight: 600 !important; }
-.van-picker__cancel { color: #71717a !important; }
-.van-picker__confirm { color: #818cf8 !important; font-weight: 600 !important; }
-.van-picker-column__item { color: #a1a1aa !important; }
-.van-picker-column__item--selected { color: #fff !important; }
+.van-picker__title {
+  color: var(--text-primary) !important;
+  font-size: 32rpx !important;
+  font-weight: 600 !important;
+}
+.van-picker__cancel { color: var(--text-muted) !important; }
+.van-picker__confirm {
+  color: var(--primary-color) !important;
+  font-weight: 600 !important;
+}
+.van-picker-column__item { color: var(--text-secondary) !important; }
+.van-picker-column__item--selected { color: var(--text-primary) !important; }
 
 /* Dialog 对话框 */
 .van-dialog {
-  background: rgba(30, 30, 60, 0.98) !important;
-  backdrop-filter: blur(20px) !important;
-  border: 1rpx solid rgba(99, 102, 241, 0.2) !important;
+  background: var(--bg-secondary) !important;
+  border: 1rpx solid var(--border-light) !important;
   border-radius: 24rpx !important;
 }
 
-.van-dialog__header { color: #fff !important; }
-.van-dialog__message { color: #a1a1aa !important; }
-.van-dialog__confirm { color: #818cf8 !important; }
-.van-dialog__cancel { color: #71717a !important; }
+.van-dialog__header { color: var(--text-primary) !important; }
+.van-dialog__message { color: var(--text-secondary) !important; }
+.van-dialog__confirm { color: var(--primary-color) !important; }
+.van-dialog__cancel { color: var(--text-muted) !important; }
 
 /* Notice Bar 通知栏 */
-.van-notice-bar { border-radius: 16rpx !important; margin: 16rpx 0 !important; }
+.van-notice-bar {
+  border-radius: 16rpx !important;
+  margin: 16rpx 0 !important;
+}
 
 /* Empty 空状态 */
-.van-empty__description { color: #71717a !important; }
+.van-empty__description { color: var(--text-muted) !important; }
 
 /* Loading 加载 */
-.van-loading { color: #818cf8 !important; }
-.van-loading__text { color: #a1a1aa !important; }
+.van-loading { color: var(--primary-color) !important; }
+.van-loading__text { color: var(--text-secondary) !important; }
 
 /* Icon 图标 */
 .van-icon { color: inherit; }
 
 /* Tabbar 底部导航栏 */
 .van-tabbar {
-  background: #0f0f23 !important;
-  border-top: none !important;
+  background: var(--tabbar-bg) !important;
+  border-top: 1rpx solid var(--border-light) !important;
   box-sizing: border-box !important;
   height: 120rpx !important;
   padding-top: 16rpx !important;
 }
 
-/* 移除 tabbar 白边 */
 .van-tabbar::before,
 .van-tabbar::after {
   display: none !important;
 }
 
 .van-tabbar-item {
-  color: #71717a !important;
+  color: var(--tabbar-color) !important;
   background: transparent !important;
   padding: 12rpx 0 !important;
 }
@@ -262,7 +435,7 @@ page::before {
 }
 
 .van-tabbar-item--active {
-  color: #6366f1 !important;
+  color: var(--tabbar-active) !important;
 }
 
 .van-tabbar-item__icon {
@@ -274,20 +447,18 @@ page::before {
   font-size: 24rpx !important;
 }
 
-/* 安全区域背景 - 确保背景延伸到底部 */
+/* 安全区域背景 */
 .van-tabbar--safe {
-  background: #0f0f23 !important;
+  background: var(--tabbar-bg) !important;
   padding-bottom: constant(safe-area-inset-bottom) !important;
   padding-bottom: env(safe-area-inset-bottom) !important;
 }
 
-/* tabbar 容器 */
 .tabbar-container {
-  background: #0f0f23 !important;
+  background: var(--tabbar-bg) !important;
 }
 
 /* ==================== 工具类 ==================== */
-
 .text-center { text-align: center; }
 .flex { display: flex; }
 .flex-center { display: flex; align-items: center; justify-content: center; }
@@ -299,4 +470,33 @@ page::before {
 .safe-area-bottom {
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ==================== 亮色模式特殊优化 ==================== */
+
+/* 亮色模式下的输入框 */
+page.theme-light .van-field__control {
+  background: var(--bg-input);
+}
+
+/* 亮色模式下的分割线 */
+page.theme-light .van-cell::after {
+  border-color: rgba(60, 60, 67, 0.12) !important;
+}
+
+/* 亮色模式下的 TabBar */
+page.theme-light .van-tabbar {
+  border-top: 1rpx solid rgba(60, 60, 67, 0.12) !important;
+}
+
+/* 亮色模式下的按钮阴影 */
+page.theme-light .van-button--primary {
+  box-shadow: 0 2rpx 8rpx rgba(99, 102, 241, 0.2) !important;
+}
+
+/* 亮色模式下的次按钮 */
+page.theme-light .van-button--default {
+  background: #E5E5EA !important;
+  color: #3C3C43 !important;
+  border: none !important;
 }

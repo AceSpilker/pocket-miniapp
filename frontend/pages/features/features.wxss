@@ -1,0 +1,268 @@
+/* 功能中心页 */
+
+.page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  position: relative;
+}
+
+/* 动态背景 */
+.bg-shapes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.shape-1 {
+  position: absolute;
+  width: 400rpx;
+  height: 400rpx;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.2;
+  top: -100rpx;
+  right: -100rpx;
+}
+
+/* 顶部固定操作栏 */
+.header-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx;
+  background: var(--bg-primary);
+  border-bottom: 1rpx solid var(--border-light);
+}
+
+.header-info {
+  flex: 1;
+}
+
+.header-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.header-desc {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+}
+
+.edit-btn {
+  padding: 16rpx 32rpx;
+  background: var(--bg-card);
+  border-radius: 32rpx;
+  border: 1rpx solid var(--border-light);
+  flex-shrink: 0;
+  margin-left: 16rpx;
+}
+
+.edit-btn text {
+  font-size: 26rpx;
+  color: var(--primary-color);
+}
+
+.edit-btn.active {
+  background: var(--primary-color);
+}
+
+.edit-btn.active text {
+  color: #ffffff;
+}
+
+/* 滚动区域 */
+.feature-scroll {
+  position: fixed;
+  top: 140rpx;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* 功能列表 */
+.feature-list {
+  padding: 24rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  background: var(--bg-card);
+  border-radius: 16rpx;
+  border: 1rpx solid var(--border-light);
+  margin-bottom: 16rpx;
+  padding: 24rpx;
+  position: relative;
+  min-height: 136rpx;
+  box-sizing: border-box;
+}
+
+.feature-item:active {
+  background: var(--card-active-bg);
+}
+
+.feature-item.disabled {
+  opacity: 0.6;
+}
+
+.feature-item.edit-mode {
+  border: 2rpx dashed var(--primary-color);
+}
+
+/* 功能内容 */
+.feature-content {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  overflow: hidden;
+}
+
+.feature-icon-wrap {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 18rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon-text {
+  font-size: 44rpx;
+}
+
+.feature-info {
+  flex: 1;
+  overflow: hidden;
+}
+
+.feature-name {
+  font-size: 30rpx;
+  color: var(--text-primary);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+.feature-desc {
+  font-size: 24rpx;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  margin-top: 4rpx;
+}
+
+/* 开发中标签 */
+.dev-tag {
+  position: absolute;
+  top: 8rpx;
+  right: 8rpx;
+  font-size: 20rpx;
+  padding: 4rpx 12rpx;
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--warning-color);
+  border-radius: 12rpx;
+}
+
+/* 首页标识 */
+.home-badge {
+  position: absolute;
+  top: 8rpx;
+  right: 8rpx;
+  font-size: 28rpx;
+}
+
+/* 编辑模式操作按钮 */
+.edit-actions {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-left: 16rpx;
+}
+
+.action-btn {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+}
+
+.move-btn {
+  background: var(--bg-input);
+  color: var(--text-secondary);
+}
+
+.move-btn:active {
+  background: var(--primary-color);
+  color: #ffffff;
+}
+
+.home-btn {
+  background: var(--bg-input);
+}
+
+.home-btn.active {
+  background: var(--primary-color);
+}
+
+.home-btn text {
+  font-size: 24rpx;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 24rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 24rpx;
+}
+
+.empty-text {
+  font-size: 32rpx;
+  color: var(--text-primary);
+}
+
+/* 加载状态 */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 24rpx;
+  color: var(--text-muted);
+  font-size: 28rpx;
+  position: relative;
+  z-index: 1;
+}

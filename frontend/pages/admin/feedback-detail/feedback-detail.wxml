@@ -1,0 +1,79 @@
+<view class="page" style="{{cssVars}}" wx:if="{{!loading && feedback}}">
+  <!-- 用户信息 -->
+  <view class="user-card">
+    <view class="user-avatar">
+      <text>{{avatarText}}</text>
+    </view>
+    <view class="user-info">
+      <text class="user-name">{{feedback.nickname || feedback.username || '用户'}}</text>
+      <view class="feedback-meta">
+        <view class="feedback-status status-{{feedback.status}}">
+          {{feedback.status === 'pending' ? '待处理' : feedback.status === 'replied' ? '已回复' : '已解决'}}
+        </view>
+        <text class="version-tag">版本 v{{feedback.version}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 当前版本 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">📝 当前内容</text>
+      <text class="section-time">{{feedback.updated_at}}</text>
+    </view>
+    <view class="section-content">
+      <text class="content-title">{{feedback.title}}</text>
+      <text class="content-body" wx:if="{{feedback.content}}">{{feedback.content}}</text>
+    </view>
+  </view>
+
+  <!-- 版本历史（包含每个版本的回复） -->
+  <view class="section" wx:if="{{versions.length > 0}}">
+    <view class="section-header clickable" bindtap="toggleVersions">
+      <text class="section-title">📜 版本历史 ({{versions.length}})</text>
+      <text class="toggle-icon">{{showVersions ? '收起' : '展开'}}</text>
+    </view>
+    <view class="versions-list" wx:if="{{showVersions}}">
+      <view class="version-item" wx:for="{{versions}}" wx:key="id">
+        <view class="version-header">
+          <text class="version-num">版本 {{item.version}}</text>
+          <text class="version-time">{{item.created_at}}</text>
+        </view>
+        <text class="version-title">{{item.title}}</text>
+        <text class="version-content" wx:if="{{item.content}}">{{item.content}}</text>
+        <!-- 该版本的回复 -->
+        <view class="version-reply" wx:if="{{item.reply}}">
+          <view class="version-reply-header">
+            <text class="version-reply-label">📢 此版本回复</text>
+            <text class="version-reply-time">{{item.replied_at}}</text>
+          </view>
+          <text class="version-reply-content">{{item.reply}}</text>
+          <text class="version-reply-author">回复人: {{item.replier_name || '管理员'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 回复表单 -->
+  <view class="section reply-section">
+    <view class="section-header">
+      <text class="section-title">✏️ 回复</text>
+    </view>
+    <textarea
+      class="reply-input"
+      placeholder="请输入回复内容..."
+      value="{{reply}}"
+      bindinput="onReplyInput"
+      maxlength="2000"
+    />
+    <button class="submit-btn" bindtap="handleSubmitReply" loading="{{saving}}">
+      提交回复
+    </button>
+  </view>
+</view>
+
+<!-- 加载状态 -->
+<view class="loading-page" style="{{cssVars}}" wx:if="{{loading}}">
+  <van-loading size="48rpx" color="var(--primary-color)" />
+  <text>加载中...</text>
+</view>

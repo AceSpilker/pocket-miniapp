@@ -1,22 +1,38 @@
 const app = getApp()
 const { get } = require('../../utils/request')
+const themeManager = require('../../utils/theme-manager')
+const { getInitialThemeData, applyThemeToPage } = require('../../utils/theme-helpers')
 
 Page({
   data: {
     hasLogin: false,
     userInfo: null,
     latestAnnouncements: [],
-    features: [
-      { icon: '✅', name: '待办清单', desc: '管理日常任务', url: '', bgColor: 'linear-gradient(135deg, #6366f1, #8b5cf6)' },
-      { icon: '📝', name: '随手记', desc: '快速记录想法', url: '', bgColor: 'linear-gradient(135deg, #ec4899, #f472b6)' },
-      { icon: '📅', name: '日程管理', desc: '合理安排时间', url: '', bgColor: 'linear-gradient(135deg, #f59e0b, #fbbf24)' },
-      { icon: '📊', name: '数据看板', desc: '可视化统计', url: '', bgColor: 'linear-gradient(135deg, #06b6d4, #22d3ee)' },
-    ]
+    features: [],
+    ...getInitialThemeData()
+  },
+
+  onLoad() {
+    this._unsubscribe = themeManager.addListener(() => {
+      applyThemeToPage(this)
+    })
+  },
+
+  onUnload() {
+    if (this._unsubscribe) {
+      this._unsubscribe()
+    }
   },
 
   onShow() {
+    // 重置滚动位置到顶部
+    wx.pageScrollTo({ scrollTop: 0, duration: 0 })
+
+    applyThemeToPage(this)
+    themeManager.refreshNavBar()
     this.checkLoginStatus()
     this.loadLatestAnnouncements()
+    this.loadFeatures()
     // 设置 tabBar 选中状态
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       this.getTabBar().setActive(0)
@@ -29,6 +45,19 @@ Page({
       hasLogin: app.isLoggedIn(),
       userInfo
     })
+  },
+
+  async loadFeatures() {
+    if (!app.isLoggedIn()) {
+      this.setData({ features: [] })
+      return
+    }
+    try {
+      const data = await get('/features/home')
+      this.setData({ features: data.items || [] })
+    } catch (err) {
+      console.error('加载功能失败', err)
+    }
   },
 
   async loadLatestAnnouncements() {
@@ -72,12 +101,22 @@ Page({
     wx.navigateTo({ url: `/pages/announcement-detail/announcement-detail?id=${id}` })
   },
 
+  goFeatures() {
+    wx.navigateTo({ url: '/pages/features/features' })
+  },
+
   onFeatureTap(e) {
-    const { url } = e.currentTarget.dataset
-    if (url) {
-      wx.navigateTo({ url })
-    } else {
-      wx.showToast({ title: '🚧 功能开发中', icon: 'none' })
+    const feature = e.currentTarget.dataset.feature
+    if (!feature) {
+      wx.showToast({ title: '功能开发中', icon: 'none' })
+      return
+    }
+    if (!feature.is_enabled) {
+      wx.showToast({ title: '功能开发中，敬请期待', icon: 'none' })
+      return
+    }
+    if (feature.path) {
+      wx.navigateTo({ url: feature.path })
     }
   }
 })

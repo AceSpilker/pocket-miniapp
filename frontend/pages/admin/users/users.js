@@ -1,29 +1,45 @@
 const app = getApp()
-const { get, del, put } = require('../../../utils/request')
+const { get, post, put, del } = require('../../../utils/request')
 const ui = require('../../../utils/ui')
+const themeManager = require('../../../utils/theme-manager')
+const { getInitialThemeData, applyThemeToPage } = require('../../../utils/theme-helpers')
+const Dialog = require('@vant/weapp/dialog/dialog')
 
 Page({
   data: {
-    hasAccess: false,
+    loading: false,
     users: [],
-    total: 0,
     page: 1,
     pageSize: 20,
+    total: 0,
     keyword: '',
-    loading: false
+    hasAccess: false,
+    ...getInitialThemeData()
   },
 
   onLoad() {
+    this._unsubscribe = themeManager.addListener(() => {
+      applyThemeToPage(this)
+    })
+
     if (!app.hasPermission('admin:access')) {
       wx.showToast({ title: '无权限', icon: 'none' })
-      wx.navigateBack()
+      setTimeout(() => wx.navigateBack(), 1000)
       return
     }
     this.setData({ hasAccess: true })
     this.loadUsers()
   },
 
+  onUnload() {
+    if (this._unsubscribe) {
+      this._unsubscribe()
+    }
+  },
+
   onShow() {
+    applyThemeToPage(this)
+    themeManager.refreshNavBar()
     if (this.data.hasAccess) this.loadUsers()
   },
 
@@ -44,7 +60,7 @@ Page({
   },
 
   onKeywordChange(e) {
-    this.setData({ keyword: e.detail, page: 1 })
+    this.setData({ keyword: e.detail.value, page: 1 })
   },
 
   onSearch() {
@@ -68,50 +84,46 @@ Page({
     const username = e.currentTarget.dataset.username
     const isActive = e.currentTarget.dataset.isActive
 
-    // 使用统一的确认弹窗
-    const confirmed = isActive
-      ? await ui.confirmDisable(username)
-      : await ui.confirmEnable(username)
+    const action = isActive ? '禁用' : '启用'
 
-    if (!confirmed) return
-
-    try {
-      // 调用 PUT 接口更新 is_active 字段
-      await put(`/admin/users/${id}`, { is_active: !isActive })
-      ui.success(isActive ? '已禁用用户' : '已启用用户')
-      this.loadUsers()
-    } catch (err) {
-      ui.error(err.detail || '操作失败')
-    }
+    Dialog.confirm({
+      title: `确认${action}`,
+      message: `确定要${action}用户 "${username}" 吗？`,
+    }).then(async () => {
+      try {
+        await put(`/admin/users/${id}`, { is_active: !isActive })
+        wx.showToast({ title: `已${action}`, icon: 'success' })
+        this.loadUsers()
+      } catch (err) {
+        wx.showToast({ title: err.detail || `${action}失败`, icon: 'none' })
+      }
+    }).catch(() => {})
   },
 
   /**
-   * 删除用户
+   * 重置用户密码
    */
-  async handleDelete(e) {
+  async handleResetPassword(e) {
     const id = e.currentTarget.dataset.id
     const username = e.currentTarget.dataset.username
 
-    // 使用统一的确认弹窗
-    const confirmed = await ui.confirmDelete(`确定要删除用户「${username}」吗？`)
-    if (!confirmed) return
-
-    try {
-      await del(`/admin/users/${id}`)
-      ui.success('已删除')
-      this.loadUsers()
-    } catch (err) {
-      ui.error(err.detail || '删除失败')
-    }
+    Dialog.confirm({
+      title: '重置密码',
+      message: `确定要重置用户 "${username}" 的密码吗？新密码将发送到其邮箱。`,
+    }).then(async () => {
+      try {
+        await post(`/admin/users/${id}/reset-password`)
+        wx.showToast({ title: '密码已重置', icon: 'success' })
+      } catch (err) {
+        wx.showToast({ title: err.detail || '重置失败', icon: 'none' })
+      }
+    }).catch(() => {})
   },
 
-  /**
-   * 显示顶部提示（供 ui.js 调用）
-   */
-  showTopToast(message, type, duration) {
-    const toast = this.selectComponent('#top-toast')
-    if (toast) {
-      toast.show(message, type, duration)
+  onReachBottom() {
+    if (this.data.users.length < this.data.total) {
+      this.setData({ page: this.data.page + 1 })
+      this.loadUsers()
     }
   }
 })

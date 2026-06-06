@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "页面内容",
+  "usingComponents": {
+    "van-loading": "@vant/weapp/loading/index"
+  }
+}

@@ -1,5 +1,8 @@
 const app = getApp()
 const { get, post, put } = require('../../../utils/request')
+const themeManager = require('../../../utils/theme-manager')
+const { getInitialThemeData, applyThemeToPage } = require('../../../utils/theme-helpers')
+const { validatePhone, validateEmail, validateUsername } = require('../../../utils/validate')
 
 Page({
   data: {
@@ -13,10 +16,15 @@ Page({
     isActive: true,
     saving: false,
     errorMsg: '',
-    successMsg: ''
+    successMsg: '',
+    ...getInitialThemeData()
   },
 
   onLoad(options) {
+    this._unsubscribe = themeManager.addListener(() => {
+      applyThemeToPage(this)
+    })
+
     if (!app.hasPermission('admin:access')) {
       wx.showToast({ title: '无权限', icon: 'none' })
       wx.navigateBack()
@@ -29,6 +37,16 @@ Page({
     } else {
       wx.setNavigationBarTitle({ title: '创建用户' })
     }
+  },
+
+  onUnload() {
+    if (this._unsubscribe) {
+      this._unsubscribe()
+    }
+  },
+
+  onShow() {
+    themeManager.refreshNavBar()
   },
 
   async loadUser(id) {
@@ -49,32 +67,53 @@ Page({
     }
   },
 
-  onUsernameInput(e) { this.setData({ username: e.detail, errorMsg: '' }) },
-  onNicknameInput(e) { this.setData({ nickname: e.detail }) },
-  onPhoneInput(e) { this.setData({ phone: e.detail }) },
-  onEmailInput(e) { this.setData({ email: e.detail, errorMsg: '' }) },
-  onActiveChange(e) { this.setData({ isActive: e.detail }) },
+  onUsernameInput(e) { this.setData({ username: e.detail.value, errorMsg: '' }) },
+  onNicknameInput(e) { this.setData({ nickname: e.detail.value }) },
+  onPhoneInput(e) { this.setData({ phone: e.detail.value, errorMsg: '' }) },
+  onEmailInput(e) { this.setData({ email: e.detail.value, errorMsg: '' }) },
+  onActiveChange(e) { this.setData({ isActive: e.detail.value }) },
 
   async handleSave() {
-    const { isEdit, userId, username, email } = this.data
+    const { isEdit, userId, username, phone, email } = this.data
 
-    if (!isEdit && !username.trim()) {
-      this.setData({ errorMsg: '请输入用户名' })
-      return
+    // 新建时校验用户名
+    if (!isEdit) {
+      const usernameResult = validateUsername(username)
+      if (!usernameResult.valid) {
+        this.setData({ errorMsg: usernameResult.message })
+        return
+      }
     }
-    if (!isEdit && !email.trim()) {
+
+    // 新建时邮箱必填
+    if (!isEdit && (!email || !email.trim())) {
       this.setData({ errorMsg: '请输入邮箱（用于接收账号信息）' })
       return
     }
+
+    // 手机号校验
+    const phoneResult = validatePhone(phone)
+    if (!phoneResult.valid) {
+      this.setData({ errorMsg: phoneResult.message })
+      return
+    }
+
+    // 邮箱校验
+    const emailResult = validateEmail(email, !isEdit)
+    if (!emailResult.valid) {
+      this.setData({ errorMsg: emailResult.message })
+      return
+    }
+
     if (this.data.saving) return
     this.setData({ saving: true, errorMsg: '' })
 
     try {
       if (isEdit) {
         await put(`/admin/users/${userId}`, {
-          nickname: this.data.nickname,
-          phone: this.data.phone,
-          email: this.data.email,
+          nickname: this.data.nickname || null,
+          phone: phone.trim() || null,
+          email: email.trim() || null,
           is_active: this.data.isActive,
         })
         wx.showToast({ title: '已更新', icon: 'success' })
@@ -82,7 +121,7 @@ Page({
         const user = await post('/admin/users', {
           username: username.trim(),
           nickname: this.data.nickname || username.trim(),
-          phone: this.data.phone,
+          phone: phone.trim() || null,
           email: email.trim(),
         })
         this.setData({ userId: user.id, isEdit: true })

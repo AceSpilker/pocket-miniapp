@@ -1,10 +1,10 @@
-/* 用户管理页 - 炫酷科技风 */
+/* 用户管理页 - 主题适配样式 */
 
 .page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(180deg, #0f0f23 0%, #1a1a3e 100%);
+  background: var(--bg-primary);
 }
 
 /* 固定头部区域 */
@@ -14,7 +14,7 @@
   left: 0;
   right: 0;
   z-index: 100;
-  background: linear-gradient(180deg, #0f0f23 0%, rgba(15, 15, 35, 0.98) 100%);
+  background: var(--bg-primary);
   padding-top: 16rpx;
 }
 
@@ -22,8 +22,8 @@
 .search-section {
   margin: 0 24rpx 16rpx;
   padding: 0;
-  background: rgba(30, 30, 60, 0.6) !important;
-  border: 1rpx solid rgba(99, 102, 241, 0.2) !important;
+  background: var(--bg-card) !important;
+  border: 1rpx solid var(--border-color) !important;
 }
 
 .search-section .van-search {
@@ -31,7 +31,7 @@
 }
 
 .search-btn {
-  color: #818cf8;
+  color: var(--primary-light);
   font-weight: 500;
   font-size: 28rpx;
 }
@@ -42,16 +42,16 @@
   justify-content: space-between;
   align-items: center;
   padding: 16rpx 24rpx;
-  border-bottom: 1rpx solid rgba(99, 102, 241, 0.1);
+  border-bottom: 1rpx solid var(--border-light);
 }
 
 .total {
   font-size: 26rpx;
-  color: #a1a1aa;
+  color: var(--text-secondary);
 }
 
 .create-btn {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-light)) !important;
   border: none !important;
   border-radius: 32rpx !important;
   height: 64rpx !important;
@@ -63,7 +63,7 @@
 /* 可滚动列表区域 */
 .scroll-content {
   flex: 1;
-  padding-top: 280rpx; /* 头部高度 */
+  padding-top: 280rpx;
   min-height: 100vh;
 }
 
@@ -72,7 +72,7 @@
   display: flex;
   justify-content: center;
   padding: 80rpx 0;
-  color: #a1a1aa;
+  color: var(--text-secondary);
 }
 
 /* 用户列表 */
@@ -83,10 +83,10 @@
 .user-item {
   margin-bottom: 20rpx;
   padding: 0;
-  background: rgba(30, 30, 60, 0.6);
+  background: var(--bg-card);
   backdrop-filter: blur(10px);
-  border: 1rpx solid rgba(99, 102, 241, 0.15);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  border: 1rpx solid var(--border-light);
+  box-shadow: var(--shadow-card);
   overflow: hidden;
 }
 
@@ -100,7 +100,7 @@
   width: 80rpx;
   height: 80rpx;
   border-radius: 50%;
-  background: linear-gradient(135deg, #6366f1, #ec4899);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   color: #fff;
   display: flex;
   align-items: center;
@@ -108,7 +108,7 @@
   font-size: 32rpx;
   font-weight: 600;
   margin-right: 20rpx;
-  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 15px var(--shadow-color);
   overflow: hidden;
 }
 
@@ -126,14 +126,14 @@
 .user-name {
   font-size: 30rpx;
   font-weight: 500;
-  color: #fff;
+  color: var(--text-primary);
   display: block;
   margin-bottom: 6rpx;
 }
 
 .user-account {
   font-size: 24rpx;
-  color: #71717a;
+  color: var(--text-muted);
 }
 
 /* 标签 */
@@ -146,7 +146,7 @@
 /* 操作按钮 */
 .user-actions {
   display: flex;
-  border-top: 1rpx solid rgba(99, 102, 241, 0.1);
+  border-top: 1rpx solid var(--border-light);
 }
 
 .action-btn {
@@ -162,20 +162,20 @@
 }
 
 .action-btn.edit {
-  color: #818cf8;
-  border-right: 1rpx solid rgba(99, 102, 241, 0.1);
+  color: var(--primary-light);
+  border-right: 1rpx solid var(--border-light);
 }
 
 .action-btn.disable {
-  color: #f59e0b;
-  border-right: 1rpx solid rgba(99, 102, 241, 0.1);
+  color: var(--warning-color);
+  border-right: 1rpx solid var(--border-light);
 }
 
 .action-btn.enable {
-  color: #10b981;
-  border-right: 1rpx solid rgba(99, 102, 241, 0.1);
+  color: var(--success-color);
+  border-right: 1rpx solid var(--border-light);
 }
 
 .action-btn.delete {
-  color: #f87171;
+  color: var(--danger-color);
 }

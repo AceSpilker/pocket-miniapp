@@ -2,10 +2,32 @@
 管理后台 Schema
 """
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from typing import Optional, List
 from datetime import datetime
 from schemas.auth import UserOut
+import re
+
+
+def validate_phone(phone: Optional[str]) -> Optional[str]:
+    """手机号格式校验"""
+    if phone is None or phone == '':
+        return None
+    # 中国大陆手机号：1开头，共11位数字
+    if not re.match(r'^1[3-9]\d{9}$', phone):
+        raise ValueError('手机号格式不正确，应为11位数字且以1开头')
+    return phone
+
+
+def validate_email(email: Optional[str]) -> Optional[str]:
+    """邮箱格式校验"""
+    if email is None or email == '':
+        return None
+    # 基础邮箱格式校验
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if not re.match(pattern, email):
+        raise ValueError('邮箱格式不正确')
+    return email.lower()  # 统一转小写
 
 
 # ========== 权限 ==========
@@ -66,12 +88,34 @@ class UserManageCreate(BaseModel):
     phone: Optional[str] = None
     email: str = Field(..., description="必填，用于接收账号信息")
 
+    @field_validator('phone')
+    @classmethod
+    def validate_phone_field(cls, v):
+        return validate_phone(v)
+
+    @field_validator('email')
+    @classmethod
+    def validate_email_field(cls, v):
+        if v is None or v == '':
+            raise ValueError('邮箱不能为空')
+        return validate_email(v)
+
 
 class UserManageUpdate(BaseModel):
     nickname: Optional[str] = None
     phone: Optional[str] = None
     email: Optional[str] = None
     is_active: Optional[bool] = None
+
+    @field_validator('phone')
+    @classmethod
+    def validate_phone_field(cls, v):
+        return validate_phone(v)
+
+    @field_validator('email')
+    @classmethod
+    def validate_email_field(cls, v):
+        return validate_email(v)
 
 
 class UserRoleAssign(BaseModel):

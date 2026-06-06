@@ -1,0 +1,46 @@
+<view class="page" style="{{cssVars}}" wx:if="{{hasAccess}}">
+
+  <!-- Tab 筛选 -->
+  <view class="tabs">
+    <view class="tab {{activeTab === '' ? 'active' : ''}}" bindtap="onTabChange" data-tab="">全部</view>
+    <view class="tab {{activeTab === 'pending' ? 'active' : ''}}" bindtap="onTabChange" data-tab="pending">待处理</view>
+    <view class="tab {{activeTab === 'replied' ? 'active' : ''}}" bindtap="onTabChange" data-tab="replied">已回复</view>
+    <view class="tab {{activeTab === 'resolved' ? 'active' : ''}}" bindtap="onTabChange" data-tab="resolved">已解决</view>
+  </view>
+
+  <!-- 反馈列表 -->
+  <view class="feedback-list" wx:if="{{list.length > 0}}">
+    <view class="feedback-item" wx:for="{{list}}" wx:key="id" bindtap="goDetail" data-id="{{item.id}}">
+      <view class="feedback-header">
+        <view class="user-info">
+          <text class="user-name">{{item.nickname || item.username || '用户'}}</text>
+          <text class="feedback-time">{{item.updated_at}}</text>
+        </view>
+        <view class="feedback-status status-{{item.status}}">
+          {{item.status === 'pending' ? '待处理' : item.status === 'replied' ? '已回复' : '已解决'}}
+        </view>
+      </view>
+      <text class="feedback-title">{{item.title}}</text>
+      <view class="feedback-meta">
+        <text class="version-tag">v{{item.version}}</text>
+        <text class="meta-text" wx:if="{{item.admin_reply}}">已回复</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && list.length === 0}}">
+    <text class="empty-icon">📭</text>
+    <text class="empty-text">暂无意见反馈</text>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <van-loading size="24rpx" color="var(--primary-color)" />
+    <text>加载中...</text>
+  </view>
+</view>
+
+<view class="no-access" style="{{cssVars}}" wx:else>
+  <text>🚫 无权限访问</text>
+</view>

@@ -1,4 +1,5 @@
-<view class="login-page">
+<view class="login-page" style="{{cssVars}}">
+
   <!-- 动态背景 -->
   <view class="bg-shapes">
     <view class="shape shape-1"></view>
@@ -9,7 +10,7 @@
   <!-- 顶部品牌区 -->
   <view class="brand-section fade-in-up">
     <view class="brand-icon-wrap glow-animation">
-      <van-icon name="star" size="100rpx" color="#fff" />
+      <van-icon name="star" size="100rpx" custom-style="color: var(--text-primary);" />
     </view>
     <text class="brand-name gradient-text">口袋小程序</text>
     <text class="brand-desc">✨ 轻量个人工具箱 ✨</text>
@@ -106,8 +107,8 @@
   <!-- 协议 -->
   <view class="agreement fade-in" style="animation-delay: 0.3s;">
     <text>登录即代表同意</text>
-    <text class="link">《用户协议》</text>
+    <text class="link" bindtap="goUserAgreement">《用户协议》</text>
     <text>和</text>
-    <text class="link">《隐私政策》</text>
+    <text class="link" bindtap="goPrivacyPolicy">《隐私政策》</text>
   </view>
 </view>

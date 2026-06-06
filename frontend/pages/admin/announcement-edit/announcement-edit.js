@@ -1,6 +1,8 @@
 const app = getApp()
 const { get, post, put } = require('../../../utils/request')
 const ui = require('../../../utils/ui')
+const themeManager = require('../../../utils/theme-manager')
+const { getInitialThemeData, applyThemeToPage } = require('../../../utils/theme-helpers')
 
 Page({
   data: {
@@ -8,14 +10,20 @@ Page({
     isEdit: false,
     id: null,
     title: '',
+    content: '',
     isTop: false,
     isActive: true,
     saving: false,
     errorMsg: '',
-    editorCtx: null
+    editorCtx: null,
+    ...getInitialThemeData()
   },
 
   onLoad(options) {
+    this._unsubscribe = themeManager.addListener(() => {
+      applyThemeToPage(this)
+    })
+
     if (!app.hasPermission('admin:access')) {
       wx.showToast({ title: '无权限', icon: 'none' })
       wx.navigateBack()
@@ -30,179 +38,96 @@ Page({
     }
   },
 
+  onUnload() {
+    if (this._unsubscribe) {
+      this._unsubscribe()
+    }
+  },
+
+  onShow() {
+    themeManager.refreshNavBar()
+  },
+
   onEditorReady() {
     const that = this
     this.createSelectorQuery()
       .select('#editor')
       .context(function (res) {
-        that.editorCtx = res.context
-        // 如果是编辑模式，设置内容
-        if (that.data.editorContent) {
-          that.editorCtx.setContents({
-            html: that.data.editorContent
-          })
+        that.setData({ editorCtx: res.context })
+        if (that.data.content) {
+          res.context.setContents({ html: that.data.content })
         }
       })
       .exec()
+  },
+
+  onEditorInput(e) {
+    this.setData({ content: e.detail.html })
   },
 
   async loadData() {
     try {
       const data = await get(`/admin/announcements/${this.data.id}`)
       this.setData({
-        title: data.title,
-        isTop: data.is_top,
-        isActive: data.is_active,
-        editorContent: data.content
+        title: data.title || '',
+        content: data.content || '',
+        isTop: data.is_top || false,
+        isActive: data.is_active !== false
       })
-      // 设置编辑器内容
-      if (this.editorCtx && data.content) {
-        this.editorCtx.setContents({ html: data.content })
+      if (this.data.editorCtx && this.data.content) {
+        this.data.editorCtx.setContents({ html: this.data.content })
       }
     } catch (err) {
       ui.error('加载失败')
-      setTimeout(() => wx.navigateBack(), 1000)
     }
   },
 
-  onTitleChange(e) {
-    this.setData({ title: e.detail })
+  onTitleInput(e) {
+    this.setData({ title: e.detail.value, errorMsg: '' })
   },
 
   onTopChange(e) {
-    this.setData({ isTop: e.detail })
+    this.setData({ isTop: e.detail.value })
   },
 
   onActiveChange(e) {
-    this.setData({ isActive: e.detail })
-  },
-
-  // 富文本工具栏方法
-  formatBold() {
-    if (this.editorCtx) {
-      this.editorCtx.format('bold')
-    }
-  },
-
-  formatItalic() {
-    if (this.editorCtx) {
-      this.editorCtx.format('italic')
-    }
-  },
-
-  formatUnderline() {
-    if (this.editorCtx) {
-      this.editorCtx.format('underline')
-    }
-  },
-
-  formatHeader() {
-    if (this.editorCtx) {
-      this.editorCtx.format('header', 2)
-    }
-  },
-
-  formatAlignLeft() {
-    if (this.editorCtx) {
-      this.editorCtx.format('align', 'left')
-    }
-  },
-
-  formatAlignCenter() {
-    if (this.editorCtx) {
-      this.editorCtx.format('align', 'center')
-    }
-  },
-
-  insertImage() {
-    const that = this
-    wx.chooseImage({
-      count: 1,
-      sizeType: ['compressed'],
-      sourceType: ['album', 'camera'],
-      success(res) {
-        const tempFilePath = res.tempFilePaths[0]
-        // 转为 base64
-        wx.getFileSystemManager().readFile({
-          filePath: tempFilePath,
-          encoding: 'base64',
-          success(readRes) {
-            const base64 = 'data:image/jpeg;base64,' + readRes.data
-            if (that.editorCtx) {
-              that.editorCtx.insertImage({
-                src: base64,
-                width: '100%',
-                success() {}
-              })
-            }
-          }
-        })
-      }
-    })
-  },
-
-  clearFormat() {
-    if (this.editorCtx) {
-      this.editorCtx.removeFormat()
-    }
-  },
-
-  onStatusChange(e) {
-    // 可以用于显示当前格式状态
+    this.setData({ isActive: e.detail.value })
   },
 
   async handleSave() {
-    // 验证
-    if (!this.data.title.trim()) {
-      this.setData({ errorMsg: '请输入动态标题' })
+    const { isEdit, id, title, content, isTop, isActive } = this.data
+
+    if (!title.trim()) {
+      this.setData({ errorMsg: '请输入标题' })
       return
     }
-
+    if (!content || content === '<p><br></p>') {
+      this.setData({ errorMsg: '请输入内容' })
+      return
+    }
+    if (this.data.saving) return
     this.setData({ saving: true, errorMsg: '' })
 
     try {
-      // 获取编辑器内容
-      let content = ''
-      if (this.editorCtx) {
-        content = await new Promise((resolve) => {
-          this.editorCtx.getContents({
-            success(res) {
-              resolve(res.html || '')
-            },
-            fail() {
-              resolve('')
-            }
-          })
-        })
+      const payload = {
+        title: title.trim(),
+        content,
+        is_top: isTop,
+        is_active: isActive
       }
 
-      const data = {
-        title: this.data.title.trim(),
-        content: content,
-        is_top: this.data.isTop,
-        is_active: this.data.isActive
-      }
-
-      if (this.data.isEdit) {
-        await put(`/admin/announcements/${this.data.id}`, data)
-        ui.success('保存成功')
+      if (isEdit) {
+        await put(`/admin/announcements/${id}`, payload)
+        wx.showToast({ title: '已更新', icon: 'success' })
       } else {
-        await post('/admin/announcements', data)
-        ui.success('发布成功')
+        await post('/admin/announcements', payload)
+        wx.showToast({ title: '已发布', icon: 'success' })
       }
-
-      setTimeout(() => wx.navigateBack(), 800)
+      setTimeout(() => wx.navigateBack(), 1500)
     } catch (err) {
-      this.setData({ errorMsg: err.detail || '操作失败' })
+      this.setData({ errorMsg: err.detail || '保存失败' })
     } finally {
       this.setData({ saving: false })
-    }
-  },
-
-  showTopToast(message, type, duration) {
-    const toast = this.selectComponent('#top-toast')
-    if (toast) {
-      toast.show(message, type, duration)
     }
   }
 })

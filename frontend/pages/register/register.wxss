@@ -1,9 +1,10 @@
-/* 注册页 - 炫酷科技风 */
+/* 注册页 - 主题适配样式 */
 
 .register-page {
   min-height: 100vh;
   position: relative;
   overflow: hidden;
+  background: var(--bg-primary);
 }
 
 /* 动态背景 */
@@ -27,7 +28,7 @@
 .shape-1 {
   width: 350rpx;
   height: 350rpx;
-  background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+  background: linear-gradient(135deg, var(--primary-light), #a78bfa);
   top: 100rpx;
   right: -80rpx;
   animation: float 8s ease-in-out infinite;
@@ -36,7 +37,7 @@
 .shape-2 {
   width: 300rpx;
   height: 300rpx;
-  background: linear-gradient(135deg, #06b6d4, #22d3ee);
+  background: linear-gradient(135deg, var(--accent-color), #22d3ee);
   bottom: 300rpx;
   left: -100rpx;
   animation: float 6s ease-in-out infinite reverse;
@@ -58,18 +59,18 @@
 
 .subtitle {
   font-size: 26rpx;
-  color: #a1a1aa;
+  color: var(--text-secondary);
 }
 
 /* 表单卡片 */
 .form-card {
   margin: 0 24rpx;
   padding: 0;
-  background: rgba(30, 30, 60, 0.6);
+  background: var(--bg-card);
   backdrop-filter: blur(20px);
   border-radius: 24rpx;
-  border: 1rpx solid rgba(99, 102, 241, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1rpx solid var(--border-color);
+  box-shadow: var(--shadow-card);
   overflow: hidden;
 }
 
@@ -80,7 +81,7 @@
 }
 
 .form-card .van-field::after {
-  border-bottom: 1rpx solid rgba(99, 102, 241, 0.1) !important;
+  border-bottom: 1rpx solid var(--border-light) !important;
 }
 
 .form-card .van-field:last-child::after {
@@ -88,19 +89,19 @@
 }
 
 .form-card .van-field__label {
-  color: #a1a1aa !important;
+  color: var(--text-secondary) !important;
   font-size: 28rpx !important;
   width: auto !important;
   min-width: 140rpx !important;
 }
 
 .form-card .van-field__control {
-  color: #fff !important;
+  color: var(--text-primary) !important;
   font-size: 28rpx !important;
 }
 
 .form-card .van-field__control::placeholder {
-  color: #71717a !important;
+  color: var(--text-muted) !important;
 }
 
 /* 错误提示 */
@@ -118,13 +119,13 @@
 
 /* 注册按钮 */
 .register-btn {
-  background: linear-gradient(135deg, #ec4899, #f472b6) !important;
+  background: linear-gradient(135deg, var(--secondary-color), #f472b6) !important;
   border: none !important;
   border-radius: 48rpx !important;
   font-size: 32rpx !important;
   font-weight: 600 !important;
   letter-spacing: 4rpx !important;
-  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.4) !important;
+  box-shadow: 0 4px 20px var(--gradient-shape-2) !important;
   height: 96rpx !important;
   line-height: 96rpx !important;
 }
@@ -138,12 +139,24 @@
 .login-link {
   text-align: center;
   margin-top: 24rpx;
-  padding-bottom: 40rpx;
   font-size: 26rpx;
-  color: #a1a1aa;
+  color: var(--text-secondary);
 }
 
 .link {
-  color: #f472b6;
+  color: var(--secondary-color);
   font-weight: 500;
+}
+
+/* 协议 */
+.agreement {
+  text-align: center;
+  padding: 32rpx 24rpx;
+  padding-bottom: calc(32rpx + env(safe-area-inset-bottom));
+  font-size: 24rpx;
+  color: var(--text-muted);
+}
+
+.agreement .link {
+  color: var(--primary-light);
 }

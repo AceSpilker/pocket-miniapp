@@ -1,0 +1,72 @@
+<view class="page" style="{{cssVars}}">
+  <!-- 动态背景 -->
+  <view class="bg-shapes">
+    <view class="shape shape-1"></view>
+  </view>
+
+  <!-- 顶部固定操作栏 -->
+  <view class="header-fixed">
+    <view class="header-info">
+      <text class="header-title">🎮 功能中心</text>
+      <text class="header-desc">{{editMode ? '点击箭头调整顺序，点击图标设置首页显示' : '点击功能即可使用'}}</text>
+    </view>
+    <view class="edit-btn {{editMode ? 'active' : ''}}" bindtap="toggleEditMode">
+      <text>{{editMode ? '完成' : '编辑'}}</text>
+    </view>
+  </view>
+
+  <!-- 功能列表 -->
+  <scroll-view class="feature-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+    <view class="feature-list" wx:if="{{!loading && features.length > 0}}">
+      <view class="feature-item {{editMode ? 'edit-mode' : ''}} {{!item.is_enabled ? 'disabled' : ''}}"
+            wx:for="{{features}}"
+            wx:key="id"
+            bindtap="onFeatureTap"
+            data-feature="{{item}}">
+        <!-- 功能内容 -->
+        <view class="feature-content">
+          <view class="feature-icon-wrap" style="background: {{item.icon_bg_color || 'var(--icon-bg-primary)'}};">
+            <text class="feature-icon-text">{{item.icon || '📦'}}</text>
+          </view>
+          <view class="feature-info">
+            <text class="feature-name">{{item.name}}</text>
+            <text class="feature-desc" wx:if="{{item.description}}">{{item.description}}</text>
+          </view>
+        </view>
+
+        <!-- 开发中标签 -->
+        <view class="dev-tag" wx:if="{{!item.is_enabled}}">开发中</view>
+
+        <!-- 首页标识 -->
+        <view class="home-badge" wx:if="{{item.is_home_visible && !editMode}}">🏠</view>
+
+        <!-- 编辑模式操作 -->
+        <view class="edit-actions" wx:if="{{editMode}}">
+          <view class="action-btn move-btn" catchtap="moveUp" data-index="{{index}}">
+            <text>↑</text>
+          </view>
+          <view class="action-btn move-btn" catchtap="moveDown" data-index="{{index}}">
+            <text>↓</text>
+          </view>
+          <view class="action-btn home-btn {{item.is_home_visible ? 'active' : ''}}"
+                catchtap="toggleHomeVisible"
+                data-index="{{index}}">
+            <text>{{item.is_home_visible ? '🏠' : '➕'}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{!loading && features.length === 0}}">
+      <text class="empty-icon">📦</text>
+      <text class="empty-text">暂无功能</text>
+    </view>
+
+    <!-- 加载状态 -->
+    <view class="loading-state" wx:if="{{loading}}">
+      <van-loading size="48rpx" color="var(--primary-color)" />
+      <text>加载中...</text>
+    </view>
+  </scroll-view>
+</view>

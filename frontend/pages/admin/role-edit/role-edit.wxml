@@ -1,4 +1,5 @@
-<view class="page" wx:if="{{hasAccess}}">
+<view class="page" style="{{cssVars}}" wx:if="{{hasAccess}}">
+
   <!-- 基本信息 -->
   <view class="form-card glass-card fade-in-up">
     <view class="card-title">📝 基本信息</view>

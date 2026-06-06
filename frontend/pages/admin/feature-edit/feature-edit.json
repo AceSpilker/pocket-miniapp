@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "编辑功能",
+  "usingComponents": {
+    "van-field": "@vant/weapp/field/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-switch": "@vant/weapp/switch/index"
+  }
+}
