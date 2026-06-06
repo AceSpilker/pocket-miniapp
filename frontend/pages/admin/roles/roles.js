@@ -1,25 +1,40 @@
 const app = getApp()
 const { get, del } = require('../../../utils/request')
+const themeManager = require('../../../utils/theme-manager')
+const { getInitialThemeData, applyThemeToPage } = require('../../../utils/theme-helpers')
 const Dialog = require('@vant/weapp/dialog/dialog')
 
 Page({
   data: {
-    hasAccess: false,
+    loading: false,
     roles: [],
-    loading: false
+    hasAccess: false,
+    ...getInitialThemeData()
   },
 
   onLoad() {
+    this._unsubscribe = themeManager.addListener(() => {
+      applyThemeToPage(this)
+    })
+
     if (!app.hasPermission('admin:access')) {
       wx.showToast({ title: '无权限', icon: 'none' })
-      wx.navigateBack()
+      setTimeout(() => wx.navigateBack(), 1000)
       return
     }
     this.setData({ hasAccess: true })
     this.loadRoles()
   },
 
+  onUnload() {
+    if (this._unsubscribe) {
+      this._unsubscribe()
+    }
+  },
+
   onShow() {
+    applyThemeToPage(this)
+    themeManager.refreshNavBar()
     if (this.data.hasAccess) this.loadRoles()
   },
 

@@ -1,5 +1,7 @@
 const { get } = require('../../utils/request')
 const ui = require('../../utils/ui')
+const themeManager = require('../../utils/theme-manager')
+const { getInitialThemeData, applyThemeToPage } = require('../../utils/theme-helpers')
 
 Page({
   data: {
@@ -7,11 +9,26 @@ Page({
     list: [],
     page: 1,
     pageSize: 10,
-    total: 0
+    total: 0,
+    ...getInitialThemeData()
   },
 
   onLoad() {
+    this._unsubscribe = themeManager.addListener(() => {
+      applyThemeToPage(this)
+    })
     this.loadList()
+  },
+
+  onUnload() {
+    if (this._unsubscribe) {
+      this._unsubscribe()
+    }
+  },
+
+  onShow() {
+    applyThemeToPage(this)
+    themeManager.refreshNavBar()
   },
 
   async loadList() {
@@ -37,13 +54,6 @@ Page({
   formatTime(time) {
     if (!time) return ''
     const date = new Date(time)
-    const now = new Date()
-    const diff = now - date
-    // 一天内显示相对时间
-    if (diff < 60000) return '刚刚'
-    if (diff < 3600000) return Math.floor(diff / 60000) + '分钟前'
-    if (diff < 86400000) return Math.floor(diff / 3600000) + '小时前'
-    // 超过一天显示日期
     const y = date.getFullYear()
     const m = String(date.getMonth() + 1).padStart(2, '0')
     const d = String(date.getDate()).padStart(2, '0')
@@ -55,10 +65,17 @@ Page({
     wx.navigateTo({ url: `/pages/announcement-detail/announcement-detail?id=${id}` })
   },
 
-  showTopToast(message, type, duration) {
-    const toast = this.selectComponent('#top-toast')
-    if (toast) {
-      toast.show(message, type, duration)
+  onReachBottom() {
+    if (this.data.list.length < this.data.total) {
+      this.setData({ page: this.data.page + 1 })
+      this.loadList()
     }
+  },
+
+  onPullDownRefresh() {
+    this.setData({ page: 1 })
+    this.loadList().then(() => {
+      wx.stopPullDownRefresh()
+    })
   }
 })

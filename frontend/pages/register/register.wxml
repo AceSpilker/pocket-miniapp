@@ -1,4 +1,5 @@
-<view class="register-page">
+<view class="register-page" style="{{cssVars}}">
+
   <!-- 动态背景 -->
   <view class="bg-shapes">
     <view class="shape shape-1"></view>
@@ -78,5 +79,13 @@
   <view class="login-link fade-in" style="animation-delay: 0.3s;">
     <text>已有账号？</text>
     <text class="link" bindtap="goLogin">去登录 🔥</text>
+  </view>
+
+  <!-- 协议 -->
+  <view class="agreement fade-in" style="animation-delay: 0.35s;">
+    <text>注册即代表同意</text>
+    <text class="link" bindtap="goUserAgreement">《用户协议》</text>
+    <text>和</text>
+    <text class="link" bindtap="goPrivacyPolicy">《隐私政策》</text>
   </view>
 </view>

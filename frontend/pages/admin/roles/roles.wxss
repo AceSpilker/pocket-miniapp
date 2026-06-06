@@ -4,6 +4,7 @@
   min-height: 100vh;
   padding: 24rpx;
   padding-bottom: 60rpx;
+  background: var(--bg-primary);
 }
 
 /* 工具栏 */
@@ -17,7 +18,7 @@
 
 .total {
   font-size: 26rpx;
-  color: #a1a1aa;
+  color: var(--text-secondary);
 }
 
 .create-btn {
@@ -35,7 +36,7 @@
   display: flex;
   justify-content: center;
   padding: 80rpx 0;
-  color: #a1a1aa;
+  color: var(--text-secondary);
 }
 
 /* 角色列表 */
@@ -46,9 +47,9 @@
 .role-item {
   margin-bottom: 20rpx;
   padding: 0;
-  background: rgba(30, 30, 60, 0.6);
+  background: var(--bg-card);
   backdrop-filter: blur(10px);
-  border: 1rpx solid rgba(99, 102, 241, 0.15);
+  border: 1rpx solid var(--border-color);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   overflow: hidden;
 }
@@ -66,7 +67,7 @@
 .role-name {
   font-size: 32rpx;
   font-weight: 600;
-  color: #fff;
+  color: var(--text-primary);
   margin-right: 12rpx;
 }
 
@@ -79,12 +80,12 @@
 
 .role-ident {
   font-size: 24rpx;
-  color: #71717a;
+  color: var(--text-muted);
 }
 
 /* 操作按钮 */
 .role-actions {
-  border-top: 1rpx solid rgba(99, 102, 241, 0.1);
+  border-top: 1rpx solid var(--border-light);
   padding: 16rpx 24rpx;
 }
 

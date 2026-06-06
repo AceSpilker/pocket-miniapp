@@ -1,5 +1,7 @@
 const app = getApp()
 const { get, post, put } = require('../../../utils/request')
+const themeManager = require('../../../utils/theme-manager')
+const { getInitialThemeData, applyThemeToPage } = require('../../../utils/theme-helpers')
 
 const ALL_PERMISSIONS = [
   { key: 'admin:access', name: '管理后台', desc: '访问管理后台' },
@@ -25,10 +27,15 @@ Page({
     allPermissions: ALL_PERMISSIONS,
     selectedPerms: [],
     saving: false,
-    errorMsg: ''
+    errorMsg: '',
+    ...getInitialThemeData()
   },
 
   onLoad(options) {
+    this._unsubscribe = themeManager.addListener(() => {
+      applyThemeToPage(this)
+    })
+
     if (!app.hasPermission('admin:access')) {
       wx.showToast({ title: '无权限', icon: 'none' })
       wx.navigateBack()
@@ -40,6 +47,16 @@ Page({
       this.setData({ roleId: parseInt(options.id), isEdit: true })
       this.loadRole(options.id)
     }
+  },
+
+  onUnload() {
+    if (this._unsubscribe) {
+      this._unsubscribe()
+    }
+  },
+
+  onShow() {
+    themeManager.refreshNavBar()
   },
 
   async loadRole(id) {
@@ -62,29 +79,38 @@ Page({
     }
   },
 
-  onNameInput(e) { this.setData({ name: e.detail }) },
-  onDisplayNameInput(e) { this.setData({ displayName: e.detail }) },
-  onDescInput(e) { this.setData({ description: e.detail }) },
-
-  onPermChange(e) {
-    this.setData({ selectedPerms: e.detail })
+  onNameInput(e) {
+    this.setData({ name: e.detail.value, errorMsg: '' })
+  },
+  onDisplayNameInput(e) {
+    this.setData({ displayName: e.detail.value })
+  },
+  onDescriptionInput(e) {
+    this.setData({ description: e.detail.value })
   },
 
-  onPermToggle(e) {
-    const key = e.currentTarget.dataset.key
+  onPermChange(e) {
+    const perm = e.currentTarget.dataset.perm
     let selected = [...this.data.selectedPerms]
-    if (selected.includes(key)) {
-      selected = selected.filter(k => k !== key)
+    if (e.detail) {
+      if (!selected.includes(perm)) selected.push(perm)
     } else {
-      selected.push(key)
+      selected = selected.filter(p => p !== perm)
     }
     this.setData({ selectedPerms: selected })
   },
 
   async handleSave() {
-    const { isEdit, roleId, name, displayName, selectedPerms } = this.data
-    if (!name.trim()) { this.setData({ errorMsg: '请输入角色标识' }); return }
-    if (!displayName.trim()) { this.setData({ errorMsg: '请输入显示名称' }); return }
+    const { isEdit, roleId, name, displayName, description, selectedPerms } = this.data
+
+    if (!name.trim()) {
+      this.setData({ errorMsg: '请输入角色标识' })
+      return
+    }
+    if (!displayName.trim()) {
+      this.setData({ errorMsg: '请输入显示名称' })
+      return
+    }
     if (this.data.saving) return
     this.setData({ saving: true, errorMsg: '' })
 
@@ -92,17 +118,18 @@ Page({
       const payload = {
         name: name.trim(),
         display_name: displayName.trim(),
-        description: this.data.description,
+        description: description.trim() || null,
         permissions: JSON.stringify(selectedPerms)
       }
 
       if (isEdit) {
         await put(`/admin/roles/${roleId}`, payload)
+        wx.showToast({ title: '已更新', icon: 'success' })
       } else {
         await post('/admin/roles', payload)
+        wx.showToast({ title: '已创建', icon: 'success' })
       }
-      wx.showToast({ title: '保存成功', icon: 'success' })
-      setTimeout(() => wx.navigateBack(), 800)
+      setTimeout(() => wx.navigateBack(), 1500)
     } catch (err) {
       this.setData({ errorMsg: err.detail || '保存失败' })
     } finally {

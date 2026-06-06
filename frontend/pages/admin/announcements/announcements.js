@@ -1,30 +1,45 @@
 const app = getApp()
-const { get, del, put } = require('../../../utils/request')
+const { get } = require('../../../utils/request')
 const ui = require('../../../utils/ui')
+const themeManager = require('../../../utils/theme-manager')
+const { getInitialThemeData, applyThemeToPage } = require('../../../utils/theme-helpers')
 
 Page({
   data: {
-    hasAccess: false,
     loading: false,
     list: [],
-    total: 0,
-    stats: null,
     page: 1,
-    pageSize: 10,
-    keyword: ''
+    pageSize: 20,
+    total: 0,
+    keyword: '',
+    stats: null,
+    hasAccess: false,
+    ...getInitialThemeData()
   },
 
   onLoad() {
+    this._unsubscribe = themeManager.addListener(() => {
+      applyThemeToPage(this)
+    })
+
     if (!app.hasPermission('admin:access')) {
       wx.showToast({ title: '无权限', icon: 'none' })
-      wx.navigateBack()
+      setTimeout(() => wx.navigateBack(), 1000)
       return
     }
     this.setData({ hasAccess: true })
     this.loadData()
   },
 
+  onUnload() {
+    if (this._unsubscribe) {
+      this._unsubscribe()
+    }
+  },
+
   onShow() {
+    applyThemeToPage(this)
+    themeManager.refreshNavBar()
     if (this.data.hasAccess) this.loadData()
   },
 
@@ -63,7 +78,7 @@ Page({
   },
 
   onKeywordChange(e) {
-    this.setData({ keyword: e.detail, page: 1 })
+    this.setData({ keyword: e.detail.value, page: 1 })
   },
 
   onSearch() {
@@ -79,46 +94,10 @@ Page({
     wx.navigateTo({ url: `/pages/admin/announcement-edit/announcement-edit?id=${id}` })
   },
 
-  async handleToggleStatus(e) {
-    const id = e.currentTarget.dataset.id
-    try {
-      const result = await put(`/admin/announcements/${id}/toggle`)
-      ui.success(result.msg)
+  onReachBottom() {
+    if (this.data.list.length < this.data.total) {
+      this.setData({ page: this.data.page + 1 })
       this.loadData()
-    } catch (err) {
-      ui.error(err.detail || '操作失败')
-    }
-  },
-
-  async handleToggleTop(e) {
-    const id = e.currentTarget.dataset.id
-    try {
-      const result = await put(`/admin/announcements/${id}/top`)
-      ui.success(result.msg)
-      this.loadData()
-    } catch (err) {
-      ui.error(err.detail || '操作失败')
-    }
-  },
-
-  async handleDelete(e) {
-    const id = e.currentTarget.dataset.id
-    const confirmed = await ui.confirmDelete('确定要删除这条动态吗？')
-    if (!confirmed) return
-
-    try {
-      await del(`/admin/announcements/${id}`)
-      ui.success('已删除')
-      this.loadData()
-    } catch (err) {
-      ui.error(err.detail || '删除失败')
-    }
-  },
-
-  showTopToast(message, type, duration) {
-    const toast = this.selectComponent('#top-toast')
-    if (toast) {
-      toast.show(message, type, duration)
     }
   }
 })

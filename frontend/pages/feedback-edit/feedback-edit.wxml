@@ -1,0 +1,80 @@
+<view class="page" style="{{cssVars}}">
+  <!-- 动态背景 -->
+  <view class="bg-shapes">
+    <view class="shape shape-1"></view>
+  </view>
+
+  <!-- 标题区 -->
+  <view class="header">
+    <view class="header-row">
+      <text class="title">💬 意见反馈</text>
+    </view>
+    <text class="subtitle">您的意见是我们前进的动力</text>
+  </view>
+
+  <!-- 版本历史（编辑时显示，包含每个版本的回复） -->
+  <view class="versions-section" wx:if="{{isEdit && versions.length > 0}}">
+    <view class="section-header clickable" bindtap="toggleVersions">
+      <text class="section-title">📜 版本历史 ({{versions.length}})</text>
+      <text class="toggle-icon">{{showVersions ? '收起' : '展开'}}</text>
+    </view>
+    <view class="versions-list" wx:if="{{showVersions}}">
+      <view class="version-item" wx:for="{{versions}}" wx:key="id">
+        <view class="version-header">
+          <text class="version-num">版本 {{item.version}}</text>
+          <text class="version-time">{{item.created_at}}</text>
+        </view>
+        <text class="version-title">{{item.title}}</text>
+        <text class="version-content" wx:if="{{item.content}}">{{item.content}}</text>
+        <!-- 该版本的管理员回复 -->
+        <view class="version-reply" wx:if="{{item.reply}}">
+          <view class="version-reply-header">
+            <text class="version-reply-label">📢 管理员回复</text>
+            <text class="version-reply-time">{{item.replied_at}}</text>
+          </view>
+          <text class="version-reply-content">{{item.reply}}</text>
+          <text class="version-reply-author">回复人: {{item.replier_name || '管理员'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 表单 -->
+  <view class="form-card">
+    <view class="form-item">
+      <text class="form-label">标题 <text class="required">*</text></text>
+      <input
+        class="form-input"
+        placeholder="请输入标题"
+        value="{{title}}"
+        bindinput="onTitleInput"
+        maxlength="200"
+      />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">详细描述</text>
+      <textarea
+        class="form-textarea"
+        placeholder="请详细描述您的意见或建议..."
+        value="{{content}}"
+        bindinput="onContentInput"
+        maxlength="5000"
+        auto-height
+      />
+      <text class="char-count">{{content.length || 0}}/5000</text>
+    </view>
+  </view>
+
+  <!-- 错误提示 -->
+  <view class="error-msg" wx:if="{{errorMsg}}">
+    <text>{{errorMsg}}</text>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-section">
+    <button class="submit-btn" bindtap="handleSubmit" loading="{{saving}}">
+      {{isEdit ? '保存修改' : '提交意见'}}
+    </button>
+  </view>
+</view>

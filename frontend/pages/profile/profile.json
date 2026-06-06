@@ -1,7 +1,5 @@
 {
   "navigationBarTitleText": "个人资料",
-  "navigationBarBackgroundColor": "#0f0f23",
-  "navigationBarTextStyle": "white",
   "usingComponents": {
     "van-cell-group": "@vant/weapp/cell-group/index",
     "van-field": "@vant/weapp/field/index",

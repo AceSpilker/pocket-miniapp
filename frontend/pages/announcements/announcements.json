@@ -1,7 +1,5 @@
 {
   "navigationBarTitleText": "最近动态",
-  "navigationBarBackgroundColor": "#0f0f23",
-  "navigationBarTextStyle": "white",
   "usingComponents": {
     "van-loading": "@vant/weapp/loading/index",
     "van-empty": "@vant/weapp/empty/index",

@@ -1,5 +1,7 @@
 const app = getApp()
 const { get, post, put } = require('../../../utils/request')
+const themeManager = require('../../../utils/theme-manager')
+const { getInitialThemeData, applyThemeToPage } = require('../../../utils/theme-helpers')
 
 const ALL_PERMISSIONS = [
   { value: '', label: '无需权限' },
@@ -23,10 +25,15 @@ Page({
     showPicker: false,
     allPerms: ALL_PERMISSIONS,
     saving: false,
-    errorMsg: ''
+    errorMsg: '',
+    ...getInitialThemeData()
   },
 
   onLoad(options) {
+    this._unsubscribe = themeManager.addListener(() => {
+      applyThemeToPage(this)
+    })
+
     if (!app.hasPermission('admin:access')) {
       wx.showToast({ title: '无权限', icon: 'none' })
       wx.navigateBack()
@@ -37,6 +44,16 @@ Page({
       this.setData({ menuId: parseInt(options.id), isEdit: true })
       this.loadMenu(options.id)
     }
+  },
+
+  onUnload() {
+    if (this._unsubscribe) {
+      this._unsubscribe()
+    }
+  },
+
+  onShow() {
+    themeManager.refreshNavBar()
   },
 
   async loadMenu(id) {
@@ -59,50 +76,55 @@ Page({
     }
   },
 
-  onNameInput(e) { this.setData({ name: e.detail }) },
-  onIconInput(e) { this.setData({ icon: e.detail }) },
-  onPathInput(e) { this.setData({ path: e.detail }) },
-  onOrderInput(e) { this.setData({ sortOrder: e.detail }) },
+  onNameInput(e) { this.setData({ name: e.detail.value, errorMsg: '' }) },
+  onIconInput(e) { this.setData({ icon: e.detail.value }) },
+  onPathInput(e) { this.setData({ path: e.detail.value }) },
+  onSortInput(e) { this.setData({ sortOrder: e.detail.value }) },
 
   showPermPicker() {
     this.setData({ showPicker: true })
   },
 
-  onPickerClose() {
-    this.setData({ showPicker: false })
-  },
-
   onPermConfirm(e) {
-    const { value } = e.detail
+    const { value, label } = e.detail
     this.setData({
-      showPicker: false,
-      requiredPermission: value.value,
-      permLabel: value.label
+      requiredPermission: value,
+      permLabel: label,
+      showPicker: false
     })
   },
 
+  onPermCancel() {
+    this.setData({ showPicker: false })
+  },
+
   async handleSave() {
-    const { menuId, isEdit, name, icon, path, sortOrder, requiredPermission } = this.data
-    if (!name.trim()) { this.setData({ errorMsg: '请输入菜单名称' }); return }
+    const { isEdit, menuId, name, icon, path, sortOrder, requiredPermission } = this.data
+
+    if (!name.trim()) {
+      this.setData({ errorMsg: '请输入菜单名称' })
+      return
+    }
     if (this.data.saving) return
     this.setData({ saving: true, errorMsg: '' })
 
     try {
       const payload = {
         name: name.trim(),
-        icon,
-        path: path || '/pages/index/index',
+        icon: icon.trim() || null,
+        path: path.trim() || null,
         sort_order: parseInt(sortOrder) || 0,
-        required_permission: requiredPermission || null,
+        required_permission: requiredPermission || null
       }
 
       if (isEdit) {
         await put(`/admin/menus/${menuId}`, payload)
+        wx.showToast({ title: '已更新', icon: 'success' })
       } else {
         await post('/admin/menus', payload)
+        wx.showToast({ title: '已创建', icon: 'success' })
       }
-      wx.showToast({ title: '保存成功', icon: 'success' })
-      setTimeout(() => wx.navigateBack(), 800)
+      setTimeout(() => wx.navigateBack(), 1500)
     } catch (err) {
       this.setData({ errorMsg: err.detail || '保存失败' })
     } finally {

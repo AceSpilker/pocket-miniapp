@@ -1,0 +1,14 @@
+<view class="theme-toggle" style="{{cssVars}}" bindtap="toggleTheme">
+  <view class="toggle-label">
+    <text class="toggle-icon">{{theme === 'dark' ? '🌙' : '☀️'}}</text>
+    <view class="toggle-info">
+      <text class="toggle-text">主题切换</text>
+      <text class="toggle-desc">当前: {{theme === 'dark' ? '暗色模式' : '亮色模式'}}</text>
+    </view>
+  </view>
+  <view class="toggle-switch">
+    <text class="switch-icon">☀️</text>
+    <view class="toggle-thumb {{theme}}"></view>
+    <text class="switch-icon">🌙</text>
+  </view>
+</view>

@@ -1,0 +1,101 @@
+/* 主题切换按钮 - 行内样式，用于我的页面 */
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx;
+  background: var(--bg-card);
+  border-radius: 16rpx;
+  border: 1rpx solid var(--border-light);
+  box-sizing: border-box;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.toggle-icon {
+  font-size: 36rpx;
+}
+
+.toggle-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.toggle-text {
+  font-size: 28rpx;
+  color: var(--text-primary);
+}
+
+.toggle-desc {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+  margin-top: 4rpx;
+}
+
+.toggle-switch {
+  width: 100rpx;
+  height: 48rpx;
+  border-radius: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12rpx;
+  background: var(--bg-input);
+  border: 1rpx solid var(--border-color);
+  position: relative;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.switch-icon {
+  font-size: 20rpx;
+  z-index: 1;
+  line-height: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-thumb {
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+  box-shadow: 0 2rpx 8rpx var(--shadow-color);
+  transition: transform 0.3s ease;
+  top: 4rpx;
+  left: 4rpx;
+}
+
+/* 亮色主题 - 滑块在左边（太阳位置） */
+.toggle-thumb.light {
+  transform: translateX(0);
+}
+
+/* 暗色主题 - 滑块在右边（月亮位置） */
+.toggle-thumb.dark {
+  transform: translateX(52rpx);
+}
+
+/* 按下效果 */
+.theme-toggle:active .toggle-switch {
+  opacity: 0.9;
+}
+
+.theme-toggle:active .toggle-thumb {
+  transform: scale(0.95);
+}
+
+.theme-toggle:active .toggle-thumb.light {
+  transform: translateX(0) scale(0.95);
+}
+
+.theme-toggle:active .toggle-thumb.dark {
+  transform: translateX(52rpx) scale(0.95);
+}

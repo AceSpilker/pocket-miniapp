@@ -1,0 +1,156 @@
+/* 内容页面 */
+
+.page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  position: relative;
+  padding: 24rpx;
+  padding-bottom: calc(24rpx + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+/* 动态背景 */
+.bg-shapes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.shape-1 {
+  position: absolute;
+  width: 400rpx;
+  height: 400rpx;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.2;
+  top: -100rpx;
+  right: -100rpx;
+}
+
+/* 亮色主题下背景装饰更淡 */
+.page.theme-light .shape-1 {
+  opacity: 0.08;
+}
+
+/* 加载状态 */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 24rpx;
+  color: var(--text-muted);
+  font-size: 28rpx;
+  position: relative;
+  z-index: 1;
+}
+
+/* 内容区域 */
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.content-card {
+  background: var(--bg-card);
+  border-radius: 20rpx;
+  padding: 32rpx;
+  border: 1rpx solid var(--border-light);
+  box-shadow: var(--shadow-card);
+}
+
+/* 亮色主题卡片样式 */
+.page.theme-light .content-card {
+  background: #FFFFFF;
+  border: none;
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.08), 0 1rpx 2rpx rgba(0, 0, 0, 0.04);
+}
+
+.content-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 32rpx;
+  padding-bottom: 24rpx;
+  border-bottom: 1rpx solid var(--border-light);
+}
+
+/* 亮色主题标题分隔线 */
+.page.theme-light .content-title {
+  border-bottom-color: rgba(60, 60, 67, 0.12);
+}
+
+.content-body {
+  font-size: 28rpx;
+  color: var(--text-primary);
+  line-height: 1.8;
+}
+
+/* rich-text 内部样式 */
+.content-body rich-text {
+  word-break: break-all;
+}
+
+.content-body h1,
+.content-body h2,
+.content-body h3 {
+  font-weight: 600;
+  margin: 24rpx 0 16rpx;
+  color: var(--text-primary);
+}
+
+.content-body h1 {
+  font-size: 34rpx;
+}
+
+.content-body h2 {
+  font-size: 32rpx;
+}
+
+.content-body h3 {
+  font-size: 30rpx;
+}
+
+.content-body p {
+  margin-bottom: 16rpx;
+}
+
+.content-body ul,
+.content-body ol {
+  margin: 16rpx 0;
+  padding-left: 40rpx;
+}
+
+.content-body li {
+  margin-bottom: 8rpx;
+}
+
+.content-body strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.content-body a {
+  color: var(--primary-color);
+}
+
+/* 亮色主题下的 rich-text 内容样式 */
+.page.theme-light .content-body {
+  color: #1C1C1E;
+}
+
+.page.theme-light .content-body h1,
+.page.theme-light .content-body h2,
+.page.theme-light .content-body h3 {
+  color: #1C1C1E;
+}
+
+.page.theme-light .content-body strong {
+  color: #1C1C1E;
+}

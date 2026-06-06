@@ -64,7 +64,7 @@ async def send_email(
     to_email: str,
     subject: str,
     html_body: str,
-    from_name: str = "口袋小程序",
+    from_name: str = "口袋小精灵",
 ) -> bool:
     """
     发送 HTML 邮件
@@ -117,7 +117,7 @@ async def send_welcome_email(
     发送欢迎邮件（新用户创建通知）
     """
     from datetime import datetime
-    subject = f"🎉 欢迎加入口袋小程序 - 您的账号已开通"
+    subject = f"🎉 欢迎加入口袋小精灵 - 您的账号已开通"
 
     html = render_template(
         "welcome.html",

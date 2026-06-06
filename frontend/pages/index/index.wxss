@@ -1,7 +1,6 @@
-/* 首页 - 炫酷科技风 */
+/* 首页 - 主题适配样式 */
 
 page {
-  background: #0f0f23;
   padding-bottom: 0;
 }
 
@@ -9,7 +8,7 @@ page {
   min-height: 100vh;
   position: relative;
   padding-bottom: calc(180rpx + env(safe-area-inset-bottom));
-  background: transparent;
+  background: var(--bg-primary);
 }
 
 /* 动态背景 */
@@ -33,7 +32,7 @@ page {
 .shape-1 {
   width: 500rpx;
   height: 500rpx;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
   top: -200rpx;
   left: -100rpx;
   animation: float 15s ease-in-out infinite;
@@ -42,7 +41,7 @@ page {
 .shape-2 {
   width: 400rpx;
   height: 400rpx;
-  background: linear-gradient(135deg, #ec4899, #f472b6);
+  background: linear-gradient(135deg, var(--secondary-color), #f472b6);
   bottom: 200rpx;
   right: -150rpx;
   animation: float 12s ease-in-out infinite reverse;
@@ -70,7 +69,7 @@ page {
   width: 110rpx;
   height: 110rpx;
   border-radius: 50%;
-  border: 4rpx solid rgba(99, 102, 241, 0.5);
+  border: 4rpx solid var(--border-color);
 }
 
 .avatar-ring {
@@ -80,7 +79,7 @@ page {
   right: -8rpx;
   bottom: -8rpx;
   border-radius: 50%;
-  border: 2rpx solid rgba(99, 102, 241, 0.3);
+  border: 2rpx solid var(--border-light);
   animation: pulse 2s ease-in-out infinite;
 }
 
@@ -89,12 +88,12 @@ page {
 .welcome-name {
   font-size: 36rpx;
   font-weight: 600;
-  color: #fff;
+  color: var(--text-primary);
   display: block;
   margin-bottom: 6rpx;
 }
 
-.welcome-desc { font-size: 24rpx; color: #a1a1aa; }
+.welcome-desc { font-size: 24rpx; color: var(--text-secondary); }
 
 /* 区块标题 */
 .section-title {
@@ -106,70 +105,164 @@ page {
 .title-text {
   font-size: 32rpx;
   font-weight: 600;
-  color: #fff;
+  color: var(--text-primary);
   margin-right: 16rpx;
 }
 
 .title-line {
   flex: 1;
   height: 1rpx;
-  background: linear-gradient(90deg, rgba(99, 102, 241, 0.3), transparent);
+  background: linear-gradient(90deg, var(--border-color), transparent);
 }
 
 .title-more {
   font-size: 24rpx;
-  color: #818cf8;
+  color: var(--primary-light);
   margin-left: 16rpx;
 }
 
 /* 功能网格 */
 .feature-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   gap: 20rpx;
   padding: 0 24rpx;
+  position: relative;
+  z-index: 1;
+}
+
+/* 1-3个功能：一行显示 */
+.feature-grid.row-1 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* 4个功能：两行两列 */
+.feature-grid.row-2 {
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .feature-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 36rpx 20rpx;
-  background: rgba(30, 30, 60, 0.6);
+  justify-content: center;
+  padding: 32rpx 16rpx;
+  background: var(--bg-card);
   backdrop-filter: blur(10px);
-  border-radius: 24rpx;
-  border: 1rpx solid rgba(99, 102, 241, 0.15);
+  border-radius: 20rpx;
+  border: 1rpx solid var(--border-light);
   transition: all 0.3s ease;
   animation: fadeInUp 0.5s ease-out forwards;
   opacity: 0;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  min-height: 240rpx;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .feature-item:active {
   transform: scale(0.96);
-  background: rgba(30, 30, 60, 0.8);
+  background: var(--bg-secondary);
 }
 
 .feature-icon-wrap {
-  width: 100rpx;
-  height: 100rpx;
-  border-radius: 24rpx;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 18rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 16rpx;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  margin-bottom: 10rpx;
+  box-shadow: 0 4px 15px var(--shadow-color);
+  flex-shrink: 0;
 }
 
-.feature-icon { font-size: 48rpx; }
+/* 图标背景色 - 使用 CSS 变量实现主题切换 */
+.icon-bg-primary { background: var(--icon-bg-primary); }
+.icon-bg-secondary { background: var(--icon-bg-secondary); }
+.icon-bg-success { background: var(--icon-bg-success); }
+.icon-bg-warning { background: var(--icon-bg-warning); }
+.icon-bg-accent { background: var(--icon-bg-accent); }
+.icon-bg-danger { background: var(--icon-bg-danger); }
+
+.feature-icon { font-size: 44rpx; }
 
 .feature-name {
-  font-size: 28rpx;
+  font-size: 26rpx;
   font-weight: 500;
-  color: #fff;
-  margin-bottom: 6rpx;
+  color: var(--text-primary);
+  margin-bottom: 4rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  padding: 0 4rpx;
+  box-sizing: border-box;
+  text-align: center;
 }
 
-.feature-desc { font-size: 22rpx; color: #71717a; }
+.feature-desc {
+  font-size: 22rpx;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  width: 100%;
+  padding: 0 8rpx;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* 功能项禁用状态 */
+.feature-item.disabled {
+  opacity: 0.6;
+}
+
+/* 开发中标签 */
+.dev-tag {
+  position: absolute;
+  top: 8rpx;
+  right: 8rpx;
+  font-size: 18rpx;
+  padding: 4rpx 12rpx;
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--warning-color);
+  border-radius: 12rpx;
+}
+
+/* 功能空状态 */
+.feature-empty {
+  margin: 0 24rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.empty-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48rpx 24rpx;
+}
+
+.empty-icon {
+  font-size: 64rpx;
+  margin-bottom: 16rpx;
+}
+
+.empty-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8rpx;
+}
+
+.empty-desc {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+}
 
 /* 快捷列表 */
 .quick-list {
@@ -181,7 +274,7 @@ page {
   display: flex;
   align-items: center;
   padding: 24rpx;
-  border-bottom: 1rpx solid rgba(99, 102, 241, 0.1);
+  border-bottom: 1rpx solid var(--border-light);
 }
 
 .quick-item:last-child { border-bottom: none; }
@@ -195,7 +288,7 @@ page {
   justify-content: center;
   font-size: 32rpx;
   margin-right: 20rpx;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 15px var(--shadow-color);
 }
 
 .quick-content { flex: 1; }
@@ -203,7 +296,7 @@ page {
 .quick-title {
   font-size: 28rpx;
   font-weight: 500;
-  color: #fff;
+  color: var(--text-primary);
   display: block;
   margin-bottom: 4rpx;
 }
@@ -216,27 +309,27 @@ page {
   max-width: 400rpx;
 }
 
-.quick-sub { font-size: 22rpx; color: #71717a; }
+.quick-sub { font-size: 22rpx; color: var(--text-muted); }
 
-.quick-item .van-icon { color: #71717a !important; }
+.quick-item .van-icon { color: var(--text-muted) !important; }
 
 /* 查看更多入口 */
 .more-item {
   justify-content: center;
-  background: rgba(99, 102, 241, 0.05) !important;
+  background: var(--bg-glass) !important;
 }
 
 .more-item:active {
-  background: rgba(99, 102, 241, 0.1) !important;
+  background: var(--bg-secondary) !important;
 }
 
 .more-text {
   font-size: 26rpx;
-  color: #818cf8;
+  color: var(--primary-light);
   font-weight: 500;
 }
 
 .more-item .van-icon {
-  color: #818cf8 !important;
+  color: var(--primary-light) !important;
   margin-left: 8rpx;
 }

@@ -1,0 +1,22 @@
+<view class="page theme-{{theme}}" style="{{cssVars}}">
+  <!-- 动态背景 -->
+  <view class="bg-shapes">
+    <view class="shape shape-1"></view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <van-loading size="48rpx" color="var(--primary-color)" />
+    <text>加载中...</text>
+  </view>
+
+  <!-- 内容区域 -->
+  <view class="content-wrapper" wx:else>
+    <view class="content-card">
+      <view class="content-title">{{title}}</view>
+      <view class="content-body">
+        <rich-text nodes="{{content}}"></rich-text>
+      </view>
+    </view>
+  </view>
+</view>

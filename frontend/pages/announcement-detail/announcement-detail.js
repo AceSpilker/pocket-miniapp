@@ -1,14 +1,21 @@
 const { get } = require('../../utils/request')
 const ui = require('../../utils/ui')
+const themeManager = require('../../utils/theme-manager')
+const { getInitialThemeData, applyThemeToPage } = require('../../utils/theme-helpers')
 
 Page({
   data: {
     loading: false,
     id: null,
-    detail: {}
+    detail: {},
+    ...getInitialThemeData()
   },
 
   onLoad(options) {
+    this._unsubscribe = themeManager.addListener(() => {
+      applyThemeToPage(this)
+    })
+
     if (options.id) {
       this.setData({ id: options.id })
       this.loadDetail()
@@ -16,6 +23,16 @@ Page({
       ui.error('参数错误')
       setTimeout(() => wx.navigateBack(), 1000)
     }
+  },
+
+  onUnload() {
+    if (this._unsubscribe) {
+      this._unsubscribe()
+    }
+  },
+
+  onShow() {
+    themeManager.refreshNavBar()
   },
 
   async loadDetail() {

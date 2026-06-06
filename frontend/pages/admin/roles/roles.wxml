@@ -1,4 +1,5 @@
-<view class="page" wx:if="{{hasAccess}}">
+<view class="page" style="{{cssVars}}" wx:if="{{hasAccess}}">
+
   <!-- 工具栏 -->
   <view class="toolbar fade-in-up">
     <text class="total">📊 共 {{roles.length}} 个角色</text>

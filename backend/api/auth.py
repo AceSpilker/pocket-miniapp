@@ -5,7 +5,7 @@
 
 from fastapi import APIRouter, Depends, HTTPException, Header
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
+from sqlalchemy import select, func
 import httpx
 import jwt
 import json
@@ -18,6 +18,7 @@ from logger import get_logger, audit
 from models.user import User
 from models.role import Role
 from models.user_role import UserRole
+from models.feedback import Feedback, FeedbackStatus
 from schemas.auth import (
     WxLoginRequest, RegisterRequest, LoginRequest, RefreshRequest,
     LoginResponse, RefreshResponse, LogoutResponse, UserOut
@@ -160,6 +161,20 @@ async def make_login_response(user: User, db: AsyncSession) -> LoginResponse:
     except Exception as e:
         get_logger("auth").warning(f"查询权限失败: {e}")
 
+    # 如果是管理员，查询待处理意见反馈数量
+    pending_feedbacks = 0
+    if "admin:access" in perms:
+        try:
+            count_result = await db.execute(
+                select(func.count(Feedback.id)).where(
+                    Feedback.status == FeedbackStatus.PENDING,
+                    Feedback.deleted_at.is_(None)
+                )
+            )
+            pending_feedbacks = count_result.scalar() or 0
+        except Exception as e:
+            get_logger("auth").warning(f"查询待处理反馈数量失败: {e}")
+
     return LoginResponse(
         access_token=access_token,
         refresh_token=refresh_token,
@@ -167,6 +182,7 @@ async def make_login_response(user: User, db: AsyncSession) -> LoginResponse:
         user=UserOut.model_validate(user),
         permissions=perms,
         roles=roles,
+        pending_feedbacks=pending_feedbacks,
     )
 
 

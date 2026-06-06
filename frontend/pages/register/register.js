@@ -1,4 +1,6 @@
 const auth = require('../../utils/auth')
+const themeManager = require('../../utils/theme-manager')
+const { getInitialThemeData, applyThemeToPage } = require('../../utils/theme-helpers')
 const app = getApp()
 
 Page({
@@ -8,7 +10,24 @@ Page({
     password: '',
     confirmPassword: '',
     loading: false,
-    errorMsg: ''
+    errorMsg: '',
+    ...getInitialThemeData()
+  },
+
+  onLoad() {
+    this._unsubscribe = themeManager.addListener(() => {
+      applyThemeToPage(this)
+    })
+  },
+
+  onUnload() {
+    if (this._unsubscribe) {
+      this._unsubscribe()
+    }
+  },
+
+  onShow() {
+    themeManager.refreshNavBar()
   },
 
   // 表单输入 - Vant 使用 bind:change，e.detail 为输入值
@@ -75,5 +94,15 @@ Page({
   // 返回登录
   goLogin() {
     wx.navigateBack()
+  },
+
+  // 跳转用户协议
+  goUserAgreement() {
+    wx.navigateTo({ url: '/pages/content-page/content-page?key=user_agreement' })
+  },
+
+  // 跳转隐私政策
+  goPrivacyPolicy() {
+    wx.navigateTo({ url: '/pages/content-page/content-page?key=privacy_policy' })
   }
 })

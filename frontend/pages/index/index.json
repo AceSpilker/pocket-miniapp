@@ -1,7 +1,5 @@
 {
-  "navigationBarTitleText": "口袋小程序",
-  "navigationBarBackgroundColor": "#0f0f23",
-  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "口袋小精灵",
   "usingComponents": {
     "van-cell": "@vant/weapp/cell/index",
     "van-cell-group": "@vant/weapp/cell-group/index",

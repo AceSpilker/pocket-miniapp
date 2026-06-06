@@ -1,9 +1,9 @@
-<view class="tabbar-container">
+<view class="tabbar-container" style="{{cssVars}}">
   <van-tabbar
     active="{{ active }}"
     bind:change="onChange"
-    active-color="#6366f1"
-    inactive-color="#71717a"
+    active-color="var(--primary-color)"
+    inactive-color="var(--text-muted)"
     safe-area-inset-bottom="{{ true }}"
   >
     <van-tabbar-item icon="home-o">首页</van-tabbar-item>

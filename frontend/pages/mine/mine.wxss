@@ -1,7 +1,6 @@
-/* 我的页面 - 炫酷科技风 */
+/* 我的页面 - 主题适配样式 */
 
 page {
-  background: #0f0f23;
   padding-bottom: 0;
 }
 
@@ -9,7 +8,7 @@ page {
   min-height: 100vh;
   position: relative;
   padding-bottom: calc(180rpx + env(safe-area-inset-bottom));
-  background: transparent;
+  background: var(--bg-primary);
 }
 
 /* 动态背景 */
@@ -27,7 +26,7 @@ page {
   position: absolute;
   width: 450rpx;
   height: 450rpx;
-  background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+  background: linear-gradient(135deg, var(--primary-light), #a78bfa);
   border-radius: 50%;
   filter: blur(100px);
   opacity: 0.25;
@@ -39,8 +38,10 @@ page {
 /* 用户信息卡片 */
 .profile-card {
   margin: 24rpx;
+  padding: 32rpx !important;
 }
 
+/* 未登录状态 */
 .profile-content {
   display: flex;
   align-items: center;
@@ -55,7 +56,7 @@ page {
   width: 120rpx;
   height: 120rpx;
   border-radius: 50%;
-  border: 4rpx solid rgba(99, 102, 241, 0.5);
+  border: 4rpx solid var(--border-color);
 }
 
 .avatar-badge {
@@ -64,13 +65,13 @@ page {
   right: 0;
   width: 40rpx;
   height: 40rpx;
-  background: linear-gradient(135deg, #6366f1, #ec4899);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20rpx;
-  border: 3rpx solid #0f0f23;
+  border: 3rpx solid var(--bg-primary);
 }
 
 .profile-info {
@@ -80,14 +81,87 @@ page {
 .profile-name {
   font-size: 36rpx;
   font-weight: 600;
-  color: #fff;
+  color: var(--text-primary);
   display: block;
   margin-bottom: 8rpx;
 }
 
 .profile-desc {
   font-size: 24rpx;
-  color: #a1a1aa;
+  color: var(--text-secondary);
+}
+
+/* 已登录状态 - 头部区域 */
+.profile-header {
+  display: flex;
+  align-items: center;
+  padding-bottom: 24rpx;
+  border-bottom: 1rpx solid var(--border-light);
+  margin-bottom: 24rpx;
+}
+
+.profile-header .avatar-wrap {
+  margin-right: 24rpx;
+}
+
+.profile-basic {
+  flex: 1;
+}
+
+.profile-basic .profile-name {
+  margin-bottom: 4rpx;
+}
+
+.profile-username {
+  font-size: 24rpx;
+  color: var(--text-muted);
+}
+
+/* 联系信息区域 */
+.profile-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 20rpx;
+  background: var(--bg-glass);
+  border-radius: 16rpx;
+  border: 1rpx solid var(--border-light);
+}
+
+.contact-icon {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 12rpx;
+  background: var(--card-active-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  margin-right: 16rpx;
+}
+
+.contact-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.contact-label {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+}
+
+.contact-value {
+  font-size: 26rpx;
+  color: var(--text-primary);
+  font-weight: 500;
+  letter-spacing: 0.5rpx;
 }
 
 /* 系统管理入口 */
@@ -99,26 +173,33 @@ page {
   display: flex;
   align-items: center;
   padding: 28rpx 24rpx !important;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(236, 72, 153, 0.1)) !important;
-  border: 1rpx solid rgba(99, 102, 241, 0.3) !important;
+  background: linear-gradient(135deg, var(--gradient-shape-1), var(--gradient-shape-2)) !important;
+  border: 1rpx solid var(--border-color) !important;
 }
 
 .system-card:active {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(236, 72, 153, 0.15)) !important;
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-glass)) !important;
 }
 
 .system-icon {
   width: 80rpx;
   height: 80rpx;
   border-radius: 20rpx;
-  background: linear-gradient(135deg, #6366f1, #ec4899);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 40rpx;
   margin-right: 20rpx;
-  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 4px 15px var(--shadow-color);
 }
+
+/* 图标背景色 - 使用 CSS 变量实现主题切换 */
+.icon-bg-primary { background: var(--icon-bg-primary); }
+.icon-bg-secondary { background: var(--icon-bg-secondary); }
+.icon-bg-success { background: var(--icon-bg-success); }
+.icon-bg-warning { background: var(--icon-bg-warning); }
+.icon-bg-accent { background: var(--icon-bg-accent); }
+.icon-bg-danger { background: var(--icon-bg-danger); }
 
 .system-info {
   flex: 1;
@@ -127,14 +208,14 @@ page {
 .system-name {
   font-size: 32rpx;
   font-weight: 600;
-  color: #fff;
+  color: var(--text-primary);
   display: block;
   margin-bottom: 6rpx;
 }
 
 .system-desc {
   font-size: 24rpx;
-  color: #a1a1aa;
+  color: var(--text-secondary);
 }
 
 /* 菜单分组 */
@@ -151,14 +232,14 @@ page {
 .title-text {
   font-size: 28rpx;
   font-weight: 600;
-  color: #a1a1aa;
+  color: var(--text-secondary);
   margin-right: 16rpx;
 }
 
 .title-line {
   flex: 1;
   height: 1rpx;
-  background: linear-gradient(90deg, rgba(99, 102, 241, 0.2), transparent);
+  background: linear-gradient(90deg, var(--border-light), transparent);
 }
 
 /* 菜单卡片 */
@@ -171,7 +252,7 @@ page {
   display: flex;
   align-items: center;
   padding: 28rpx 24rpx;
-  border-bottom: 1rpx solid rgba(99, 102, 241, 0.1);
+  border-bottom: 1rpx solid var(--border-light);
   transition: all 0.2s ease;
 }
 
@@ -180,7 +261,7 @@ page {
 }
 
 .menu-item:active {
-  background: rgba(99, 102, 241, 0.1);
+  background: var(--bg-glass);
 }
 
 .menu-icon {
@@ -192,13 +273,18 @@ page {
   justify-content: center;
   font-size: 32rpx;
   margin-right: 20rpx;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 15px var(--shadow-color);
 }
 
 .menu-name {
   flex: 1;
   font-size: 28rpx;
-  color: #fff;
+  color: var(--text-primary);
+}
+
+/* 主题切换区域 */
+.theme-section {
+  margin: 0 24rpx 16rpx;
 }
 
 /* 退出登录 */
@@ -213,7 +299,7 @@ page {
   border: 2rpx solid rgba(239, 68, 68, 0.3) !important;
   border-radius: 48rpx !important;
   font-size: 28rpx !important;
-  color: #f87171 !important;
+  color: var(--danger-color) !important;
   height: 88rpx !important;
   line-height: 88rpx !important;
 }

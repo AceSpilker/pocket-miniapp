@@ -1,7 +1,5 @@
 {
   "navigationBarTitleText": "角色管理",
-  "navigationBarBackgroundColor": "#0f0f23",
-  "navigationBarTextStyle": "white",
   "usingComponents": {
     "van-cell": "@vant/weapp/cell/index",
     "van-cell-group": "@vant/weapp/cell-group/index",

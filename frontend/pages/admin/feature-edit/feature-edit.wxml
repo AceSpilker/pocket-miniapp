@@ -1,0 +1,129 @@
+<view class="page" style="{{cssVars}}">
+  <!-- 动态背景 -->
+  <view class="bg-shapes">
+    <view class="shape shape-1"></view>
+  </view>
+
+  <!-- 顶部保存按钮 -->
+  <view class="save-btn-fixed">
+    <button class="save-btn" bindtap="handleSave" loading="{{saving}}">
+      {{isEdit ? '保存修改' : '创建功能'}}
+    </button>
+  </view>
+
+  <!-- 表单 -->
+  <view class="form-card">
+    <view class="form-item">
+      <text class="form-label">功能名称 <text class="required">*</text></text>
+      <input
+        class="form-input"
+        placeholder="请输入功能名称"
+        value="{{name}}"
+        bindinput="onNameInput"
+        maxlength="50"
+      />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">图标</text>
+      <input
+        class="form-input"
+        placeholder="请输入图标（如：📦）"
+        value="{{icon}}"
+        bindinput="onIconInput"
+        maxlength="100"
+      />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">图标背景颜色</text>
+      <view class="color-picker-row">
+        <view
+          class="color-preview"
+          style="background: {{icon_bg_color || '#6366f1'}};"
+          bindtap="showColorPicker"
+        >
+          <text class="color-preview-icon">{{icon || '📦'}}</text>
+        </view>
+        <input
+          class="form-input color-input"
+          placeholder="如：#6366f1"
+          value="{{icon_bg_color}}"
+          bindinput="onColorInput"
+          maxlength="20"
+        />
+        <view class="color-presets">
+          <view
+            class="color-preset {{icon_bg_color === item ? 'active' : ''}}"
+            wx:for="{{presetColors}}"
+            wx:key="*this"
+            style="background: {{item}};"
+            bindtap="selectPresetColor"
+            data-color="{{item}}"
+          ></view>
+        </view>
+      </view>
+      <text class="form-hint">选择或输入十六进制颜色值，用于图标背景</text>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">功能描述</text>
+      <textarea
+        class="form-textarea"
+        placeholder="请输入功能描述"
+        value="{{description}}"
+        bindinput="onDescInput"
+        maxlength="200"
+      />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">跳转路径 <text class="required">*</text></text>
+      <input
+        class="form-input"
+        placeholder="如：/pages/feedback/feedback"
+        value="{{path}}"
+        bindinput="onPathInput"
+        maxlength="200"
+      />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">所需权限</text>
+      <input
+        class="form-input"
+        placeholder="留空表示所有人可见"
+        value="{{required_permission}}"
+        bindinput="onPermissionInput"
+        maxlength="100"
+      />
+      <text class="form-hint">如：admin:access，留空表示所有人可见</text>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">排序</text>
+      <input
+        class="form-input"
+        type="number"
+        placeholder="数字越小越靠前"
+        value="{{sort_order}}"
+        bindinput="onSortInput"
+      />
+    </view>
+
+    <view class="form-item switch-item">
+      <text class="form-label">是否启用</text>
+      <van-switch checked="{{is_enabled}}" bind:change="onEnabledChange" size="48rpx" active-color="#6366f1" />
+    </view>
+
+    <view class="form-item switch-item">
+      <text class="form-label">是否隐藏</text>
+      <van-switch checked="{{is_hidden}}" bind:change="onHiddenChange" size="48rpx" active-color="#6366f1" />
+    </view>
+  </view>
+
+  <!-- 错误提示 -->
+  <view class="error-msg" wx:if="{{errorMsg}}">
+    <text>{{errorMsg}}</text>
+  </view>
+</view>

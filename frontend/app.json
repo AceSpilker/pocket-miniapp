@@ -9,6 +9,10 @@
     "pages/system/system",
     "pages/announcements/announcements",
     "pages/announcement-detail/announcement-detail",
+    "pages/feedback/feedback",
+    "pages/feedback-edit/feedback-edit",
+    "pages/features/features",
+    "pages/content-page/content-page",
     "pages/admin/users/users",
     "pages/admin/user-edit/user-edit",
     "pages/admin/roles/roles",
@@ -16,12 +20,16 @@
     "pages/admin/menus/menus",
     "pages/admin/menu-edit/menu-edit",
     "pages/admin/announcements/announcements",
-    "pages/admin/announcement-edit/announcement-edit"
+    "pages/admin/announcement-edit/announcement-edit",
+    "pages/admin/feedbacks/feedbacks",
+    "pages/admin/feedback-detail/feedback-detail",
+    "pages/admin/features/features",
+    "pages/admin/feature-edit/feature-edit"
   ],
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#0f0f23",
-    "navigationBarTitleText": "口袋小程序",
+    "navigationBarTitleText": "口袋小精灵",
     "navigationBarTextStyle": "white",
     "backgroundColor": "#0f0f23"
   },

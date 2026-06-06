@@ -1,17 +1,17 @@
-/* 动态列表页 */
+/* 动态列表页 - 主题适配样式 */
 
 .page {
   min-height: 100vh;
   padding: 24rpx;
   padding-bottom: calc(180rpx + env(safe-area-inset-bottom));
-  background: #0f0f23;
+  background: var(--bg-primary);
 }
 
 .loading-wrap {
   display: flex;
   justify-content: center;
   padding: 80rpx 0;
-  color: #a1a1aa;
+  color: var(--text-secondary);
 }
 
 .announcement-list {
@@ -23,14 +23,14 @@
   align-items: center;
   padding: 28rpx 24rpx;
   margin-bottom: 20rpx;
-  background: rgba(30, 30, 60, 0.6);
+  background: var(--bg-card);
   backdrop-filter: blur(10px);
-  border: 1rpx solid rgba(99, 102, 241, 0.15);
+  border: 1rpx solid var(--border-light);
   border-radius: 24rpx;
 }
 
 .announcement-item:active {
-  background: rgba(30, 30, 60, 0.8);
+  background: var(--bg-secondary);
 }
 
 .item-content {
@@ -46,7 +46,7 @@
 
 .top-tag {
   flex-shrink: 0;
-  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+  background: linear-gradient(135deg, var(--warning-color), #fbbf24);
   color: #fff;
   font-size: 20rpx;
   padding: 4rpx 12rpx;
@@ -57,7 +57,7 @@
 .title-text {
   font-size: 30rpx;
   font-weight: 500;
-  color: #fff;
+  color: var(--text-primary);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -67,11 +67,11 @@
   display: flex;
   align-items: center;
   font-size: 24rpx;
-  color: #71717a;
+  color: var(--text-muted);
 }
 
 .meta-author {
-  color: #818cf8;
+  color: var(--primary-light);
 }
 
 .meta-dot {

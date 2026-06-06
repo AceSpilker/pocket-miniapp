@@ -1,5 +1,8 @@
 const app = getApp()
 const { get, put, post } = require('../../utils/request')
+const themeManager = require('../../utils/theme-manager')
+const { getInitialThemeData, applyThemeToPage } = require('../../utils/theme-helpers')
+const { validatePhone, validateEmail, validateNickname } = require('../../utils/validate')
 
 Page({
   data: {
@@ -10,14 +13,25 @@ Page({
     email: '',
     saving: false,
     errorMsg: '',
-    successMsg: ''
+    successMsg: '',
+    ...getInitialThemeData()
   },
 
   onLoad() {
+    this._unsubscribe = themeManager.addListener(() => {
+      applyThemeToPage(this)
+    })
     this.loadUserInfo()
   },
 
+  onUnload() {
+    if (this._unsubscribe) {
+      this._unsubscribe()
+    }
+  },
+
   onShow() {
+    themeManager.refreshNavBar()
     const userInfo = app.globalData.userInfo
     if (userInfo && !this.data.nickname) {
       this.loadUserInfo()
@@ -100,30 +114,56 @@ Page({
 
   // 表单输入
   onNicknameInput(e) {
-    this.setData({ nickname: e.detail })
+    this.setData({ nickname: e.detail.value, errorMsg: '' })
   },
   onPhoneInput(e) {
-    this.setData({ phone: e.detail })
+    this.setData({ phone: e.detail.value, errorMsg: '' })
   },
   onEmailInput(e) {
-    this.setData({ email: e.detail })
+    this.setData({ email: e.detail.value, errorMsg: '' })
   },
 
   // 保存资料
   async handleSave() {
     if (this.data.saving) return
+
+    const { nickname, phone, email } = this.data
+
+    // 昵称校验
+    const nicknameResult = validateNickname(nickname)
+    if (!nicknameResult.valid) {
+      this.setData({ errorMsg: nicknameResult.message })
+      return
+    }
+
+    // 手机号校验
+    const phoneResult = validatePhone(phone)
+    if (!phoneResult.valid) {
+      this.setData({ errorMsg: phoneResult.message })
+      return
+    }
+
+    // 邮箱校验
+    const emailResult = validateEmail(email)
+    if (!emailResult.valid) {
+      this.setData({ errorMsg: emailResult.message })
+      return
+    }
+
     this.setData({ saving: true, errorMsg: '', successMsg: '' })
 
     try {
       const user = await put('/user/me', {
-        nickname: this.data.nickname,
-        phone: this.data.phone,
-        email: this.data.email
+        nickname: nickname.trim() || null,
+        phone: phone.trim() || null,
+        email: email.trim() || null
       })
       app.globalData.userInfo = user
       wx.setStorageSync('userInfo', user)
-      this.setData({ successMsg: '保存成功' })
-      setTimeout(() => this.setData({ successMsg: '' }), 2000)
+      wx.showToast({ title: '保存成功', icon: 'success' })
+      setTimeout(() => {
+        wx.navigateBack()
+      }, 1000)
     } catch (err) {
       this.setData({ errorMsg: err.detail || '保存失败' })
     } finally {

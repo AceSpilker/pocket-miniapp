@@ -1,7 +1,5 @@
 {
   "navigationBarTitleText": "编辑动态",
-  "navigationBarBackgroundColor": "#0f0f23",
-  "navigationBarTextStyle": "white",
   "usingComponents": {
     "van-field": "@vant/weapp/field/index",
     "van-cell-group": "@vant/weapp/cell-group/index",
