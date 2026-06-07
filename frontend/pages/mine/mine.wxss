@@ -280,6 +280,22 @@ page {
   flex: 1;
   font-size: 28rpx;
   color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+/* 语言值显示 */
+.menu-value {
+  font-size: 24rpx;
+  color: var(--text-muted);
+  margin-left: 16rpx;
+  white-space: nowrap;
+  flex-shrink: 0;
+  max-width: 120rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* 主题切换区域 */
@@ -306,4 +322,57 @@ page {
 
 .logout-btn:active {
   background: rgba(239, 68, 68, 0.1) !important;
+}
+
+/* 语言选择器样式修复 */
+page {
+  --action-sheet-z-index: 9999;
+}
+
+/* 语言选择器层级和主题适配 */
+.van-action-sheet {
+  z-index: 9999 !important;
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+.van-action-sheet__header {
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+.van-action-sheet__content {
+  background: var(--bg-secondary) !important;
+}
+
+.van-action-sheet__item {
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+.van-action-sheet__item--hover {
+  background: var(--card-active-bg) !important;
+}
+
+.van-action-sheet__item--disabled {
+  color: var(--text-muted) !important;
+}
+
+.van-action-sheet__cancel {
+  background: var(--bg-glass) !important;
+  color: var(--text-primary) !important;
+}
+
+.van-action-sheet__subname {
+  color: var(--text-muted) !important;
+}
+
+/* 当前语言选项高亮 */
+.active-lang {
+  color: var(--primary-color) !important;
+  font-weight: 600;
+}
+
+.active-lang .van-action-sheet__name {
+  color: var(--primary-color) !important;
 }

@@ -53,6 +53,7 @@ Page({
   },
 
   onShow() {
+    applyThemeToPage(this)
     themeManager.refreshNavBar()
   },
 
@@ -119,11 +120,12 @@ Page({
   },
 
   onEnabledChange(e) {
-    this.setData({ is_enabled: e.detail.value })
+    // van-switch 的 change 事件返回的是 e.detail 直接就是布尔值
+    this.setData({ is_enabled: e.detail })
   },
 
   onHiddenChange(e) {
-    this.setData({ is_hidden: e.detail.value })
+    this.setData({ is_hidden: e.detail })
   },
 
   async handleSave() {

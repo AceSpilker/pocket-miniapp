@@ -2,8 +2,8 @@
   <view class="toggle-label">
     <text class="toggle-icon">{{theme === 'dark' ? '🌙' : '☀️'}}</text>
     <view class="toggle-info">
-      <text class="toggle-text">主题切换</text>
-      <text class="toggle-desc">当前: {{theme === 'dark' ? '暗色模式' : '亮色模式'}}</text>
+      <text class="toggle-text">{{i18n.texts['theme.toggle'] || '主题切换'}}</text>
+      <text class="toggle-desc">{{i18n.texts['theme.current'] || '当前'}}: {{theme === 'dark' ? (i18n.texts['theme.dark'] || '暗色模式') : (i18n.texts['theme.light'] || '亮色模式')}}</text>
     </view>
   </view>
   <view class="toggle-switch">

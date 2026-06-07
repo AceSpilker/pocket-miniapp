@@ -91,6 +91,7 @@ class UserOut(BaseModel):
     avatar_url: Optional[str] = None
     phone: Optional[str] = None
     email: Optional[str] = None
+    language_id: Optional[int] = 1  # 语言偏好ID，默认1（中文）
     wechat_bound: bool = False
     last_login_at: Optional[datetime] = None
     created_at: Optional[datetime] = None
@@ -103,6 +104,7 @@ class UserUpdate(BaseModel):
     avatar_url: Optional[str] = None
     phone: Optional[str] = None
     email: Optional[str] = None
+    language_id: Optional[int] = None  # 语言偏好ID
 
     @field_validator('phone')
     @classmethod

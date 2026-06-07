@@ -1,6 +1,6 @@
 <van-overlay show="{{ visible }}">
-  <view class="loading-wrapper">
-    <van-loading type="spinner" size="48rpx" />
+  <view class="loading-wrapper" style="{{cssVars}}">
+    <van-loading type="spinner" size="48rpx" color="{{loadingColor}}" />
     <text class="loading-text">{{ text || '加载中...' }}</text>
   </view>
 </van-overlay>

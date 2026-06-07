@@ -7,8 +7,6 @@
  * - 刷新失败跳转登录页
  */
 
-const app = getApp()
-
 // 刷新 token 的锁
 let isRefreshing = false
 const pendingQueue = []
@@ -48,6 +46,35 @@ function hideLoading() {
   }
 }
 
+// ==================== App 实例获取 ====================
+
+/**
+ * 获取 App 实例（延迟获取，避免在 app 初始化阶段调用失败）
+ */
+function getAppInstance() {
+  try {
+    const app = getApp()
+    if (app && app.globalData) {
+      return app
+    }
+  } catch (e) {
+    console.warn('getApp() 尚未就绪')
+  }
+  return null
+}
+
+/**
+ * 获取基础 URL
+ */
+function getBaseUrl() {
+  const app = getAppInstance()
+  if (app && app.globalData && app.globalData.baseUrl) {
+    return app.globalData.baseUrl
+  }
+  // 降级：从存储或默认值获取
+  return wx.getStorageSync('api_base_url') || 'http://192.168.5.66:8000/api/v1'
+}
+
 // ==================== 请求核心 ====================
 
 function flushQueue(newToken) {
@@ -80,7 +107,8 @@ function handleResponse(res, resolve, reject, config) {
       isRefreshing = true
       pendingQueue.push({ resolve, reject, config })
 
-      const refreshToken = app.globalData.refreshToken
+      const app = getAppInstance()
+      const refreshToken = app?.globalData?.refreshToken || wx.getStorageSync('refresh_token')
       if (!refreshToken) {
         isRefreshing = false
         flushQueue(null)
@@ -89,14 +117,17 @@ function handleResponse(res, resolve, reject, config) {
       }
 
       wx.request({
-        url: `${app.globalData.baseUrl}/auth/refresh`,
+        url: `${getBaseUrl()}/auth/refresh`,
         method: 'POST',
         data: { refresh_token: refreshToken },
         success(refreshRes) {
           if (refreshRes.statusCode === 200 && refreshRes.data.access_token) {
             const newToken = refreshRes.data.access_token
-            app.globalData.accessToken = newToken
-            app.globalData.refreshToken = refreshRes.data.refresh_token
+            const app = getAppInstance()
+            if (app) {
+              app.globalData.accessToken = newToken
+              app.globalData.refreshToken = refreshRes.data.refresh_token
+            }
             wx.setStorageSync('access_token', newToken)
             wx.setStorageSync('refresh_token', refreshRes.data.refresh_token)
             isRefreshing = false
@@ -130,7 +161,10 @@ function handleResponse(res, resolve, reject, config) {
 }
 
 function redirectLogin() {
-  app.logout()
+  const app = getAppInstance()
+  if (app && typeof app.logout === 'function') {
+    app.logout()
+  }
   const pages = getCurrentPages()
   const currentPage = pages[pages.length - 1]
   if (currentPage && currentPage.route !== 'pages/login/login') {
@@ -146,7 +180,8 @@ function request(url, method = 'GET', data = {}, auth = true) {
     const header = { 'Content-Type': 'application/json' }
 
     if (auth) {
-      const token = app.globalData.accessToken || wx.getStorageSync('access_token')
+      const app = getAppInstance()
+      const token = app?.globalData?.accessToken || wx.getStorageSync('access_token')
       if (!token) {
         redirectLogin()
         reject({ code: -1, msg: '未登录' })
@@ -155,7 +190,7 @@ function request(url, method = 'GET', data = {}, auth = true) {
       header['Authorization'] = `Bearer ${token}`
     }
 
-    const config = { url: `${app.globalData.baseUrl}${url}`, method, data, header, auth }
+    const config = { url: `${getBaseUrl()}${url}`, method, data, header, auth }
 
     showLoading()
 

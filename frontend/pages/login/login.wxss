@@ -237,3 +237,74 @@
 .agreement .link {
   color: var(--primary-light);
 }
+
+/* 语言切换按钮 */
+.language-switch {
+  position: absolute;
+  top: 40rpx;
+  right: 40rpx;
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 16rpx 24rpx;
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  border-radius: 40rpx;
+  border: 1rpx solid var(--border-color);
+  font-size: 26rpx;
+  color: var(--text-primary);
+  z-index: 100;
+}
+
+.current-lang {
+  font-weight: 600;
+  color: var(--primary-light);
+}
+
+/* 当前语言选项高亮 */
+.active-lang {
+  color: var(--primary-color) !important;
+  font-weight: 600;
+}
+
+/* 语言选择器层级和主题适配 */
+page {
+  --action-sheet-z-index: 9999;
+}
+
+.van-action-sheet {
+  z-index: 9999 !important;
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+.van-action-sheet__header {
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+.van-action-sheet__content {
+  background: var(--bg-secondary) !important;
+}
+
+.van-action-sheet__item {
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+.van-action-sheet__item--hover {
+  background: var(--card-active-bg) !important;
+}
+
+.van-action-sheet__cancel {
+  background: var(--bg-glass) !important;
+  color: var(--text-primary) !important;
+}
+
+.van-action-sheet__subname {
+  color: var(--text-muted) !important;
+}
+
+.active-lang .van-action-sheet__name {
+  color: var(--primary-color) !important;
+}

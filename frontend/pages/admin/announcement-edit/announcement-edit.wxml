@@ -1,4 +1,4 @@
-<view class="page" style="{{cssVars}}">
+<view class="page theme-{{theme}} page-enter" style="{{cssVars}}">
 
   <!-- 顶部提示组件 -->
   <top-toast id="top-toast" />
@@ -15,8 +15,8 @@
   <!-- 表单 -->
   <view class="form-section">
     <!-- 基本信息 -->
-    <view class="section-title">📝 基本信息</view>
-    <van-cell-group class="form-card glass-card">
+    <view class="section-title fade-in-up">📝 基本信息</view>
+    <van-cell-group class="form-card glass-card fade-in-up" style="animation-delay: 0.05s;">
       <van-field
         value="{{ title }}"
         label="标题"
@@ -29,34 +29,34 @@
     </van-cell-group>
 
     <!-- 富文本编辑器 -->
-    <view class="section-title">📄 动态内容</view>
-    <view class="editor-card glass-card">
+    <view class="section-title fade-in-up" style="animation-delay: 0.1s;">📄 动态内容</view>
+    <view class="editor-card glass-card fade-in-up" style="animation-delay: 0.15s;">
       <!-- 工具栏 -->
       <view class="editor-toolbar">
-        <view class="tool-item" bindtap="formatBold">
+        <view class="tool-item tap-scale" bindtap="formatBold">
           <text class="tool-icon">B</text>
         </view>
-        <view class="tool-item" bindtap="formatItalic">
+        <view class="tool-item tap-scale" bindtap="formatItalic">
           <text class="tool-icon italic">I</text>
         </view>
-        <view class="tool-item" bindtap="formatUnderline">
+        <view class="tool-item tap-scale" bindtap="formatUnderline">
           <text class="tool-icon underline">U</text>
         </view>
         <view class="tool-divider"></view>
-        <view class="tool-item" bindtap="formatHeader">
+        <view class="tool-item tap-scale" bindtap="formatHeader">
           <text class="tool-icon">H1</text>
         </view>
-        <view class="tool-item" bindtap="formatAlignLeft">
+        <view class="tool-item tap-scale" bindtap="formatAlignLeft">
           <text class="tool-icon">⫷</text>
         </view>
-        <view class="tool-item" bindtap="formatAlignCenter">
+        <view class="tool-item tap-scale" bindtap="formatAlignCenter">
           <text class="tool-icon">⫿</text>
         </view>
         <view class="tool-divider"></view>
-        <view class="tool-item" bindtap="insertImage">
+        <view class="tool-item tap-scale" bindtap="insertImage">
           <text class="tool-icon">🖼</text>
         </view>
-        <view class="tool-item" bindtap="clearFormat">
+        <view class="tool-item tap-scale" bindtap="clearFormat">
           <text class="tool-icon">✕</text>
         </view>
       </view>
@@ -75,8 +75,8 @@
     </view>
 
     <!-- 设置选项 -->
-    <view class="section-title">⚙️ 设置</view>
-    <van-cell-group class="form-card glass-card">
+    <view class="section-title fade-in-up" style="animation-delay: 0.2s;">⚙️ 设置</view>
+    <van-cell-group class="form-card glass-card fade-in-up" style="animation-delay: 0.25s;">
       <van-cell title="置顶" use-label-slot>
         <van-switch checked="{{ isTop }}" bind:change="onTopChange" size="48rpx" />
       </van-cell>
@@ -87,7 +87,7 @@
   </view>
 
   <!-- 保存按钮 -->
-  <view class="btn-group">
+  <view class="btn-group fade-in-up" style="animation-delay: 0.3s;">
     <van-button
       type="primary"
       block

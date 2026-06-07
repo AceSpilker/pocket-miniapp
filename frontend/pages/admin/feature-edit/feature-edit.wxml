@@ -1,18 +1,18 @@
-<view class="page" style="{{cssVars}}">
+<view class="page theme-{{theme}} page-enter" style="{{cssVars}}">
   <!-- 动态背景 -->
   <view class="bg-shapes">
     <view class="shape shape-1"></view>
   </view>
 
   <!-- 顶部保存按钮 -->
-  <view class="save-btn-fixed">
-    <button class="save-btn" bindtap="handleSave" loading="{{saving}}">
+  <view class="save-btn-fixed fade-in-down">
+    <button class="save-btn tap-scale" bindtap="handleSave" loading="{{saving}}">
       {{isEdit ? '保存修改' : '创建功能'}}
     </button>
   </view>
 
   <!-- 表单 -->
-  <view class="form-card">
+  <view class="form-card glass-card fade-in-up" style="animation-delay: 0.05s;">
     <view class="form-item">
       <text class="form-label">功能名称 <text class="required">*</text></text>
       <input
@@ -39,7 +39,7 @@
       <text class="form-label">图标背景颜色</text>
       <view class="color-picker-row">
         <view
-          class="color-preview"
+          class="color-preview tap-scale"
           style="background: {{icon_bg_color || '#6366f1'}};"
           bindtap="showColorPicker"
         >
@@ -54,7 +54,7 @@
         />
         <view class="color-presets">
           <view
-            class="color-preset {{icon_bg_color === item ? 'active' : ''}}"
+            class="color-preset tap-scale {{icon_bg_color === item ? 'active' : ''}}"
             wx:for="{{presetColors}}"
             wx:key="*this"
             style="background: {{item}};"
@@ -123,7 +123,7 @@
   </view>
 
   <!-- 错误提示 -->
-  <view class="error-msg" wx:if="{{errorMsg}}">
+  <view class="error-msg fade-in" wx:if="{{errorMsg}}">
     <text>{{errorMsg}}</text>
   </view>
 </view>

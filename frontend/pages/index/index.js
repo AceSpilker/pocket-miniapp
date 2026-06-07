@@ -2,8 +2,11 @@ const app = getApp()
 const { get } = require('../../utils/request')
 const themeManager = require('../../utils/theme-manager')
 const { getInitialThemeData, applyThemeToPage } = require('../../utils/theme-helpers')
+const i18nBehavior = require('../../utils/i18n-behavior')
 
 Page({
+  behaviors: [i18nBehavior],  // 混入国际化 Behavior
+
   data: {
     hasLogin: false,
     userInfo: null,
@@ -30,6 +33,10 @@ Page({
 
     applyThemeToPage(this)
     themeManager.refreshNavBar()
+
+    // 设置导航栏标题
+    wx.setNavigationBarTitle({ title: this.t('tabbar.home') })
+
     this.checkLoginStatus()
     this.loadLatestAnnouncements()
     this.loadFeatures()
@@ -79,9 +86,9 @@ Page({
     const date = new Date(time)
     const now = new Date()
     const diff = now - date
-    if (diff < 60000) return '刚刚'
-    if (diff < 3600000) return Math.floor(diff / 60000) + '分钟前'
-    if (diff < 86400000) return Math.floor(diff / 3600000) + '小时前'
+    if (diff < 60000) return this.t('index.justNow') || '刚刚'
+    if (diff < 3600000) return Math.floor(diff / 60000) + (this.t('index.minutesAgo') || '分钟前')
+    if (diff < 86400000) return Math.floor(diff / 3600000) + (this.t('index.hoursAgo') || '小时前')
     const m = String(date.getMonth() + 1).padStart(2, '0')
     const d = String(date.getDate()).padStart(2, '0')
     return `${m}-${d}`
@@ -108,11 +115,11 @@ Page({
   onFeatureTap(e) {
     const feature = e.currentTarget.dataset.feature
     if (!feature) {
-      wx.showToast({ title: '功能开发中', icon: 'none' })
+      wx.showToast({ title: this.t('index.developing') || '功能开发中', icon: 'none' })
       return
     }
     if (!feature.is_enabled) {
-      wx.showToast({ title: '功能开发中，敬请期待', icon: 'none' })
+      wx.showToast({ title: this.t('index.comingSoon') || '功能开发中，敬请期待', icon: 'none' })
       return
     }
     if (feature.path) {

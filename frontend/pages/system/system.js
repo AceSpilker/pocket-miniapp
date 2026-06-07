@@ -1,8 +1,11 @@
 const app = getApp()
 const themeManager = require('../../utils/theme-manager')
 const { getInitialThemeData, applyThemeToPage } = require('../../utils/theme-helpers')
+const i18nBehavior = require('../../utils/i18n-behavior')
 
 Page({
+  behaviors: [i18nBehavior],
+
   data: {
     hasAccess: false,
     ...getInitialThemeData()
@@ -29,6 +32,7 @@ Page({
   onShow() {
     applyThemeToPage(this)
     themeManager.refreshNavBar()
+    wx.setNavigationBarTitle({ title: this.t('nav.system') })
   },
 
   goTo(e) {

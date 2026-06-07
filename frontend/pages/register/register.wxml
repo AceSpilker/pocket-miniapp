@@ -1,4 +1,4 @@
-<view class="register-page" style="{{cssVars}}">
+<view class="register-page page-enter" style="{{cssVars}}">
 
   <!-- 动态背景 -->
   <view class="bg-shapes">
@@ -8,43 +8,43 @@
 
   <!-- 标题 -->
   <view class="header fade-in-up">
-    <text class="title gradient-text">✨ 创建账号</text>
-    <text class="subtitle">开启你的炫酷之旅</text>
+    <text class="title gradient-text">✨ {{i18n.texts['register.title']}}</text>
+    <text class="subtitle">{{i18n.texts['register.subtitle']}}</text>
   </view>
 
   <!-- 表单 -->
-  <view class="form-card fade-in-up" style="animation-delay: 0.1s;">
+  <view class="form-card fade-in-up glass-card" style="animation-delay: 0.1s;">
     <van-cell-group>
       <van-field
         value="{{ username }}"
-        label="用户名"
+        label="{{i18n.texts['register.username']}}"
         required
-        placeholder="2-32位字母或数字"
+        placeholder="{{i18n.texts['register.usernamePlaceholder']}}"
         bind:change="onUsernameInput"
         custom-class="input-field"
       />
       <van-field
         value="{{ nickname }}"
-        label="昵称"
-        placeholder="选填，默认使用用户名"
+        label="{{i18n.texts['register.nickname']}}"
+        placeholder="{{i18n.texts['register.nicknamePlaceholder']}}"
         bind:change="onNicknameInput"
         custom-class="input-field"
       />
       <van-field
         value="{{ password }}"
         type="password"
-        label="密码"
+        label="{{i18n.texts['register.password']}}"
         required
-        placeholder="至少6位密码"
+        placeholder="{{i18n.texts['register.passwordPlaceholder']}}"
         bind:change="onPasswordInput"
         custom-class="input-field"
       />
       <van-field
         value="{{ confirmPassword }}"
         type="password"
-        label="确认密码"
+        label="{{i18n.texts['register.confirmPassword']}}"
         required
-        placeholder="再次输入密码"
+        placeholder="{{i18n.texts['register.confirmPasswordPlaceholder']}}"
         bind:change="onConfirmPasswordInput"
         custom-class="input-field"
       />
@@ -71,21 +71,21 @@
       bind:click="handleRegister"
       custom-class="register-btn"
     >
-      🚀 开始注册
+      🚀 {{i18n.texts['register.button']}}
     </van-button>
   </view>
 
   <!-- 登录链接 -->
   <view class="login-link fade-in" style="animation-delay: 0.3s;">
-    <text>已有账号？</text>
-    <text class="link" bindtap="goLogin">去登录 🔥</text>
+    <text>{{i18n.texts['register.hasAccount']}}</text>
+    <text class="link tap-opacity" bindtap="goLogin">{{i18n.texts['register.goLogin']}} 🔥</text>
   </view>
 
   <!-- 协议 -->
   <view class="agreement fade-in" style="animation-delay: 0.35s;">
-    <text>注册即代表同意</text>
-    <text class="link" bindtap="goUserAgreement">《用户协议》</text>
-    <text>和</text>
-    <text class="link" bindtap="goPrivacyPolicy">《隐私政策》</text>
+    <text>{{i18n.texts['register.agreement']}}</text>
+    <text class="link tap-opacity" bindtap="goUserAgreement">《{{i18n.texts['login.userAgreement']}}》</text>
+    <text>{{i18n.texts['login.and']}}</text>
+    <text class="link tap-opacity" bindtap="goPrivacyPolicy">《{{i18n.texts['login.privacyPolicy']}}》</text>
   </view>
 </view>

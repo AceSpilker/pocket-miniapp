@@ -1,27 +1,27 @@
-<view class="page" style="{{cssVars}}">
+<view class="page page-enter" style="{{cssVars}}">
   <!-- 动态背景 -->
   <view class="bg-shapes">
     <view class="shape shape-1"></view>
   </view>
 
   <!-- 标题区 -->
-  <view class="header">
+  <view class="header fade-in-down">
     <view class="header-row">
-      <text class="title">💬 意见反馈</text>
+      <text class="title">💬 {{i18n.texts['feedback.title']}}</text>
     </view>
-    <text class="subtitle">您的意见是我们前进的动力</text>
+    <text class="subtitle">{{i18n.texts['feedback.subtitle']}}</text>
   </view>
 
   <!-- 版本历史（编辑时显示，包含每个版本的回复） -->
-  <view class="versions-section" wx:if="{{isEdit && versions.length > 0}}">
-    <view class="section-header clickable" bindtap="toggleVersions">
-      <text class="section-title">📜 版本历史 ({{versions.length}})</text>
-      <text class="toggle-icon">{{showVersions ? '收起' : '展开'}}</text>
+  <view class="versions-section fade-in" wx:if="{{isEdit && versions.length > 0}}">
+    <view class="section-header clickable tap-scale" bindtap="toggleVersions">
+      <text class="section-title">📜 {{i18n.texts['feedback.versionHistory']}} ({{versions.length}})</text>
+      <text class="toggle-icon">{{showVersions ? i18n.texts['feedback.collapse'] : i18n.texts['feedback.expand']}}</text>
     </view>
     <view class="versions-list" wx:if="{{showVersions}}">
-      <view class="version-item" wx:for="{{versions}}" wx:key="id">
+      <view class="version-item list-item-anim" wx:for="{{versions}}" wx:key="id" style="animation-delay: {{index * 0.05}}s;">
         <view class="version-header">
-          <text class="version-num">版本 {{item.version}}</text>
+          <text class="version-num">{{i18n.texts['feedback.version']}} {{item.version}}</text>
           <text class="version-time">{{item.created_at}}</text>
         </view>
         <text class="version-title">{{item.title}}</text>
@@ -29,23 +29,23 @@
         <!-- 该版本的管理员回复 -->
         <view class="version-reply" wx:if="{{item.reply}}">
           <view class="version-reply-header">
-            <text class="version-reply-label">📢 管理员回复</text>
+            <text class="version-reply-label">📢 {{i18n.texts['feedback.adminReply']}}</text>
             <text class="version-reply-time">{{item.replied_at}}</text>
           </view>
           <text class="version-reply-content">{{item.reply}}</text>
-          <text class="version-reply-author">回复人: {{item.replier_name || '管理员'}}</text>
+          <text class="version-reply-author">{{i18n.texts['feedback.replier']}}: {{item.replier_name || i18n.texts['feedback.admin']}}</text>
         </view>
       </view>
     </view>
   </view>
 
   <!-- 表单 -->
-  <view class="form-card">
+  <view class="form-card glass-card fade-in-up" style="animation-delay: 0.1s;">
     <view class="form-item">
-      <text class="form-label">标题 <text class="required">*</text></text>
+      <text class="form-label">{{i18n.texts['feedback.titleLabel']}} <text class="required">*</text></text>
       <input
         class="form-input"
-        placeholder="请输入标题"
+        placeholder="{{i18n.texts['feedback.titlePlaceholder']}}"
         value="{{title}}"
         bindinput="onTitleInput"
         maxlength="200"
@@ -53,10 +53,10 @@
     </view>
 
     <view class="form-item">
-      <text class="form-label">详细描述</text>
+      <text class="form-label">{{i18n.texts['feedback.contentLabel']}}</text>
       <textarea
         class="form-textarea"
-        placeholder="请详细描述您的意见或建议..."
+        placeholder="{{i18n.texts['feedback.contentPlaceholder']}}"
         value="{{content}}"
         bindinput="onContentInput"
         maxlength="5000"
@@ -67,14 +67,14 @@
   </view>
 
   <!-- 错误提示 -->
-  <view class="error-msg" wx:if="{{errorMsg}}">
+  <view class="error-msg fade-in" wx:if="{{errorMsg}}">
     <text>{{errorMsg}}</text>
   </view>
 
   <!-- 提交按钮 -->
-  <view class="submit-section">
-    <button class="submit-btn" bindtap="handleSubmit" loading="{{saving}}">
-      {{isEdit ? '保存修改' : '提交意见'}}
+  <view class="submit-section fade-in-up" style="animation-delay: 0.15s;">
+    <button class="submit-btn tap-scale" bindtap="handleSubmit" loading="{{saving}}">
+      {{isEdit ? i18n.texts['feedback.saveEdit'] : i18n.texts['feedback.submit']}}
     </button>
   </view>
 </view>

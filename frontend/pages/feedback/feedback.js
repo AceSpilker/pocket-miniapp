@@ -2,8 +2,11 @@ const app = getApp()
 const { get, del } = require('../../utils/request')
 const themeManager = require('../../utils/theme-manager')
 const { getInitialThemeData, applyThemeToPage } = require('../../utils/theme-helpers')
+const i18nBehavior = require('../../utils/i18n-behavior')
 
 Page({
+  behaviors: [i18nBehavior],
+
   data: {
     loading: false,
     list: [],
@@ -28,6 +31,7 @@ Page({
   onShow() {
     applyThemeToPage(this)
     themeManager.refreshNavBar()
+    wx.setNavigationBarTitle({ title: this.t('nav.feedback') })
     this.loadList()
   },
 
@@ -52,7 +56,7 @@ Page({
         total: data.total || 0
       })
     } catch (err) {
-      wx.showToast({ title: '加载失败', icon: 'none' })
+      wx.showToast({ title: this.t('feedback.loadFailed') || '加载失败', icon: 'none' })
     } finally {
       this.setData({ loading: false })
     }
@@ -71,9 +75,9 @@ Page({
 
   getStatusText(status) {
     const statusMap = {
-      'pending': '待处理',
-      'replied': '已回复',
-      'resolved': '已解决'
+      'pending': this.t('feedback.statusPending') || '待处理',
+      'replied': this.t('feedback.statusReplied') || '已回复',
+      'resolved': this.t('feedback.statusResolved') || '已解决'
     }
     return statusMap[status] || status
   },
@@ -92,17 +96,17 @@ Page({
     const title = e.currentTarget.dataset.title
 
     wx.showModal({
-      title: '确认删除',
-      content: `确定要删除"${title}"吗？`,
+      title: this.t('feedback.deleteConfirm') || '确认删除',
+      content: `${this.t('feedback.deleteConfirmMsg') || '确定要删除'}"${title}"吗？`,
       confirmColor: '#ef4444',
       success: async (res) => {
         if (res.confirm) {
           try {
             await del(`/feedbacks/${id}`)
-            wx.showToast({ title: '已删除', icon: 'success' })
+            wx.showToast({ title: this.t('feedback.deleted') || '已删除', icon: 'success' })
             this.loadList()
           } catch (err) {
-            wx.showToast({ title: err.detail || '删除失败', icon: 'none' })
+            wx.showToast({ title: err.detail || (this.t('feedback.deleteFailed') || '删除失败'), icon: 'none' })
           }
         }
       }

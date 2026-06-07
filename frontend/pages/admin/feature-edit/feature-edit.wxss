@@ -31,6 +31,11 @@
   right: -100rpx;
 }
 
+/* 亮色主题背景调整 */
+.page.theme-light .shape-1 {
+  opacity: 0.1;
+}
+
 /* 顶部保存按钮 */
 .save-btn-fixed {
   position: fixed;
@@ -60,6 +65,11 @@
   transform: scale(0.99);
 }
 
+/* 亮色主题按钮阴影 */
+.page.theme-light .save-btn {
+  box-shadow: 0 4rpx 16rpx rgba(99, 102, 241, 0.25);
+}
+
 /* 表单卡片 */
 .form-card {
   margin: 0 24rpx;
@@ -69,6 +79,13 @@
   border: 1rpx solid var(--border-light);
   position: relative;
   z-index: 1;
+}
+
+/* 亮色主题卡片 */
+.page.theme-light .form-card {
+  background: #FFFFFF;
+  border: none;
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.08);
 }
 
 .form-item {
@@ -100,10 +117,17 @@
   font-size: 28rpx;
   color: var(--text-primary);
   box-sizing: border-box;
+  border: none;
 }
 
 .form-input::placeholder {
   color: var(--text-muted);
+}
+
+/* 亮色主题输入框 */
+.page.theme-light .form-input {
+  background: #E5E5EA;
+  border: 1rpx solid rgba(60, 60, 67, 0.1);
 }
 
 .form-textarea {
@@ -116,10 +140,17 @@
   color: var(--text-primary);
   box-sizing: border-box;
   line-height: 1.6;
+  border: none;
 }
 
 .form-textarea::placeholder {
   color: var(--text-muted);
+}
+
+/* 亮色主题文本域 */
+.page.theme-light .form-textarea {
+  background: #E5E5EA;
+  border: 1rpx solid rgba(60, 60, 67, 0.1);
 }
 
 .form-hint {
@@ -201,6 +232,6 @@
 }
 
 .color-preset.active {
-  border-color: var(--text-primary);
+  border-color: var(--primary-color);
   transform: scale(1.1);
 }

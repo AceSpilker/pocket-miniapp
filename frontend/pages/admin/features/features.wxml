@@ -1,18 +1,18 @@
-<view class="page" style="{{cssVars}}">
+<view class="page theme-{{theme}} page-enter" style="{{cssVars}}">
   <!-- 动态背景 -->
   <view class="bg-shapes">
     <view class="shape shape-1"></view>
   </view>
 
   <!-- 顶部固定按钮 -->
-  <view class="create-btn-fixed" bindtap="goCreate">
+  <view class="create-btn-fixed tap-scale" bindtap="goCreate">
     <text>+ 新建功能</text>
   </view>
 
   <!-- 功能列表 -->
   <view class="feature-list" wx:if="{{!loading && list.length > 0}}">
-    <view class="feature-item" wx:for="{{list}}" wx:key="id">
-      <view class="feature-main" bindtap="goEdit" data-id="{{item.id}}">
+    <view class="feature-item list-item-anim glass-card" wx:for="{{list}}" wx:key="id" style="animation-delay: {{index * 0.05}}s;">
+      <view class="feature-main tap-bg" bindtap="goEdit" data-id="{{item.id}}">
         <view class="feature-icon" style="background: {{item.icon_bg_color || 'linear-gradient(135deg, var(--primary-color), var(--primary-light))'}};">
           <text>{{item.icon || '📦'}}</text>
         </view>
@@ -22,14 +22,14 @@
         </view>
       </view>
       <view class="feature-status">
-        <view class="status-tag {{item.is_enabled ? 'enabled' : 'disabled'}}"
+        <view class="status-tag tap-scale {{item.is_enabled ? 'enabled' : 'disabled'}}"
               bindtap="toggleEnabled"
               data-id="{{item.id}}"
               data-enabled="{{item.is_enabled}}"
               data-name="{{item.name}}">
           {{item.is_enabled ? '已启用' : '已禁用'}}
         </view>
-        <view class="status-tag {{item.is_hidden ? 'hidden' : 'visible'}}"
+        <view class="status-tag tap-scale {{item.is_hidden ? 'hidden' : 'visible'}}"
               bindtap="toggleHidden"
               data-id="{{item.id}}"
               data-hidden="{{item.is_hidden}}">
@@ -37,14 +37,14 @@
         </view>
       </view>
       <view class="feature-actions">
-        <text class="action-btn" catchtap="goEdit" data-id="{{item.id}}">编辑</text>
-        <text class="action-btn danger" catchtap="handleDelete" data-id="{{item.id}}" data-name="{{item.name}}">删除</text>
+        <text class="action-btn tap-opacity" catchtap="goEdit" data-id="{{item.id}}">编辑</text>
+        <text class="action-btn danger tap-opacity" catchtap="handleDelete" data-id="{{item.id}}" data-name="{{item.name}}">删除</text>
       </view>
     </view>
   </view>
 
   <!-- 空状态 -->
-  <view class="empty-state" wx:if="{{!loading && list.length === 0}}">
+  <view class="empty-state fade-in scale-in" wx:if="{{!loading && list.length === 0}}">
     <text class="empty-icon">📦</text>
     <text class="empty-text">暂无功能</text>
     <text class="empty-hint">点击上方按钮创建功能</text>

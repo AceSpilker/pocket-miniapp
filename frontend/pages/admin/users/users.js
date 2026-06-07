@@ -3,9 +3,12 @@ const { get, post, put, del } = require('../../../utils/request')
 const ui = require('../../../utils/ui')
 const themeManager = require('../../../utils/theme-manager')
 const { getInitialThemeData, applyThemeToPage } = require('../../../utils/theme-helpers')
+const i18nBehavior = require('../../../utils/i18n-behavior')
 const Dialog = require('@vant/weapp/dialog/dialog')
 
 Page({
+  behaviors: [i18nBehavior],
+
   data: {
     loading: false,
     users: [],
@@ -23,7 +26,7 @@ Page({
     })
 
     if (!app.hasPermission('admin:access')) {
-      wx.showToast({ title: '无权限', icon: 'none' })
+      wx.showToast({ title: this.t('system.noAccess') || '无权限', icon: 'none' })
       setTimeout(() => wx.navigateBack(), 1000)
       return
     }
@@ -40,6 +43,7 @@ Page({
   onShow() {
     applyThemeToPage(this)
     themeManager.refreshNavBar()
+    wx.setNavigationBarTitle({ title: this.t('admin.users') })
     if (this.data.hasAccess) this.loadUsers()
   },
 
@@ -53,7 +57,7 @@ Page({
       })
       this.setData({ users: data.items || [], total: data.total || 0 })
     } catch (err) {
-      ui.error('加载失败')
+      ui.error(this.t('admin.loadFailed') || '加载失败')
     } finally {
       this.setData({ loading: false })
     }
@@ -84,18 +88,19 @@ Page({
     const username = e.currentTarget.dataset.username
     const isActive = e.currentTarget.dataset.isActive
 
-    const action = isActive ? '禁用' : '启用'
+    const action = isActive ? (this.t('admin.disabled') || '禁用') : (this.t('admin.enabled') || '启用')
+    const actionMsg = isActive ? this.t('admin.disable') || '禁用' : this.t('admin.enable') || '启用'
 
     Dialog.confirm({
-      title: `确认${action}`,
-      message: `确定要${action}用户 "${username}" 吗？`,
+      title: `${this.t('admin.confirm') || '确认'}${actionMsg}`,
+      message: `${this.t('admin.confirmAction') || '确定要'}${actionMsg}${this.t('admin.user') || '用户'} "${username}" ${this.t('admin.question') || '吗？'}`,
     }).then(async () => {
       try {
         await put(`/admin/users/${id}`, { is_active: !isActive })
-        wx.showToast({ title: `已${action}`, icon: 'success' })
+        wx.showToast({ title: `${this.t('admin.already') || '已'}${actionMsg}`, icon: 'success' })
         this.loadUsers()
       } catch (err) {
-        wx.showToast({ title: err.detail || `${action}失败`, icon: 'none' })
+        wx.showToast({ title: err.detail || `${actionMsg}${this.t('admin.failed') || '失败'}`, icon: 'none' })
       }
     }).catch(() => {})
   },
@@ -108,14 +113,14 @@ Page({
     const username = e.currentTarget.dataset.username
 
     Dialog.confirm({
-      title: '重置密码',
-      message: `确定要重置用户 "${username}" 的密码吗？新密码将发送到其邮箱。`,
+      title: this.t('admin.resetPassword') || '重置密码',
+      message: `${this.t('admin.confirmResetPwd') || '确定要重置用户'} "${username}" ${this.t('admin.pwdSendEmail') || '的密码吗？新密码将发送到其邮箱。'}`,
     }).then(async () => {
       try {
         await post(`/admin/users/${id}/reset-password`)
-        wx.showToast({ title: '密码已重置', icon: 'success' })
+        wx.showToast({ title: this.t('admin.pwdResetSuccess') || '密码已重置', icon: 'success' })
       } catch (err) {
-        wx.showToast({ title: err.detail || '重置失败', icon: 'none' })
+        wx.showToast({ title: err.detail || (this.t('admin.pwdResetFailed') || '重置失败'), icon: 'none' })
       }
     }).catch(() => {})
   },

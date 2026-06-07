@@ -1,4 +1,4 @@
-<view class="page" style="{{cssVars}}" wx:if="{{hasAccess}}">
+<view class="page theme-{{theme}} page-enter" style="{{cssVars}}" wx:if="{{hasAccess}}">
 
   <!-- 工具栏 -->
   <view class="toolbar fade-in-up">
@@ -14,7 +14,7 @@
 
   <view wx:else class="menu-list">
     <view
-      class="menu-item glass-card fade-in-up"
+      class="menu-item glass-card list-item-anim tap-scale"
       wx:for="{{menus}}"
       wx:key="id"
       style="animation-delay: {{0.1 + index * 0.05}}s;"

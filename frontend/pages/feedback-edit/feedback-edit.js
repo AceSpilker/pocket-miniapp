@@ -2,8 +2,11 @@ const app = getApp()
 const { get, post, put } = require('../../utils/request')
 const themeManager = require('../../utils/theme-manager')
 const { getInitialThemeData, applyThemeToPage } = require('../../utils/theme-helpers')
+const i18nBehavior = require('../../utils/i18n-behavior')
 
 Page({
+  behaviors: [i18nBehavior],
+
   data: {
     isEdit: false,
     feedbackId: null,
@@ -25,10 +28,10 @@ Page({
 
     if (options.id) {
       this.setData({ isEdit: true, feedbackId: parseInt(options.id) })
-      wx.setNavigationBarTitle({ title: '编辑意见' })
+      wx.setNavigationBarTitle({ title: this.t('feedback.editTitle') || '编辑意见' })
       this.loadFeedback(options.id)
     } else {
-      wx.setNavigationBarTitle({ title: '提交意见' })
+      wx.setNavigationBarTitle({ title: this.t('feedback.submitTitle') || '提交意见' })
     }
   },
 
@@ -39,7 +42,12 @@ Page({
   },
 
   onShow() {
+    applyThemeToPage(this)
     themeManager.refreshNavBar()
+    // 根据是否是编辑模式设置标题
+    wx.setNavigationBarTitle({
+      title: this.data.isEdit ? this.t('nav.feedbackEdit') : this.t('feedback.submit')
+    })
   },
 
   async loadFeedback(id) {
@@ -61,7 +69,7 @@ Page({
         }))
       })
     } catch (err) {
-      wx.showToast({ title: '加载失败', icon: 'none' })
+      wx.showToast({ title: this.t('feedback.loadFailed') || '加载失败', icon: 'none' })
       setTimeout(() => wx.navigateBack(), 1500)
     }
   },
@@ -93,7 +101,7 @@ Page({
     const { isEdit, feedbackId, title, content } = this.data
 
     if (!title.trim()) {
-      this.setData({ errorMsg: '请输入标题' })
+      this.setData({ errorMsg: this.t('feedback.titleRequired') || '请输入标题' })
       return
     }
 
@@ -106,17 +114,17 @@ Page({
           title: title.trim(),
           content: content.trim() || null
         })
-        wx.showToast({ title: '已更新', icon: 'success' })
+        wx.showToast({ title: this.t('feedback.updated') || '已更新', icon: 'success' })
       } else {
         await post('/feedbacks', {
           title: title.trim(),
           content: content.trim() || null
         })
-        wx.showToast({ title: '提交成功', icon: 'success' })
+        wx.showToast({ title: this.t('feedback.submitSuccess') || '提交成功', icon: 'success' })
       }
       setTimeout(() => wx.navigateBack(), 1500)
     } catch (err) {
-      this.setData({ errorMsg: err.detail || '提交失败' })
+      this.setData({ errorMsg: err.detail || (this.t('feedback.submitFailed') || '提交失败') })
     } finally {
       this.setData({ saving: false })
     }

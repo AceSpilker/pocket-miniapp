@@ -1,4 +1,4 @@
-<view class="page" style="{{cssVars}}" wx:if="{{hasAccess}}">
+<view class="page page-enter" style="{{cssVars}}" wx:if="{{hasAccess}}">
 
   <!-- 动态渐变背景 -->
   <view class="bg-shapes">
@@ -7,78 +7,78 @@
   </view>
 
   <!-- 固定标题区 -->
-  <view class="header-fixed">
+  <view class="header-fixed fade-in-down">
     <view class="header-content">
-      <text class="title">⚙️ 系统管理</text>
-      <text class="subtitle">后台管理功能入口</text>
+      <text class="title">⚙️ {{i18n.texts['system.title']}}</text>
+      <text class="subtitle">{{i18n.texts['system.subtitle']}}</text>
     </view>
   </view>
 
   <!-- 可滚动菜单区域 -->
   <scroll-view class="menu-scroll" scroll-y enhanced show-scrollbar="{{false}}">
     <view class="menu-list">
-      <view class="menu-item" bindtap="goTo" data-url="/pages/admin/users/users">
+      <view class="menu-item list-item-anim glass-card tap-scale" bindtap="goTo" data-url="/pages/admin/users/users" style="animation-delay: 0.05s;">
         <view class="menu-icon icon-bg-primary">
           <text>👥</text>
         </view>
         <view class="menu-content">
-          <text class="menu-name">用户管理</text>
-          <text class="menu-desc">查看、编辑、删除用户账号</text>
+          <text class="menu-name">{{i18n.texts['system.users']}}</text>
+          <text class="menu-desc">{{i18n.texts['system.usersDesc']}}</text>
         </view>
         <van-icon name="arrow" size="32rpx" custom-style="color: var(--text-muted);" />
       </view>
 
-      <view class="menu-item" bindtap="goTo" data-url="/pages/admin/roles/roles">
+      <view class="menu-item list-item-anim glass-card tap-scale" bindtap="goTo" data-url="/pages/admin/roles/roles" style="animation-delay: 0.1s;">
         <view class="menu-icon icon-bg-secondary">
           <text>🔑</text>
         </view>
         <view class="menu-content">
-          <text class="menu-name">角色管理</text>
-          <text class="menu-desc">管理角色与权限配置</text>
+          <text class="menu-name">{{i18n.texts['system.roles']}}</text>
+          <text class="menu-desc">{{i18n.texts['system.rolesDesc']}}</text>
         </view>
         <van-icon name="arrow" size="32rpx" custom-style="color: var(--text-muted);" />
       </view>
 
-      <view class="menu-item" bindtap="goTo" data-url="/pages/admin/menus/menus">
+      <view class="menu-item list-item-anim glass-card tap-scale" bindtap="goTo" data-url="/pages/admin/menus/menus" style="animation-delay: 0.15s;">
         <view class="menu-icon icon-bg-accent">
           <text>📋</text>
         </view>
         <view class="menu-content">
-          <text class="menu-name">菜单管理</text>
-          <text class="menu-desc">管理导航菜单配置</text>
+          <text class="menu-name">{{i18n.texts['system.menus']}}</text>
+          <text class="menu-desc">{{i18n.texts['system.menusDesc']}}</text>
         </view>
         <van-icon name="arrow" size="32rpx" custom-style="color: var(--text-muted);" />
       </view>
 
-      <view class="menu-item" bindtap="goTo" data-url="/pages/admin/announcements/announcements">
+      <view class="menu-item list-item-anim glass-card tap-scale" bindtap="goTo" data-url="/pages/admin/announcements/announcements" style="animation-delay: 0.2s;">
         <view class="menu-icon icon-bg-warning">
           <text>📢</text>
         </view>
         <view class="menu-content">
-          <text class="menu-name">动态管理</text>
-          <text class="menu-desc">发布和管理动态公告</text>
+          <text class="menu-name">{{i18n.texts['system.announcements']}}</text>
+          <text class="menu-desc">{{i18n.texts['system.announcementsDesc']}}</text>
         </view>
         <van-icon name="arrow" size="32rpx" custom-style="color: var(--text-muted);" />
       </view>
 
-      <view class="menu-item" bindtap="goTo" data-url="/pages/admin/feedbacks/feedbacks">
+      <view class="menu-item list-item-anim glass-card tap-scale" bindtap="goTo" data-url="/pages/admin/feedbacks/feedbacks" style="animation-delay: 0.25s;">
         <view class="menu-icon icon-bg-success">
           <text>💬</text>
         </view>
         <view class="menu-content">
-          <text class="menu-name">意见反馈</text>
-          <text class="menu-desc">查看和回复用户意见</text>
+          <text class="menu-name">{{i18n.texts['system.feedbacks']}}</text>
+          <text class="menu-desc">{{i18n.texts['system.feedbacksDesc']}}</text>
         </view>
         <van-icon name="arrow" size="32rpx" custom-style="color: var(--text-muted);" />
       </view>
 
-      <view class="menu-item" bindtap="goTo" data-url="/pages/admin/features/features">
+      <view class="menu-item list-item-anim glass-card tap-scale" bindtap="goTo" data-url="/pages/admin/features/features" style="animation-delay: 0.3s;">
         <view class="menu-icon icon-bg-primary">
           <text>🎮</text>
         </view>
         <view class="menu-content">
-          <text class="menu-name">功能管理</text>
-          <text class="menu-desc">管理功能开关与排序</text>
+          <text class="menu-name">{{i18n.texts['system.features']}}</text>
+          <text class="menu-desc">{{i18n.texts['system.featuresDesc']}}</text>
         </view>
         <van-icon name="arrow" size="32rpx" custom-style="color: var(--text-muted);" />
       </view>
@@ -86,6 +86,6 @@
   </scroll-view>
 </view>
 
-<view class="no-access" style="{{cssVars}}" wx:else>
-  <text>🚫 无权限访问</text>
+<view class="no-access fade-in" style="{{cssVars}}" wx:else>
+  <text>🚫 {{i18n.texts['system.noAccess']}}</text>
 </view>

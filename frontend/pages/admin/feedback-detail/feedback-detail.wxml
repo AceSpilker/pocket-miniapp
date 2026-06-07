@@ -1,6 +1,6 @@
-<view class="page" style="{{cssVars}}" wx:if="{{!loading && feedback}}">
+<view class="page theme-{{theme}} page-enter" style="{{cssVars}}" wx:if="{{!loading && feedback}}">
   <!-- 用户信息 -->
-  <view class="user-card">
+  <view class="user-card fade-in-up">
     <view class="user-avatar">
       <text>{{avatarText}}</text>
     </view>
@@ -16,7 +16,7 @@
   </view>
 
   <!-- 当前版本 -->
-  <view class="section">
+  <view class="section fade-in-up" style="animation-delay: 0.05s;">
     <view class="section-header">
       <text class="section-title">📝 当前内容</text>
       <text class="section-time">{{feedback.updated_at}}</text>
@@ -28,13 +28,13 @@
   </view>
 
   <!-- 版本历史（包含每个版本的回复） -->
-  <view class="section" wx:if="{{versions.length > 0}}">
-    <view class="section-header clickable" bindtap="toggleVersions">
+  <view class="section fade-in-up" style="animation-delay: 0.1s;" wx:if="{{versions.length > 0}}">
+    <view class="section-header clickable tap-scale" bindtap="toggleVersions">
       <text class="section-title">📜 版本历史 ({{versions.length}})</text>
       <text class="toggle-icon">{{showVersions ? '收起' : '展开'}}</text>
     </view>
     <view class="versions-list" wx:if="{{showVersions}}">
-      <view class="version-item" wx:for="{{versions}}" wx:key="id">
+      <view class="version-item list-item-anim" wx:for="{{versions}}" wx:key="id" style="animation-delay: {{index * 0.05}}s;">
         <view class="version-header">
           <text class="version-num">版本 {{item.version}}</text>
           <text class="version-time">{{item.created_at}}</text>
@@ -55,7 +55,7 @@
   </view>
 
   <!-- 回复表单 -->
-  <view class="section reply-section">
+  <view class="section reply-section fade-in-up" style="animation-delay: 0.15s;">
     <view class="section-header">
       <text class="section-title">✏️ 回复</text>
     </view>
@@ -66,14 +66,14 @@
       bindinput="onReplyInput"
       maxlength="2000"
     />
-    <button class="submit-btn" bindtap="handleSubmitReply" loading="{{saving}}">
+    <button class="submit-btn tap-scale" bindtap="handleSubmitReply" loading="{{saving}}">
       提交回复
     </button>
   </view>
 </view>
 
 <!-- 加载状态 -->
-<view class="loading-page" style="{{cssVars}}" wx:if="{{loading}}">
+<view class="loading-page fade-in" style="{{cssVars}}" wx:if="{{loading}}">
   <van-loading size="48rpx" color="var(--primary-color)" />
   <text>加载中...</text>
 </view>

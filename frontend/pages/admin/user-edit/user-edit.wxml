@@ -1,4 +1,4 @@
-<view class="page" style="{{cssVars}}" wx:if="{{hasAccess}}">
+<view class="page theme-{{theme}} page-enter" style="{{cssVars}}" wx:if="{{hasAccess}}">
 
   <!-- 提示卡片 -->
   <view class="tip-card glass-card fade-in-up" wx:if="{{!isEdit}}">

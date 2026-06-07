@@ -1,4 +1,4 @@
-<view class="page" style="{{cssVars}}" wx:if="{{hasAccess}}">
+<view class="page theme-{{theme}} page-enter" style="{{cssVars}}" wx:if="{{hasAccess}}">
 
   <!-- 顶部提示组件 -->
   <top-toast id="top-toast" />
@@ -16,7 +16,7 @@
         shape="round"
         background="transparent"
       >
-        <view slot="action" bind:tap="onSearch" class="search-btn">搜索</view>
+        <view slot="action" bind:tap="onSearch" class="search-btn tap-opacity">搜索</view>
       </van-search>
     </view>
 
@@ -39,12 +39,12 @@
 
     <view wx:else class="announcement-list">
       <view
-        class="announcement-item glass-card fade-in-up"
+        class="announcement-item glass-card list-item-anim"
         wx:for="{{list}}"
         wx:key="id"
         style="animation-delay: {{0.15 + index * 0.05}}s;"
       >
-        <view class="item-info" data-id="{{item.id}}" bindtap="goEdit">
+        <view class="item-info tap-bg" data-id="{{item.id}}" bindtap="goEdit">
           <view class="item-title">
             <text class="top-tag" wx:if="{{item.is_top}}">📌 置顶</text>
             <text class="title-text">{{item.title}}</text>
@@ -62,14 +62,14 @@
           </van-tag>
         </view>
         <view class="item-actions">
-          <view class="action-btn top" data-id="{{item.id}}" bindtap="handleToggleTop">
+          <view class="action-btn top tap-scale" data-id="{{item.id}}" bindtap="handleToggleTop">
             {{item.is_top ? '取消置顶' : '置顶'}}
           </view>
-          <view class="action-btn {{item.is_active ? 'disable' : 'enable'}}" data-id="{{item.id}}" bindtap="handleToggleStatus">
+          <view class="action-btn tap-scale {{item.is_active ? 'disable' : 'enable'}}" data-id="{{item.id}}" bindtap="handleToggleStatus">
             {{item.is_active ? '禁用' : '启用'}}
           </view>
-          <view class="action-btn edit" data-id="{{item.id}}" bindtap="goEdit">编辑</view>
-          <view class="action-btn delete" data-id="{{item.id}}" bindtap="handleDelete">删除</view>
+          <view class="action-btn edit tap-scale" data-id="{{item.id}}" bindtap="goEdit">编辑</view>
+          <view class="action-btn delete tap-scale" data-id="{{item.id}}" bindtap="handleDelete">删除</view>
         </view>
       </view>
     </view>

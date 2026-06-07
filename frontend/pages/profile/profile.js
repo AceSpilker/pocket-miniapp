@@ -3,8 +3,11 @@ const { get, put, post } = require('../../utils/request')
 const themeManager = require('../../utils/theme-manager')
 const { getInitialThemeData, applyThemeToPage } = require('../../utils/theme-helpers')
 const { validatePhone, validateEmail, validateNickname } = require('../../utils/validate')
+const i18nBehavior = require('../../utils/i18n-behavior')
 
 Page({
+  behaviors: [i18nBehavior],  // 混入国际化 Behavior
+
   data: {
     avatarUrl: '',
     uploading: false,
@@ -31,7 +34,9 @@ Page({
   },
 
   onShow() {
+    applyThemeToPage(this)
     themeManager.refreshNavBar()
+    wx.setNavigationBarTitle({ title: this.t('nav.profile') })
     const userInfo = app.globalData.userInfo
     if (userInfo && !this.data.nickname) {
       this.loadUserInfo()
@@ -61,14 +66,14 @@ Page({
       success(res) {
         const tempFile = res.tempFiles[0]
         if (tempFile.size > 2 * 1024 * 1024) {
-          wx.showToast({ title: '图片超过2MB，请压缩后重试', icon: 'none' })
+          wx.showToast({ title: that.t('profile.imageTooLarge') || '图片超过2MB，请压缩后重试', icon: 'none' })
           return
         }
         that.convertToBase64(tempFile.tempFilePath)
       },
       fail(err) {
         if (err.errMsg !== 'chooseMedia:fail cancel') {
-          wx.showToast({ title: '选择图片失败', icon: 'none' })
+          wx.showToast({ title: that.t('profile.selectImageFailed') || '选择图片失败', icon: 'none' })
         }
       }
     })
@@ -88,7 +93,7 @@ Page({
       },
       fail() {
         that.setData({ uploading: false })
-        wx.showToast({ title: '读取图片失败', icon: 'none' })
+        wx.showToast({ title: that.t('profile.readImageFailed') || '读取图片失败', icon: 'none' })
       }
     })
   },
@@ -101,13 +106,13 @@ Page({
       this.setData({
         avatarUrl: user.avatar_url || '',
         uploading: false,
-        successMsg: '头像上传成功'
+        successMsg: this.t('profile.avatarUploadSuccess') || '头像上传成功'
       })
       setTimeout(() => this.setData({ successMsg: '' }), 2000)
     } catch (err) {
       this.setData({
         uploading: false,
-        errorMsg: err.detail || err.msg || '上传失败'
+        errorMsg: err.detail || err.msg || (this.t('profile.uploadFailed') || '上传失败')
       })
     }
   },
@@ -132,21 +137,21 @@ Page({
     // 昵称校验
     const nicknameResult = validateNickname(nickname)
     if (!nicknameResult.valid) {
-      this.setData({ errorMsg: nicknameResult.message })
+      this.setData({ errorMsg: this.t('profile.' + nicknameResult.messageKey) || nicknameResult.message })
       return
     }
 
     // 手机号校验
     const phoneResult = validatePhone(phone)
     if (!phoneResult.valid) {
-      this.setData({ errorMsg: phoneResult.message })
+      this.setData({ errorMsg: this.t('profile.' + phoneResult.messageKey) || phoneResult.message })
       return
     }
 
     // 邮箱校验
     const emailResult = validateEmail(email)
     if (!emailResult.valid) {
-      this.setData({ errorMsg: emailResult.message })
+      this.setData({ errorMsg: this.t('profile.' + emailResult.messageKey) || emailResult.message })
       return
     }
 
@@ -160,12 +165,12 @@ Page({
       })
       app.globalData.userInfo = user
       wx.setStorageSync('userInfo', user)
-      wx.showToast({ title: '保存成功', icon: 'success' })
+      wx.showToast({ title: this.t('profile.saveSuccess') || '保存成功', icon: 'success' })
       setTimeout(() => {
         wx.navigateBack()
       }, 1000)
     } catch (err) {
-      this.setData({ errorMsg: err.detail || '保存失败' })
+      this.setData({ errorMsg: err.detail || (this.t('profile.saveFailed') || '保存失败') })
     } finally {
       this.setData({ saving: false })
     }

@@ -2,7 +2,7 @@
 用户模型
 """
 
-from sqlalchemy import Column, Integer, String, Text, DateTime, Boolean
+from sqlalchemy import Column, Integer, String, Text, DateTime, Boolean, ForeignKey
 from sqlalchemy.dialects.mysql import MEDIUMTEXT
 from sqlalchemy.sql import func
 
@@ -25,6 +25,10 @@ class User(Base):
     avatar_url = Column(MEDIUMTEXT, nullable=True, comment="头像(base64 data URI)")
     phone = Column(String(20), nullable=True, comment="手机号")
     email = Column(String(128), nullable=True, comment="邮箱")
+
+    # 语言偏好
+    language_id = Column(Integer, ForeignKey("languages.id"), nullable=True, default=1, comment="语言偏好ID")
+
     is_active = Column(Boolean, default=True, comment="是否启用")
     last_login_at = Column(DateTime, nullable=True, comment="最后登录时间")
     deleted_at = Column(DateTime, nullable=True, comment="逻辑删除时间")

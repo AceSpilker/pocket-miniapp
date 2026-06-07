@@ -1,9 +1,12 @@
 const auth = require('../../utils/auth')
 const themeManager = require('../../utils/theme-manager')
 const { getInitialThemeData, applyThemeToPage } = require('../../utils/theme-helpers')
+const i18nBehavior = require('../../utils/i18n-behavior')
 const app = getApp()
 
 Page({
+  behaviors: [i18nBehavior],  // 混入国际化 Behavior
+
   data: {
     username: '',
     nickname: '',
@@ -27,7 +30,9 @@ Page({
   },
 
   onShow() {
+    applyThemeToPage(this)
     themeManager.refreshNavBar()
+    wx.setNavigationBarTitle({ title: this.t('nav.register') })
   },
 
   // 表单输入 - Vant 使用 bind:change，e.detail 为输入值
@@ -50,23 +55,23 @@ Page({
 
     // 表单验证
     if (!username.trim()) {
-      this.setData({ errorMsg: '请输入用户名' })
+      this.setData({ errorMsg: this.t('register.usernameRequired') || '请输入用户名' })
       return
     }
     if (username.trim().length < 2) {
-      this.setData({ errorMsg: '用户名至少2个字符' })
+      this.setData({ errorMsg: this.t('register.usernameTooShort') || '用户名至少2个字符' })
       return
     }
     if (!password) {
-      this.setData({ errorMsg: '请输入密码' })
+      this.setData({ errorMsg: this.t('register.passwordRequired') || '请输入密码' })
       return
     }
     if (password.length < 6) {
-      this.setData({ errorMsg: '密码至少6位' })
+      this.setData({ errorMsg: this.t('register.passwordTooShort') || '密码至少6位' })
       return
     }
     if (password !== confirmPassword) {
-      this.setData({ errorMsg: '两次密码输入不一致' })
+      this.setData({ errorMsg: this.t('register.passwordMismatch') || '两次密码输入不一致' })
       return
     }
     if (this.data.loading) return
@@ -79,13 +84,13 @@ Page({
         password
       })
       app.saveLogin(data)
-      wx.showToast({ title: '注册成功', icon: 'success' })
+      wx.showToast({ title: this.t('register.success') || '注册成功', icon: 'success' })
       // 延迟跳转，确保 tabbar 已刷新
       setTimeout(() => {
         wx.switchTab({ url: '/pages/index/index' })
       }, 500)
     } catch (err) {
-      this.setData({ errorMsg: err.detail || err.msg || '注册失败' })
+      this.setData({ errorMsg: err.detail || err.msg || (this.t('register.failed') || '注册失败') })
     } finally {
       this.setData({ loading: false })
     }

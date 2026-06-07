@@ -1,4 +1,4 @@
-<view class="page theme-{{theme}}" style="{{cssVars}}">
+<view class="page page-enter theme-{{theme}}" style="{{cssVars}}">
   <!-- 动态背景 -->
   <view class="bg-shapes">
     <view class="shape shape-1"></view>
@@ -11,8 +11,8 @@
   </view>
 
   <!-- 内容区域 -->
-  <view class="content-wrapper" wx:else>
-    <view class="content-card">
+  <view class="content-wrapper fade-in" wx:else>
+    <view class="content-card glass-card">
       <view class="content-title">{{title}}</view>
       <view class="content-body">
         <rich-text nodes="{{content}}"></rich-text>

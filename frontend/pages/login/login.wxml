@@ -1,4 +1,4 @@
-<view class="login-page" style="{{cssVars}}">
+<view class="login-page page-enter" style="{{cssVars}}">
 
   <!-- 动态背景 -->
   <view class="bg-shapes">
@@ -7,33 +7,39 @@
     <view class="shape shape-3"></view>
   </view>
 
+  <!-- 语言切换按钮 -->
+  <view class="language-switch fade-in" bindtap="showLanguagePicker">
+    <text>🌐</text>
+    <text class="current-lang">{{currentLanguage === 'zh-CN' ? '中文' : currentLanguage === 'en-US' ? 'EN' : '日本語'}}</text>
+  </view>
+
   <!-- 顶部品牌区 -->
   <view class="brand-section fade-in-up">
     <view class="brand-icon-wrap glow-animation">
       <van-icon name="star" size="100rpx" custom-style="color: var(--text-primary);" />
     </view>
-    <text class="brand-name gradient-text">口袋小程序</text>
-    <text class="brand-desc">✨ 轻量个人工具箱 ✨</text>
+    <text class="brand-name gradient-text">{{i18n.texts['login.title']}}</text>
+    <text class="brand-desc">✨ {{i18n.texts['login.subtitle']}} ✨</text>
   </view>
 
   <!-- Tab 切换栏 -->
   <view class="tab-nav fade-in-up" style="animation-delay: 0.1s;">
-    <view class="tab-item {{activeTab === 0 ? 'active' : ''}}" bindtap="switchTab" data-tab="0">
-      <text>🚀 账号登录</text>
+    <view class="tab-item {{activeTab === 0 ? 'active' : ''}} tap-scale" bindtap="switchTab" data-tab="0">
+      <text>🚀 {{i18n.texts['login.accountTab']}}</text>
       <view class="tab-line" wx:if="{{activeTab === 0}}"></view>
     </view>
-    <view class="tab-item {{activeTab === 1 ? 'active' : ''}}" bindtap="switchTab" data-tab="1">
-      <text>💬 微信登录</text>
+    <view class="tab-item {{activeTab === 1 ? 'active' : ''}} tap-scale" bindtap="switchTab" data-tab="1">
+      <text>💬 {{i18n.texts['login.wechatTab']}}</text>
       <view class="tab-line" wx:if="{{activeTab === 1}}"></view>
     </view>
   </view>
 
   <!-- 账号登录表单 -->
-  <view class="form-card fade-in-up" style="animation-delay: 0.15s;" wx:if="{{activeTab === 0}}">
+  <view class="form-card fade-in-up glass-card" style="animation-delay: 0.15s;" wx:if="{{activeTab === 0}}">
     <van-cell-group>
       <van-field
         value="{{ username }}"
-        placeholder="请输入用户名"
+        placeholder="{{i18n.texts['login.usernamePlaceholder']}}"
         left-icon="user-o"
         clearable
         bind:change="onUsernameInput"
@@ -41,7 +47,7 @@
       <van-field
         value="{{ password }}"
         type="password"
-        placeholder="请输入密码"
+        placeholder="{{i18n.texts['login.passwordPlaceholder']}}"
         left-icon="lock"
         clearable
         bind:change="onPasswordInput"
@@ -65,24 +71,24 @@
         loading="{{loading}}"
         bind:click="handleAccountLogin"
       >
-        🎯 登录
+        🎯 {{i18n.texts['login.button']}}
       </van-button>
     </view>
 
     <!-- 注册入口 -->
     <view class="register-link">
-      <text>还没有账号？</text>
-      <text class="link" bindtap="goRegister">立即注册 ✨</text>
+      <text>{{i18n.texts['login.noAccount']}}</text>
+      <text class="link tap-opacity" bindtap="goRegister">{{i18n.texts['login.registerLink']}} ✨</text>
     </view>
   </view>
 
   <!-- 微信登录 -->
-  <view class="form-card fade-in-up" style="animation-delay: 0.15s;" wx:if="{{activeTab === 1}}">
+  <view class="form-card fade-in-up glass-card" style="animation-delay: 0.15s;" wx:if="{{activeTab === 1}}">
     <view class="wx-login-section">
       <view class="wx-icon-wrap float-animation">
         <text class="wx-emoji">💬</text>
       </view>
-      <text class="wx-tip">点击下方按钮，使用微信一键登录</text>
+      <text class="wx-tip">{{i18n.texts['login.wechatTip']}}</text>
       <van-button
         type="primary"
         block
@@ -90,7 +96,7 @@
         loading="{{loading}}"
         bind:click="handleWxLogin"
       >
-        💚 微信一键登录
+        💚 {{i18n.texts['login.wechatButton']}}
       </van-button>
 
       <!-- 错误提示 -->
@@ -106,9 +112,19 @@
 
   <!-- 协议 -->
   <view class="agreement fade-in" style="animation-delay: 0.3s;">
-    <text>登录即代表同意</text>
-    <text class="link" bindtap="goUserAgreement">《用户协议》</text>
-    <text>和</text>
-    <text class="link" bindtap="goPrivacyPolicy">《隐私政策》</text>
+    <text>{{i18n.texts['login.agreement']}}</text>
+    <text class="link tap-opacity" bindtap="goUserAgreement">《{{i18n.texts['login.userAgreement']}}》</text>
+    <text>{{i18n.texts['login.and']}}</text>
+    <text class="link tap-opacity" bindtap="goPrivacyPolicy">《{{i18n.texts['login.privacyPolicy']}}》</text>
   </view>
+
+  <!-- 语言选择器 -->
+  <van-action-sheet
+    show="{{showLanguageSelector}}"
+    actions="{{languageActions}}"
+    cancel-text="{{i18n.texts['common.cancel']}}"
+    bind:select="onSelectLanguage"
+    bind:cancel="onCloseLanguagePicker"
+    bind:close="onCloseLanguagePicker"
+  />
 </view>

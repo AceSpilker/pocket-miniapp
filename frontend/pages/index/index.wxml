@@ -1,4 +1,4 @@
-<view class="container" style="{{cssVars}}">
+<view class="container page-enter" style="{{cssVars}}">
 
   <!-- 动态背景 -->
   <view class="bg-shapes">
@@ -8,7 +8,7 @@
 
   <!-- 用户欢迎卡片 -->
   <view class="welcome-card glass-card fade-in-up">
-    <view class="welcome-content" bindtap="goLogin">
+    <view class="welcome-content tap-scale" bindtap="goLogin">
       <view class="avatar-wrap glow-animation">
         <image
           class="avatar-img"
@@ -17,8 +17,8 @@
         <view class="avatar-ring"></view>
       </view>
       <view class="welcome-info">
-        <text class="welcome-name">{{hasLogin ? (userInfo.nickname || '用户') : '👋 欢迎'}}</text>
-        <text class="welcome-desc">{{hasLogin ? '探索无限可能 ✨' : '登录解锁更多精彩'}}</text>
+        <text class="welcome-name">{{hasLogin ? (userInfo.nickname || i18n.texts['index.defaultUser']) : '👋 ' + i18n.texts['index.welcome']}}</text>
+        <text class="welcome-desc">{{hasLogin ? i18n.texts['index.exploreMore'] + ' ✨' : i18n.texts['index.loginHint']}}</text>
       </view>
       <van-icon wx:if="{{!hasLogin}}" name="arrow" size="40rpx" custom-style="color: var(--primary-light);" />
     </view>
@@ -26,14 +26,14 @@
 
   <!-- 功能网格 -->
   <view class="section-title fade-in-up" style="animation-delay: 0.1s;">
-    <text class="title-text">🎮 功能中心</text>
+    <text class="title-text">🎮 {{i18n.texts['index.featureCenter']}}</text>
     <text class="title-line"></text>
-    <text class="title-more" bindtap="goFeatures" wx:if="{{hasLogin && features.length > 0}}">更多 ></text>
+    <text class="title-more tap-opacity" bindtap="goFeatures" wx:if="{{hasLogin && features.length > 0}}">{{i18n.texts['index.more']}} ></text>
   </view>
 
-  <view class="feature-grid {{features.length <= 3 ? 'row-1' : 'row-2'}} fade-in-up" style="animation-delay: 0.15s;" wx:if="{{features.length > 0}}">
+  <view class="feature-grid feature-grid-{{features.length}} fade-in-up" style="animation-delay: 0.15s;" wx:if="{{features.length > 0}}">
     <view
-      class="feature-item {{!item.is_enabled ? 'disabled' : ''}}"
+      class="feature-item tap-scale {{!item.is_enabled ? 'disabled' : ''}}"
       wx:for="{{features}}"
       wx:key="id"
       data-feature="{{item}}"
@@ -45,36 +45,36 @@
       </view>
       <text class="feature-name">{{item.name}}</text>
       <text class="feature-desc">{{item.description || ''}}</text>
-      <view class="dev-tag" wx:if="{{!item.is_enabled}}">开发中</view>
+      <view class="dev-tag" wx:if="{{!item.is_enabled}}">{{i18n.texts['index.developing']}}</view>
     </view>
   </view>
 
   <!-- 空状态提示 -->
   <view class="feature-empty fade-in-up" style="animation-delay: 0.15s;" wx:if="{{features.length === 0}}">
-    <view class="empty-card glass-card" bindtap="goLogin" wx:if="{{!hasLogin}}">
+    <view class="empty-card glass-card tap-scale" bindtap="goLogin" wx:if="{{!hasLogin}}">
       <text class="empty-icon">🔐</text>
-      <text class="empty-title">登录解锁功能</text>
-      <text class="empty-desc">登录后即可使用各项功能</text>
+      <text class="empty-title">{{i18n.texts['index.loginToUnlock']}}</text>
+      <text class="empty-desc">{{i18n.texts['index.loginToUnlockDesc']}}</text>
     </view>
     <view class="empty-card glass-card" wx:else>
       <text class="empty-icon">📦</text>
-      <text class="empty-title">暂无可用功能</text>
-      <text class="empty-desc">敬请期待更多功能上线</text>
+      <text class="empty-title">{{i18n.texts['index.noFeatures']}}</text>
+      <text class="empty-desc">{{i18n.texts['index.noFeaturesDesc']}}</text>
     </view>
   </view>
 
   <!-- 最近动态 -->
   <view class="section-title fade-in-up" style="animation-delay: 0.3s;">
-    <text class="title-text">🔥 最近动态</text>
+    <text class="title-text">🔥 {{i18n.texts['index.recentNews']}}</text>
     <text class="title-line"></text>
-    <text class="title-more" bindtap="goAnnouncements">更多 ></text>
+    <text class="title-more tap-opacity" bindtap="goAnnouncements">{{i18n.texts['index.more']}} ></text>
   </view>
 
   <view class="quick-list glass-card fade-in-up" style="animation-delay: 0.35s;">
     <!-- 有数据时显示列表 -->
     <block wx:if="{{latestAnnouncements.length > 0}}">
       <view
-        class="quick-item announcement-item"
+        class="quick-item announcement-item tap-bg"
         wx:for="{{latestAnnouncements}}"
         wx:key="id"
         data-id="{{item.id}}"
@@ -85,20 +85,20 @@
         </view>
         <view class="quick-content">
           <text class="quick-title announcement-title">{{item.title}}</text>
-          <text class="quick-sub">{{item.author_name || '管理员'}} · {{item.created_at}}</text>
+          <text class="quick-sub">{{item.author_name || i18n.texts['index.admin']}} · {{item.created_at}}</text>
         </view>
         <van-icon name="arrow" size="32rpx" custom-style="color: var(--text-muted);" />
       </view>
     </block>
     <!-- 无数据时显示提示 -->
     <block wx:else>
-      <view class="quick-item" bindtap="goAnnouncements">
+      <view class="quick-item tap-bg" bindtap="goAnnouncements">
         <view class="quick-icon icon-bg-warning">
           <text>🔥</text>
         </view>
         <view class="quick-content">
-          <text class="quick-title">暂无最新动态</text>
-          <text class="quick-sub">点击查看全部动态</text>
+          <text class="quick-title">{{i18n.texts['index.noNews']}}</text>
+          <text class="quick-sub">{{i18n.texts['index.clickToViewAll']}}</text>
         </view>
         <van-icon name="arrow" size="32rpx" custom-style="color: var(--text-muted);" />
       </view>
@@ -107,18 +107,18 @@
 
   <!-- 小提示 -->
   <view class="section-title fade-in-up" style="animation-delay: 0.4s;">
-    <text class="title-text">💡 小提示</text>
+    <text class="title-text">💡 {{i18n.texts['index.tips']}}</text>
     <text class="title-line"></text>
   </view>
 
   <view class="quick-list glass-card fade-in-up" style="animation-delay: 0.45s;">
-    <view class="quick-item">
+    <view class="quick-item tap-bg">
       <view class="quick-icon icon-bg-success">
         <text>💡</text>
       </view>
       <view class="quick-content">
-        <text class="quick-title">完善资料</text>
-        <text class="quick-sub">完成资料设置获得更好体验</text>
+        <text class="quick-title">{{i18n.texts['index.completeProfile']}}</text>
+        <text class="quick-sub">{{i18n.texts['index.completeProfileDesc']}}</text>
       </view>
       <van-icon name="arrow" size="32rpx" custom-style="color: var(--text-muted);" />
     </view>

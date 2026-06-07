@@ -1,7 +1,7 @@
 <!-- 顶部提示消息组件 -->
 <view
-  class="top-toast {{show ? 'show' : ''}} {{type}}"
-  style="top: {{top}}px;"
+  class="top-toast theme-{{theme}} {{show ? 'show' : ''}} {{type}}"
+  style="top: {{top}}px; {{cssVars}}"
   catchtouchmove="true"
 >
   <view class="toast-content">

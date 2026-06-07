@@ -1,15 +1,15 @@
-<view class="page" style="{{cssVars}}">
+<view class="page page-enter" style="{{cssVars}}">
 
   <!-- 顶部提示组件 -->
   <top-toast id="top-toast" />
 
   <!-- 列表 -->
-  <van-loading wx:if="{{loading}}" size="48rpx" custom-class="loading-wrap">加载中...</van-loading>
-  <van-empty wx:elif="{{list.length === 0}}" description="暂无动态" />
+  <van-loading wx:if="{{loading}}" size="48rpx" custom-class="loading-wrap">{{i18n.texts['common.loading']}}</van-loading>
+  <van-empty wx:elif="{{list.length === 0}}" description="{{i18n.texts['announcement.noData']}}" />
 
   <view wx:else class="announcement-list">
     <view
-      class="announcement-item glass-card fade-in-up"
+      class="announcement-item glass-card list-item-anim tap-scale"
       wx:for="{{list}}"
       wx:key="id"
       style="animation-delay: {{index * 0.05}}s;"
@@ -18,7 +18,7 @@
     >
       <view class="item-content">
         <view class="item-title">
-          <text class="top-tag" wx:if="{{item.is_top}}">置顶</text>
+          <text class="top-tag" wx:if="{{item.is_top}}">{{i18n.texts['announcement.pinned']}}</text>
           <text class="title-text">{{item.title}}</text>
         </view>
         <view class="item-meta">

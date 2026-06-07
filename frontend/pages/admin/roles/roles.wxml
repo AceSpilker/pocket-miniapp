@@ -1,4 +1,4 @@
-<view class="page" style="{{cssVars}}" wx:if="{{hasAccess}}">
+<view class="page theme-{{theme}} page-enter" style="{{cssVars}}" wx:if="{{hasAccess}}">
 
   <!-- 工具栏 -->
   <view class="toolbar fade-in-up">
@@ -14,12 +14,12 @@
 
   <view wx:else class="role-list">
     <view
-      class="role-item glass-card fade-in-up"
+      class="role-item glass-card list-item-anim"
       wx:for="{{roles}}"
       wx:key="id"
       style="animation-delay: {{0.1 + index * 0.05}}s;"
     >
-      <view class="role-info" data-id="{{item.id}}" bindtap="goEdit">
+      <view class="role-info tap-bg" data-id="{{item.id}}" bindtap="goEdit">
         <view class="role-header">
           <text class="role-name">{{item.display_name}}</text>
           <van-tag wx:if="{{item.is_system}}" type="primary" size="medium" custom-class="system-tag">系统</van-tag>
@@ -27,7 +27,7 @@
         <text class="role-ident">@{{item.name}}</text>
       </view>
       <view class="role-actions" wx:if="{{!item.is_system}}">
-        <view class="action-btn delete" data-id="{{item.id}}" data-name="{{item.display_name}}" bindtap="handleDelete">
+        <view class="action-btn delete tap-scale" data-id="{{item.id}}" data-name="{{item.display_name}}" bindtap="handleDelete">
           🗑️ 删除
         </view>
       </view>

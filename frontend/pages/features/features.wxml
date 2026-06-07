@@ -1,26 +1,27 @@
-<view class="page" style="{{cssVars}}">
+<view class="page page-enter" style="{{cssVars}}">
   <!-- 动态背景 -->
   <view class="bg-shapes">
     <view class="shape shape-1"></view>
   </view>
 
   <!-- 顶部固定操作栏 -->
-  <view class="header-fixed">
+  <view class="header-fixed fade-in-down">
     <view class="header-info">
-      <text class="header-title">🎮 功能中心</text>
-      <text class="header-desc">{{editMode ? '点击箭头调整顺序，点击图标设置首页显示' : '点击功能即可使用'}}</text>
+      <text class="header-title">🎮 {{i18n.texts['features.title']}}</text>
+      <text class="header-desc">{{editMode ? i18n.texts['features.editHint'] : i18n.texts['features.useHint']}}</text>
     </view>
-    <view class="edit-btn {{editMode ? 'active' : ''}}" bindtap="toggleEditMode">
-      <text>{{editMode ? '完成' : '编辑'}}</text>
+    <view class="edit-btn {{editMode ? 'active' : ''}} tap-scale" bindtap="toggleEditMode">
+      <text>{{editMode ? i18n.texts['features.done'] : i18n.texts['features.edit']}}</text>
     </view>
   </view>
 
   <!-- 功能列表 -->
   <scroll-view class="feature-scroll" scroll-y enhanced show-scrollbar="{{false}}">
     <view class="feature-list" wx:if="{{!loading && features.length > 0}}">
-      <view class="feature-item {{editMode ? 'edit-mode' : ''}} {{!item.is_enabled ? 'disabled' : ''}}"
+      <view class="feature-item list-item-anim {{editMode ? 'edit-mode' : ''}} {{!item.is_enabled ? 'disabled' : ''}}"
             wx:for="{{features}}"
             wx:key="id"
+            style="animation-delay: {{index * 0.05}}s;"
             bindtap="onFeatureTap"
             data-feature="{{item}}">
         <!-- 功能内容 -->
@@ -35,20 +36,20 @@
         </view>
 
         <!-- 开发中标签 -->
-        <view class="dev-tag" wx:if="{{!item.is_enabled}}">开发中</view>
+        <view class="dev-tag" wx:if="{{!item.is_enabled}}">{{i18n.texts['features.developing']}}</view>
 
         <!-- 首页标识 -->
         <view class="home-badge" wx:if="{{item.is_home_visible && !editMode}}">🏠</view>
 
         <!-- 编辑模式操作 -->
         <view class="edit-actions" wx:if="{{editMode}}">
-          <view class="action-btn move-btn" catchtap="moveUp" data-index="{{index}}">
+          <view class="action-btn move-btn tap-scale" catchtap="moveUp" data-index="{{index}}">
             <text>↑</text>
           </view>
-          <view class="action-btn move-btn" catchtap="moveDown" data-index="{{index}}">
+          <view class="action-btn move-btn tap-scale" catchtap="moveDown" data-index="{{index}}">
             <text>↓</text>
           </view>
-          <view class="action-btn home-btn {{item.is_home_visible ? 'active' : ''}}"
+          <view class="action-btn home-btn tap-scale {{item.is_home_visible ? 'active' : ''}}"
                 catchtap="toggleHomeVisible"
                 data-index="{{index}}">
             <text>{{item.is_home_visible ? '🏠' : '➕'}}</text>
@@ -58,15 +59,15 @@
     </view>
 
     <!-- 空状态 -->
-    <view class="empty-state" wx:if="{{!loading && features.length === 0}}">
+    <view class="empty-state fade-in" wx:if="{{!loading && features.length === 0}}">
       <text class="empty-icon">📦</text>
-      <text class="empty-text">暂无功能</text>
+      <text class="empty-text">{{i18n.texts['features.noData']}}</text>
     </view>
 
     <!-- 加载状态 -->
     <view class="loading-state" wx:if="{{loading}}">
       <van-loading size="48rpx" color="var(--primary-color)" />
-      <text>加载中...</text>
+      <text>{{i18n.texts['common.loading']}}</text>
     </view>
   </scroll-view>
 </view>

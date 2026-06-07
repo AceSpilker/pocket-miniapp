@@ -130,13 +130,27 @@ page {
   z-index: 1;
 }
 
-/* 1-3个功能：一行显示 */
-.feature-grid.row-1 {
+/* 1个功能：单列居中 */
+.feature-grid-1 {
+  grid-template-columns: 1fr;
+  max-width: 400rpx;
+  margin: 0 auto;
+}
+
+/* 2个功能：两列平分 */
+.feature-grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* 3个功能：三列平分 */
+.feature-grid-3 {
   grid-template-columns: repeat(3, 1fr);
 }
 
-/* 4个功能：两行两列 */
-.feature-grid.row-2 {
+/* 4个及以上功能：两列 */
+.feature-grid-4,
+.feature-grid-5,
+.feature-grid-6 {
   grid-template-columns: repeat(2, 1fr);
 }
 

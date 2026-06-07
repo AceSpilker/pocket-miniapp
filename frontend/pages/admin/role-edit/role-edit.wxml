@@ -1,4 +1,4 @@
-<view class="page" style="{{cssVars}}" wx:if="{{hasAccess}}">
+<view class="page theme-{{theme}} page-enter" style="{{cssVars}}" wx:if="{{hasAccess}}">
 
   <!-- 基本信息 -->
   <view class="form-card glass-card fade-in-up">
@@ -34,9 +34,10 @@
     <view class="card-title">🔐 权限设置</view>
     <view class="perm-list">
       <view
-        class="perm-item {{selectedPerms.includes(item.key) ? 'checked' : ''}}"
+        class="perm-item tap-scale {{selectedPerms.includes(item.key) ? 'checked' : ''}}"
         wx:for="{{allPermissions}}"
         wx:key="key"
+        style="animation-delay: {{index * 0.03}}s;"
         data-key="{{item.key}}"
         bindtap="onPermToggle"
       >

@@ -1,4 +1,4 @@
-<view class="page" style="{{cssVars}}" wx:if="{{hasAccess}}">
+<view class="page theme-{{theme}} page-enter" style="{{cssVars}}" wx:if="{{hasAccess}}">
 
   <!-- 顶部提示组件 -->
   <top-toast id="top-toast" />
@@ -9,61 +9,61 @@
     <view class="search-section glass-card fade-in-up">
       <van-search
         value="{{ keyword }}"
-        placeholder="搜索用户名/昵称"
+        placeholder="{{i18n.texts['admin.searchPlaceholder'] || '搜索用户名/昵称'}}"
         use-action-slot
         bind:change="onKeywordChange"
         bind:search="onSearch"
         shape="round"
         background="transparent"
       >
-        <view slot="action" bind:tap="onSearch" class="search-btn">搜索</view>
+        <view slot="action" bind:tap="onSearch" class="search-btn tap-opacity">{{i18n.texts['admin.search'] || '搜索'}}</view>
       </van-search>
     </view>
 
     <!-- 工具栏 -->
     <view class="toolbar fade-in-up" style="animation-delay: 0.1s;">
-      <text class="total">📊 共 {{total}} 人</text>
+      <text class="total">📊 {{i18n.texts['admin.total'] || '共'}} {{total}} {{i18n.texts['admin.people'] || '人'}}</text>
       <van-button size="small" type="primary" bind:click="goCreate" custom-class="create-btn">
-        ➕ 创建用户
+        ➕ {{i18n.texts['admin.userCreate'] || '创建用户'}}
       </van-button>
     </view>
   </view>
 
   <!-- 可滚动列表区域 -->
   <scroll-view class="scroll-content" scroll-y enhanced show-scrollbar="{{false}}">
-    <van-loading wx:if="{{loading}}" size="48rpx" custom-class="loading-wrap">加载中...</van-loading>
-    <van-empty wx:elif="{{users.length === 0}}" description="暂无用户数据" />
+    <van-loading wx:if="{{loading}}" size="48rpx" custom-class="loading-wrap">{{i18n.texts['common.loading']}}</van-loading>
+    <van-empty wx:elif="{{users.length === 0}}" description="{{i18n.texts['admin.noData']}}" />
 
     <view wx:else class="user-list">
       <view
-        class="user-item glass-card fade-in-up"
+        class="user-item glass-card list-item-anim"
         wx:for="{{users}}"
         wx:key="id"
         style="animation-delay: {{0.15 + index * 0.05}}s;"
       >
-        <view class="user-info" data-id="{{item.id}}" bindtap="goEdit">
+        <view class="user-info tap-bg" data-id="{{item.id}}" bindtap="goEdit">
           <view class="user-avatar">
             <image class="avatar-img" src="{{item.avatar_url || '/assets/images/default-avatar.png'}}" mode="aspectFill" />
           </view>
           <view class="user-detail">
-            <text class="user-name">{{item.nickname || '未设置昵称'}}</text>
+            <text class="user-name">{{item.nickname || i18n.texts['profile.noNickname']}}</text>
             <text class="user-account">@{{item.username || '--'}}</text>
           </view>
           <van-tag type="{{item.is_active ? 'success' : 'danger'}}" size="medium">
-            {{item.is_active ? '✅ 正常' : '🚫 禁用'}}
+            {{item.is_active ? '✅ ' + (i18n.texts['admin.normal'] || '正常') : '🚫 ' + (i18n.texts['admin.disabled'] || '禁用')}}
           </van-tag>
         </view>
         <view class="user-actions">
-          <view class="action-btn edit" data-id="{{item.id}}" bindtap="goEdit">✏️ 编辑</view>
+          <view class="action-btn edit tap-scale" data-id="{{item.id}}" bindtap="goEdit">✏️ {{i18n.texts['admin.edit']}}</view>
           <!-- 禁用/启用快捷按钮 -->
           <view
-            class="action-btn {{item.is_active ? 'disable' : 'enable'}}"
+            class="action-btn tap-scale {{item.is_active ? 'disable' : 'enable'}}"
             data-id="{{item.id}}"
             data-username="{{item.username}}"
             data-is-active="{{item.is_active}}"
             bindtap="handleToggleStatus"
-          >{{item.is_active ? '🚫 禁用' : '✅ 启用'}}</view>
-          <view class="action-btn delete" data-id="{{item.id}}" data-username="{{item.username}}" bindtap="handleDelete">🗑️ 删除</view>
+          >{{item.is_active ? '🚫 ' + (i18n.texts['admin.disable'] || '禁用') : '✅ ' + (i18n.texts['admin.enable'] || '启用')}}</view>
+          <view class="action-btn reset tap-scale" data-id="{{item.id}}" data-username="{{item.username}}" bindtap="handleResetPassword">🔑 {{i18n.texts['admin.resetPwd'] || '重置密码'}}</view>
         </view>
       </view>
     </view>

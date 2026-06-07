@@ -1,19 +1,19 @@
-<view class="container" style="{{cssVars}}">
+<view class="container page-enter" style="{{cssVars}}">
   <!-- 动态背景 -->
   <view class="bg-shapes">
     <view class="shape shape-1"></view>
   </view>
 
   <!-- 用户信息卡片 -->
-  <view class="profile-card glass-card fade-in-up" bindtap="{{hasLogin ? '' : 'goLogin'}}">
+  <view class="profile-card glass-card fade-in-up tap-scale" bindtap="{{hasLogin ? '' : 'goLogin'}}">
     <!-- 未登录状态 -->
     <view class="profile-content" wx:if="{{!hasLogin}}">
       <view class="avatar-wrap">
         <image class="avatar-img" src="/assets/images/default-avatar.png" />
       </view>
       <view class="profile-info">
-        <text class="profile-name">👋 未登录</text>
-        <text class="profile-desc">点击此处登录</text>
+        <text class="profile-name">👋 {{i18n.texts['mine.notLoggedIn']}}</text>
+        <text class="profile-desc">{{i18n.texts['mine.clickToLogin']}}</text>
       </view>
     </view>
 
@@ -25,7 +25,7 @@
           <view class="avatar-badge">✨</view>
         </view>
         <view class="profile-basic">
-          <text class="profile-name">{{userInfo.nickname || '用户'}}</text>
+          <text class="profile-name">{{userInfo.nickname || i18n.texts['mine.defaultUser']}}</text>
           <text class="profile-username">@{{userInfo.username || '--'}}</text>
         </view>
       </view>
@@ -37,7 +37,7 @@
             <text>📱</text>
           </view>
           <view class="contact-content">
-            <text class="contact-label">手机号</text>
+            <text class="contact-label">{{i18n.texts['mine.phone']}}</text>
             <text class="contact-value">{{maskedPhone}}</text>
           </view>
         </view>
@@ -46,7 +46,7 @@
             <text>📧</text>
           </view>
           <view class="contact-content">
-            <text class="contact-label">邮箱</text>
+            <text class="contact-label">{{i18n.texts['mine.email']}}</text>
             <text class="contact-value">{{maskedEmail}}</text>
           </view>
         </view>
@@ -56,13 +56,13 @@
 
   <!-- 系统管理入口（仅管理员可见） -->
   <view class="system-section fade-in-up" style="animation-delay: 0.05s;" wx:if="{{isAdmin}}">
-    <view class="system-card glass-card" bindtap="onMenuTap" data-url="/pages/system/system">
+    <view class="system-card glass-card tap-scale" bindtap="onMenuTap" data-url="/pages/system/system">
       <view class="system-icon icon-bg-primary">
         <text>⚙️</text>
       </view>
       <view class="system-info">
-        <text class="system-name">系统管理</text>
-        <text class="system-desc">用户、角色、菜单管理</text>
+        <text class="system-name">{{i18n.texts['mine.systemManage']}}</text>
+        <text class="system-desc">{{i18n.texts['mine.systemManageDesc']}}</text>
       </view>
       <van-icon name="arrow" size="40rpx" custom-style="color: var(--text-muted);" />
     </view>
@@ -76,17 +76,19 @@
     </view>
     <view class="menu-card glass-card">
       <view
-        class="menu-item"
+        class="menu-item tap-bg"
         wx:for="{{item.items}}"
         wx:key="name"
         wx:for-item="menuItem"
         data-url="{{menuItem.url}}"
+        data-action="{{menuItem.action}}"
         bindtap="onMenuTap"
       >
         <view class="menu-icon icon-bg-{{menuItem.iconType}}">
           <text>{{menuItem.icon}}</text>
         </view>
         <text class="menu-name">{{menuItem.name}}</text>
+        <text class="menu-value" wx:if="{{menuItem.action === 'language'}}">{{currentLanguage === 'zh-CN' ? '中文' : currentLanguage === 'en-US' ? 'English' : '日本語'}}</text>
         <van-icon name="arrow" size="32rpx" custom-style="color: var(--text-muted);" />
       </view>
     </view>
@@ -100,7 +102,17 @@
   <!-- 退出登录 -->
   <view class="logout-section fade-in-up" style="animation-delay: 0.3s;" wx:if="{{hasLogin}}">
     <van-button custom-class="logout-btn" block round bind:click="handleLogout">
-      🚪 退出登录
+      🚪 {{i18n.texts['mine.logout']}}
     </van-button>
   </view>
+
+  <!-- 语言选择器 -->
+  <van-action-sheet
+    show="{{showLanguageSelector}}"
+    actions="{{languageActions}}"
+    cancel-text="{{i18n.texts['common.cancel']}}"
+    bind:select="onSelectLanguage"
+    bind:cancel="onCloseLanguagePicker"
+    bind:close="onCloseLanguagePicker"
+  />
 </view>

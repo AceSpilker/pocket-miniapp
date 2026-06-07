@@ -46,6 +46,7 @@ Page({
   },
 
   onShow() {
+    applyThemeToPage(this)
     themeManager.refreshNavBar()
   },
 
@@ -71,7 +72,7 @@ Page({
   onNicknameInput(e) { this.setData({ nickname: e.detail.value }) },
   onPhoneInput(e) { this.setData({ phone: e.detail.value, errorMsg: '' }) },
   onEmailInput(e) { this.setData({ email: e.detail.value, errorMsg: '' }) },
-  onActiveChange(e) { this.setData({ isActive: e.detail.value }) },
+  onActiveChange(e) { this.setData({ isActive: e.detail }) },
 
   async handleSave() {
     const { isEdit, userId, username, phone, email } = this.data

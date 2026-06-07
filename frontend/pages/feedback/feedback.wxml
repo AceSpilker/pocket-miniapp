@@ -1,4 +1,4 @@
-<view class="page" style="{{cssVars}}">
+<view class="page page-enter" style="{{cssVars}}">
 
   <!-- 动态背景 -->
   <view class="bg-shapes">
@@ -6,18 +6,21 @@
   </view>
 
   <!-- 标题区 -->
-  <view class="header">
-    <text class="title">💬 意见反馈</text>
-    <text class="subtitle">您的意见是我们前进的动力</text>
+  <view class="header fade-in-down">
+    <text class="title">💬 {{i18n.texts['feedback.title']}}</text>
+    <text class="subtitle">{{i18n.texts['feedback.subtitle']}}</text>
   </view>
 
   <!-- 反馈列表 -->
   <view class="feedback-list" wx:if="{{list.length > 0}}">
-    <view class="feedback-item" wx:for="{{list}}" wx:key="id">
+    <view class="feedback-item list-item-anim glass-card tap-scale"
+          wx:for="{{list}}"
+          wx:key="id"
+          style="animation-delay: {{index * 0.08}}s;">
       <view class="feedback-header">
         <text class="feedback-title">{{item.title}}</text>
         <view class="feedback-status status-{{item.status}}">
-          {{item.status === 'pending' ? '待处理' : item.status === 'replied' ? '已回复' : '已解决'}}
+          {{item.status === 'pending' ? i18n.texts['feedback.statusPending'] : item.status === 'replied' ? i18n.texts['feedback.statusReplied'] : i18n.texts['feedback.statusResolved']}}
         </view>
       </view>
       <view class="feedback-content" wx:if="{{item.content}}">
@@ -27,37 +30,37 @@
       <!-- 管理员回复 -->
       <view class="admin-reply" wx:if="{{item.admin_reply}}">
         <view class="reply-header">
-          <text class="reply-label">📢 管理员回复</text>
+          <text class="reply-label">📢 {{i18n.texts['feedback.adminReply']}}</text>
           <text class="reply-time">{{item.replied_at}}</text>
         </view>
         <text class="reply-content">{{item.admin_reply}}</text>
       </view>
 
       <view class="feedback-footer">
-        <text class="feedback-time">更新于 {{item.updated_at}}</text>
+        <text class="feedback-time">{{i18n.texts['feedback.updatedAt']}} {{item.updated_at}}</text>
         <view class="feedback-actions">
-          <text class="action-btn" catchtap="goEdit" data-id="{{item.id}}" data-title="{{item.title}}">编辑</text>
-          <text class="action-btn danger" catchtap="handleDelete" data-id="{{item.id}}" data-title="{{item.title}}">删除</text>
+          <text class="action-btn tap-opacity" catchtap="goEdit" data-id="{{item.id}}" data-title="{{item.title}}">{{i18n.texts['common.edit']}}</text>
+          <text class="action-btn danger tap-opacity" catchtap="handleDelete" data-id="{{item.id}}" data-title="{{item.title}}">{{i18n.texts['common.delete']}}</text>
         </view>
       </view>
     </view>
   </view>
 
   <!-- 空状态 -->
-  <view class="empty-state" wx:if="{{!loading && list.length === 0}}">
+  <view class="empty-state fade-in scale-in" wx:if="{{!loading && list.length === 0}}">
     <text class="empty-icon">📝</text>
-    <text class="empty-text">暂无意见反馈</text>
-    <text class="empty-hint">点击下方按钮提交您的宝贵意见</text>
+    <text class="empty-text">{{i18n.texts['feedback.noData']}}</text>
+    <text class="empty-hint">{{i18n.texts['feedback.noDataHint']}}</text>
   </view>
 
   <!-- 加载状态 -->
   <view class="loading-state" wx:if="{{loading}}">
     <van-loading size="24rpx" color="var(--primary-color)" />
-    <text>加载中...</text>
+    <text>{{i18n.texts['common.loading']}}</text>
   </view>
 
   <!-- 创建按钮 -->
-  <view class="create-btn" bindtap="goCreate">
-    <text>✏️ 提交意见</text>
+  <view class="create-btn tap-scale pulse-animation" bindtap="goCreate">
+    <text>✏️ {{i18n.texts['feedback.submit']}}</text>
   </view>
 </view>

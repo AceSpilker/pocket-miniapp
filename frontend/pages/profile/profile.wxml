@@ -1,4 +1,4 @@
-<view class="profile-page" style="{{cssVars}}">
+<view class="profile-page page-enter" style="{{cssVars}}">
 
   <!-- 动态背景 -->
   <view class="bg-shapes">
@@ -7,7 +7,7 @@
 
   <!-- 头像区 -->
   <view class="avatar-section fade-in-up">
-    <view class="avatar-wrap" bindtap="handleChooseAvatar">
+    <view class="avatar-wrap tap-scale" bindtap="handleChooseAvatar">
       <image
         class="avatar-img"
         src="{{avatarUrl || '/assets/images/default-avatar.png'}}"
@@ -16,29 +16,29 @@
         <text>📷</text>
       </view>
     </view>
-    <text class="avatar-name">{{nickname || '未设置昵称'}}</text>
+    <text class="avatar-name">{{nickname || i18n.texts['profile.noNickname']}}</text>
   </view>
 
   <!-- 基本信息表单 -->
   <view class="form-card glass-card fade-in-up" style="animation-delay: 0.1s;">
-    <view class="card-title">📝 基本信息</view>
+    <view class="card-title">📝 {{i18n.texts['profile.basicInfo']}}</view>
     <van-cell-group>
       <van-field
         value="{{ nickname }}"
-        label="昵称"
-        placeholder="请输入昵称"
+        label="{{i18n.texts['profile.nickname']}}"
+        placeholder="{{i18n.texts['profile.nicknamePlaceholder']}}"
         bind:change="onNicknameInput"
       />
       <van-field
         value="{{ phone }}"
-        label="手机号"
-        placeholder="选填"
+        label="{{i18n.texts['profile.phone']}}"
+        placeholder="{{i18n.texts['profile.optional']}}"
         bind:change="onPhoneInput"
       />
       <van-field
         value="{{ email }}"
-        label="邮箱"
-        placeholder="选填"
+        label="{{i18n.texts['profile.email']}}"
+        placeholder="{{i18n.texts['profile.optional']}}"
         bind:change="onEmailInput"
       />
     </van-cell-group>
@@ -51,7 +51,7 @@
         loading="{{saving}}"
         bind:click="handleSave"
       >
-        💾 保存资料
+        💾 {{i18n.texts['profile.save']}}
       </van-button>
     </view>
   </view>

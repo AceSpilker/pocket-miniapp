@@ -6,7 +6,7 @@
     inactive-color="var(--text-muted)"
     safe-area-inset-bottom="{{ true }}"
   >
-    <van-tabbar-item icon="home-o">首页</van-tabbar-item>
-    <van-tabbar-item icon="user-o">我的</van-tabbar-item>
+    <van-tabbar-item icon="home-o">{{i18n.texts['tabbar.home'] || '首页'}}</van-tabbar-item>
+    <van-tabbar-item icon="user-o">{{i18n.texts['tabbar.mine'] || '我的'}}</van-tabbar-item>
   </van-tabbar>
 </view>

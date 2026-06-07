@@ -45,6 +45,7 @@ Page({
   },
 
   onShow() {
+    applyThemeToPage(this)
     themeManager.refreshNavBar()
   },
 
@@ -87,11 +88,11 @@ Page({
   },
 
   onTopChange(e) {
-    this.setData({ isTop: e.detail.value })
+    this.setData({ isTop: e.detail })
   },
 
   onActiveChange(e) {
-    this.setData({ isActive: e.detail.value })
+    this.setData({ isActive: e.detail })
   },
 
   async handleSave() {

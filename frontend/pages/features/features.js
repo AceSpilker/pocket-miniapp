@@ -2,8 +2,11 @@ const app = getApp()
 const { get, put } = require('../../utils/request')
 const themeManager = require('../../utils/theme-manager')
 const { getInitialThemeData, applyThemeToPage } = require('../../utils/theme-helpers')
+const i18nBehavior = require('../../utils/i18n-behavior')
 
 Page({
+  behaviors: [i18nBehavior],
+
   data: {
     loading: true,
     features: [],
@@ -27,6 +30,7 @@ Page({
   onShow() {
     applyThemeToPage(this)
     themeManager.refreshNavBar()
+    wx.setNavigationBarTitle({ title: this.t('nav.features') })
   },
 
   async loadFeatures() {
@@ -38,7 +42,7 @@ Page({
         loading: false
       })
     } catch (err) {
-      wx.showToast({ title: '加载失败', icon: 'none' })
+      wx.showToast({ title: this.t('features.loadFailed') || '加载失败', icon: 'none' })
       this.setData({ loading: false })
     }
   },
@@ -61,7 +65,7 @@ Page({
     if (!currentVisible) {
       const homeCount = features.filter(f => f.is_home_visible).length
       if (homeCount >= 4) {
-        wx.showToast({ title: '首页最多显示4个', icon: 'none' })
+        wx.showToast({ title: this.t('features.homeLimit') || '首页最多显示4个', icon: 'none' })
         return
       }
     }
@@ -78,7 +82,7 @@ Page({
     }
 
     if (!feature.is_enabled) {
-      wx.showToast({ title: '功能开发中，敬请期待', icon: 'none' })
+      wx.showToast({ title: this.t('features.comingSoon') || '功能开发中，敬请期待', icon: 'none' })
       return
     }
 
@@ -133,11 +137,15 @@ Page({
 
     try {
       await put('/features/order', { items })
-      wx.showToast({ title: '保存成功', icon: 'success' })
+      wx.showToast({ title: this.t('features.saveSuccess') || '保存成功', icon: 'success' })
       this.setData({ editMode: false })
+      // 保存成功后跳转回首页
+      setTimeout(() => {
+        wx.switchTab({ url: '/pages/index/index' })
+      }, 500)
       return true
     } catch (err) {
-      wx.showToast({ title: err.detail || '保存失败', icon: 'none' })
+      wx.showToast({ title: err.detail || (this.t('features.saveFailed') || '保存失败'), icon: 'none' })
       return false
     }
   },

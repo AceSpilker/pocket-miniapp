@@ -178,6 +178,85 @@ python main.py
 
 ## 📝 更新日志
 
+### 2026-06-07
+
+#### ✨ 新增功能
+
+1. **完整国际化支持（i18n）**
+   - 支持三种语言：简体中文（默认）、English、日本語
+   - 前端所有页面国际化改造（登录、注册、首页、我的、个人资料等）
+   - 导航栏标题动态国际化
+   - 自定义 TabBar 语言切换支持
+   - 语言设置与用户绑定，登录后自动应用用户偏好
+   - 语言选择器组件（Action Sheet），支持亮暗色主题
+
+2. **国际化基础设施**
+   - 后端新增语言表 `languages`，国际化文本表 `i18n_texts`
+   - 用户表新增 `language_id` 字段，关联用户语言偏好
+   - 内容页面翻译表 `content_page_translations`，支持关于/协议多语言
+   - 后端 API：`/api/v1/i18n/languages`、`/api/v1/i18n/texts/{language_code}` 等
+   - 前端国际化管理器 `utils/i18n.js`，支持文本缓存、监听器
+   - 前端 Behavior `utils/i18n-behavior.js`，页面混入即可获得国际化能力
+
+3. **数据库迁移脚本**
+   - `003_i18n_init.sql`：初始化语言、翻译数据
+   - `004_i18n_supplement.sql`：补充翻译数据
+
+#### 🐛 Bug 修复
+
+1. **语言切换后导航栏未更新**
+   - 所有页面 `onShow` 中动态设置导航栏标题
+
+2. **用户语言偏好未同步**
+   - 登录后应用用户的语言设置
+   - 切换语言时同步到服务器并更新本地 userInfo
+
+3. **语言选择器层级问题**
+   - Action Sheet 设置 `z-index: 9999`，避免被 TabBar 遮挡
+
+4. **语言选择器主题适配**
+   - 全局 Action Sheet 样式适配亮暗色主题
+
+5. **请求工具初始化问题**
+   - `request.js` 延迟获取 app 实例，避免启动阶段报错
+
+6. **i18n 初始化时机问题**
+   - 初始化时立即设置默认文本，确保页面有内容显示
+
+#### 🎨 UI 优化
+
+1. **首页功能网格布局优化**
+   - 1个功能：单列居中
+   - 2个功能：两列平分
+   - 3个功能：三列平分
+   - 4个及以上：两列布局
+
+2. **全局文本溢出处理**
+   - 菜单项名称单行省略
+   - 菜单描述两行省略
+   - 语言值显示适配
+
+3. **功能中心编辑完成跳转**
+   - 保存成功后自动跳转回首页
+
+#### 📦 新增文件
+
+| 文件 | 说明 |
+|------|------|
+| `backend/api/i18n.py` | 国际化 API 路由 |
+| `backend/models/language.py` | 语言模型 |
+| `backend/models/i18n_text.py` | 国际化文本模型 |
+| `backend/models/content_page_translation.py` | 内容页面翻译模型 |
+| `backend/schemas/i18n.py` | 国际化 Schema |
+| `backend/schemas/language.py` | 语言 Schema |
+| `backend/migrations/003_i18n_init.sql` | 国际化初始化脚本 |
+| `backend/migrations/004_i18n_supplement.sql` | 翻译补充脚本 |
+| `frontend/utils/i18n.js` | 前端国际化管理器 |
+| `frontend/utils/i18n-behavior.js` | 国际化 Behavior |
+| `frontend/utils/animations.js` | 动画工具函数 |
+
+---
+
 ### 2026-06-06
 
 #### ✨ 新增功能

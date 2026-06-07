@@ -2,8 +2,11 @@ const { get } = require('../../utils/request')
 const ui = require('../../utils/ui')
 const themeManager = require('../../utils/theme-manager')
 const { getInitialThemeData, applyThemeToPage } = require('../../utils/theme-helpers')
+const i18nBehavior = require('../../utils/i18n-behavior')
 
 Page({
+  behaviors: [i18nBehavior],
+
   data: {
     loading: false,
     id: null,
@@ -20,7 +23,7 @@ Page({
       this.setData({ id: options.id })
       this.loadDetail()
     } else {
-      ui.error('参数错误')
+      ui.error(this.t('announcement.invalidParam') || '参数错误')
       setTimeout(() => wx.navigateBack(), 1000)
     }
   },
@@ -32,7 +35,9 @@ Page({
   },
 
   onShow() {
+    applyThemeToPage(this)
     themeManager.refreshNavBar()
+    wx.setNavigationBarTitle({ title: this.t('nav.announcementDetail') })
   },
 
   async loadDetail() {
@@ -46,7 +51,7 @@ Page({
         }
       })
     } catch (err) {
-      ui.error('加载失败')
+      ui.error(this.t('announcement.loadFailed') || '加载失败')
       setTimeout(() => wx.navigateBack(), 1000)
     } finally {
       this.setData({ loading: false })

@@ -2,8 +2,11 @@ const { get } = require('../../utils/request')
 const ui = require('../../utils/ui')
 const themeManager = require('../../utils/theme-manager')
 const { getInitialThemeData, applyThemeToPage } = require('../../utils/theme-helpers')
+const i18nBehavior = require('../../utils/i18n-behavior')
 
 Page({
+  behaviors: [i18nBehavior],
+
   data: {
     loading: false,
     list: [],
@@ -29,6 +32,7 @@ Page({
   onShow() {
     applyThemeToPage(this)
     themeManager.refreshNavBar()
+    wx.setNavigationBarTitle({ title: this.t('nav.announcements') })
   },
 
   async loadList() {
@@ -45,7 +49,7 @@ Page({
       }))
       this.setData({ list, total: data.total || 0 })
     } catch (err) {
-      ui.error('加载失败')
+      ui.error(this.t('announcement.loadFailed') || '加载失败')
     } finally {
       this.setData({ loading: false })
     }
